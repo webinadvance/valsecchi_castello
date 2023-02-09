@@ -19,3 +19,10 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+#headerarea {
+  height: 55vh;
+  width: 100%;
+  background: #524d4d !Important;
+  overflow: hidden;
+}

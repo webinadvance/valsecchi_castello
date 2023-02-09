@@ -4,7 +4,7 @@ import AppRoutes from './AppRoutes';
 import {Layout} from './components/Layout';
 import './custom.css';
 
-export default function App() {
+export function App() {
     return (
         <Layout>
             <Routes>
