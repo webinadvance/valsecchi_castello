@@ -26,3 +26,24 @@ code {
   background: #524d4d !Important;
   overflow: hidden;
 }
+
+video#videobg {
+  position: absolute;
+  /* top: 50%; */
+  /* left: 50%; */
+  /* min-width: 100%; */
+  /* min-height: 100%; */
+  /* width: auto; */
+  /* height: auto; */
+  z-index: 2;
+  /* transform: translateX(-50%) translateY(-50%); */
+  /* background: url(images/poster.jpg) no-repeat; */
+  background: #000;
+  /* background-size: cover; */
+  transition: 1s opacity;
+  object-fit: cover;
+  -o-object-fit: cover;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
