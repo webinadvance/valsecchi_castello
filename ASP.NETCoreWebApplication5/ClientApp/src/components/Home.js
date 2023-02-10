@@ -9,5 +9,8 @@ export function Home() {
                     type="video/mp4"/>
             </video>
         </div>
+        <div className={"text-4xl font-black"}>
+            Make your Boating Trips Perfectly Planned with BoaterPlan.
+        </div>
     </Fragment>);
 }
