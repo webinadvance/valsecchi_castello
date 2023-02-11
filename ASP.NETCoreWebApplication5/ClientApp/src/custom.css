@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond');
+
+
 body {
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+    /*    font-family: ui-sans-serif, system-ui;*/
+    font-family: 'EB Garamond', serif;
 }
 
 a {
@@ -29,6 +33,12 @@ code {
     width: 100%;
     background: #524d4d !Important;
     overflow: hidden;
+}
+
+@screen sm {
+    #headerarea {
+        height: 100vh;
+    }
 }
 
 video#videobg {

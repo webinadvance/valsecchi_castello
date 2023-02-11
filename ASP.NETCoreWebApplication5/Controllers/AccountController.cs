@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
@@ -8,8 +9,30 @@ namespace ASP.NETCoreWebApplication5.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class GoogleController : ControllerBase
+public class PublicController : ControllerBase
 {
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public PublicController(IHttpContextAccessor httpContextAccessor)
+    {
+        _httpContextAccessor = httpContextAccessor;
+    }
+
+    [HttpGet("user")]
+    [Authorize]
+    public async Task<string> user()
+    {
+        foreach (Claim claim in _httpContextAccessor?.HttpContext?.User.Claims)
+        {
+            if (claim.Type.EndsWith("emailaddress"))
+            {
+                return claim.Value;
+            }
+        }
+
+        return null;
+    }
+
     [HttpGet("login")]
     public async Task<IActionResult> login()
     {
@@ -20,7 +43,6 @@ public class GoogleController : ControllerBase
     [HttpGet("response")]
     public async Task<IActionResult> response()
     {
-        /*var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);*/
         return Redirect("/");
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddDataProtection()
     .SetDefaultKeyLifetime(TimeSpan.FromDays(30));
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo("\\MyFolder\\keys\\")).SetApplicationName("castello").SetDefaultKeyLifetime(TimeSpan.FromDays(30));
 
