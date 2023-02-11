@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.DataProtection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo("\\MyFolder\\keys\\"))
+    .SetApplicationName("MyWebsite")
+    .SetDefaultKeyLifetime(TimeSpan.FromDays(30));
 
 builder.Services.AddControllersWithViews();
 
