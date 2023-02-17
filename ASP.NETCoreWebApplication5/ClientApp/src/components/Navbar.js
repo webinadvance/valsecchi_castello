@@ -17,7 +17,7 @@ function Navbar() {
                                     alt="Workflow"
                                 />
                             </div>
-                            <div className="bg-black/[0] hidden md:block">
+                            <div className="bg-black/[0] hidden md:block">  
                                 <div className="ml-10 flex items-baseline">
                                     {items.map((x, i) => {
                                         return (<a href="#"
