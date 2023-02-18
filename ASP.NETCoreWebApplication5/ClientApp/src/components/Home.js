@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import Navbar from "./Navbar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faCoffee} from "@fortawesome/free-solid-svg-icons";
+import {faArrowDown, faBars, faCoffee} from "@fortawesome/free-solid-svg-icons";
 
 export function Home() {
 
@@ -9,7 +9,7 @@ export function Home() {
 
     return (<Fragment>
         <div id={"headerarea"} className={"relative"}>
-            <div className={"absolute z-10 uppercase w-full p-10"}>
+            <div className={"absolute z-10 uppercase w-full p-4 lg:p-10"}>
                 <Navbar/>
             </div>
             <video id={"videoblog"} autoPlay loop muted playsInline preload="metadata" id="videobg">
@@ -17,6 +17,11 @@ export function Home() {
                     src="https://s3.amazonaws.com/uploads.serenohotels.com/app/uploads/2016/08/09220547/Villa-Pliniana-Descriptivo-v3_low.mp4"
                     type="video/mp4"/>
             </video>
+            <FontAwesomeIcon icon={faArrowDown} 
+                             className={"cursor-pointer opacity-75 absolute bottom-0 mb-4 -translate-x-1/2 left-1/2 z-10"} 
+                             color={"white"} 
+                             size={"2x"}
+                             onClick={() => setIsOpen(!isOpen)}/>
         </div>
         <div className={"text-center"}>
             <div className={"text-4xl font-light text-gray-700"}>

@@ -61,3 +61,7 @@ video#videobg {
     height: 100%;
     top: 0;
 }
+
+.hover-border-bottom a:hover span {
+    transform: scaleY(2);
+}
