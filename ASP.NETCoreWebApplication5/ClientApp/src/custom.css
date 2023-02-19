@@ -35,7 +35,7 @@ code {
     overflow: hidden;
 }
 
-@screen sm {
+@screen lg {
     #headerarea {
         height: 100vh;
     }
