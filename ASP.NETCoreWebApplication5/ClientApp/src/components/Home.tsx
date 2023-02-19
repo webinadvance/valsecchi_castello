@@ -4,6 +4,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
 import {useTranslation} from 'react-i18next';
 import {Trans} from 'react-i18next'
+import data from '../translations.json';
+import {T} from "../i18n";
 
 export function Home() {
 
@@ -37,8 +39,11 @@ export function Home() {
                 <div className={"text-4xl font-light text-gray-700"}>
                     "THE MOST LUXURIOUS VILLA ON LAKE COMO"
                 </div>
-                <div>
+                {/*             <div>
                     <Trans i18nKey="greeting" values={{name: "aaaa"}}/>
+                </div>*/}
+                <div>
+                    {T("hello fddff")}
                 </div>
             </div>
 

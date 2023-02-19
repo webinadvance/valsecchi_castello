@@ -22,7 +22,7 @@ function Navbar() {
                         <div className="bg-black/[0] hidden lg:block align-self-end">
                             <div className="flex items-baseline">
                                 {items.map((x, i) => {
-                                    return (<a href="#"
+                                    return (<a key={i} href="#"
                                                className="hover:border-b-white border-b-2 border-transparent hover:text-white px-3 py-2 text-sm font-bold text-white">
                                         {x}
                                     </a>)
@@ -49,7 +49,7 @@ function Navbar() {
                         <div className="lg:hidden bg-white">
                             <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                                 {items.map((x, i) => {
-                                    return (<a href="#"
+                                    return (<a key={i} href="#"
                                                className="hover:bg-gray-700 text-black block px-3 py-2 rounded-lg text-base font-medium">
                                         {x}
                                     </a>)
