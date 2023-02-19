@@ -13,8 +13,7 @@ export function Home() {
     const {i18n} = useTranslation();
 
     useEffect(() => {
-        // Change language to French after component mounts
-        i18n.changeLanguage('it');
+        //i18n.changeLanguage('it');
     }, []);
 
     return (
@@ -39,9 +38,7 @@ export function Home() {
                     "THE MOST LUXURIOUS VILLA ON LAKE COMO"
                 </div>
                 <div>
-                    <Trans i18nKey="greeting" values={{name: "aaaa"}}>
-                        Hello, {{name}}
-                    </Trans>
+                    <Trans i18nKey="greeting" values={{name: "aaaa"}}/>
                 </div>
             </div>
 
