@@ -43,7 +43,7 @@ export function Home() {
                     <Trans i18nKey="greeting" values={{name: "aaaa"}}/>
                 </div>*/}
                 <div>
-                    {T("hello fddff")}
+                    {T("hello PIPO")}
                 </div>
             </div>
 

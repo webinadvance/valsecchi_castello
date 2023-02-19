@@ -7,6 +7,7 @@ function Navbar() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [items, setItems] = useState(["VILLA", "ACCOMMODATION", "FACILITIES", "WEDDINGS & EVENTS", "HISTORY", "GALLERY", "PRESS", "CONTACT"]);
+
     return (
         <div>
             <nav>
@@ -45,18 +46,16 @@ function Navbar() {
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                 >
-                    {(ref) => (
-                        <div className="lg:hidden bg-white">
-                            <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                                {items.map((x, i) => {
-                                    return (<a key={i} href="#"
-                                               className="hover:bg-gray-700 text-black block px-3 py-2 rounded-lg text-base font-medium">
-                                        {x}
-                                    </a>)
-                                })}
-                            </div>
+                    <div className="lg:hidden bg-white">
+                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                            {items.map((x, i) => {
+                                return (<a key={i} href="#"
+                                           className="hover:bg-gray-700 text-black block px-3 py-2 rounded-lg text-base font-medium">
+                                    {x}
+                                </a>)
+                            })}
                         </div>
-                    )}
+                    </div>
                 </Transition>
             </nav>
         </div>
