@@ -2,11 +2,11 @@
 import {Transition} from "@headlessui/react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from '@fortawesome/free-solid-svg-icons'
+import {routes} from "../Globals";
 
 function Navbar() {
 
     const [isOpen, setIsOpen] = useState(false);
-    const [items, setItems] = useState(["VILLA", "ACCOMMODATION", "FACILITIES", "WEDDINGS & EVENTS", "HISTORY", "GALLERY", "PRESS", "CONTACT"]);
 
     return (
         <div>
@@ -22,10 +22,10 @@ function Navbar() {
                         </div>
                         <div className="bg-black/[0] hidden lg:block align-self-end">
                             <div className="flex items-baseline">
-                                {items.map((x, i) => {
-                                    return (<a key={i} href="#"
+                                {routes.map((x, i) => {
+                                    return (<a key={i} href={x.key}
                                                className="hover:border-b-white border-b-2 border-transparent hover:text-white px-3 py-2 text-sm font-bold text-white">
-                                        {x}
+                                        {x.title}
                                     </a>)
                                 })}
                             </div>
@@ -48,10 +48,10 @@ function Navbar() {
                 >
                     <div className="lg:hidden bg-white">
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                            {items.map((x, i) => {
-                                return (<a key={i} href="#"
+                            {routes.map((x, i) => {
+                                return (<a key={i} href={x.key}
                                            className="hover:bg-gray-700 text-black block px-3 py-2 rounded-lg text-base font-medium">
-                                    {x}
+                                    {x.title}
                                 </a>)
                             })}
                         </div>
