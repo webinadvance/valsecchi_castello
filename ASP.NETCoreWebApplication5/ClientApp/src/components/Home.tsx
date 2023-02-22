@@ -1,20 +1,32 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import Services from "./Services";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowUp} from "@fortawesome/free-solid-svg-icons/faArrowUp";
-import {faAngleDoubleUp} from "@fortawesome/free-solid-svg-icons/faAngleDoubleUp";
-import smoothscroll from 'smoothscroll-polyfill';
+import {makeStyles} from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import Zoom from '@material-ui/core/Zoom';
 
 export function Home() {
 
-    const [isOpen, setIsOpen] = useState(false);
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            position: 'fixed',
+            bottom: theme.spacing(2),
+            right: theme.spacing(2),
+        },
+        button: {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+            '&:hover': {
+                backgroundColor: theme.palette.primary.dark,
+            },
+        },
+    }));
+    const classes = useStyles();
+
     const {t} = useTranslation();
     const [showButton, setShowButton] = useState(false);
     const {i18n} = useTranslation();
-    const handleButtonClick = () => {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
     const handleScroll = () => {
         if (window.scrollY > 1) {
             setShowButton(true);
@@ -33,6 +45,10 @@ export function Home() {
     useEffect(() => {
         //i18n.changeLanguage('it');
     }, []);
+
+    const handleClick = () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    };
 
     return (
         <Fragment>
@@ -65,14 +81,14 @@ export function Home() {
                 <Services/>
 
             </div>
-            {showButton &&
-                <button
-                    className="fixed z-50 bottom-10 right-10 p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700 focus:outline-none"
-                    onClick={handleButtonClick}
-                >
-                    <FontAwesomeIcon icon={faAngleDoubleUp}/>
-                </button>
-            }
+
+            <Zoom in={showButton}>
+                <div onClick={handleClick} role="presentation" className={classes.root}>
+                    <Fab className={classes.button} size="small">
+                        <KeyboardArrowUpIcon/>
+                    </Fab>
+                </div>
+            </Zoom>
 
         </Fragment>
     );
