@@ -1,21 +1,34 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import Navbar from "./Navbar";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
 import {useTranslation} from 'react-i18next';
-import {Trans} from 'react-i18next'
-import data from '../translations.json';
-import {T} from "../i18n";
-import Footer from "./Footer";
 import Services from "./Services";
-import {Map} from "./Map";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowUp} from "@fortawesome/free-solid-svg-icons/faArrowUp";
+import {faAngleDoubleUp} from "@fortawesome/free-solid-svg-icons/faAngleDoubleUp";
+import smoothscroll from 'smoothscroll-polyfill';
 
 export function Home() {
 
     const [isOpen, setIsOpen] = useState(false);
     const {t} = useTranslation();
-
+    const [showButton, setShowButton] = useState(false);
     const {i18n} = useTranslation();
+    const handleButtonClick = () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+    const handleScroll = () => {
+        if (window.scrollY > 1) {
+            setShowButton(true);
+        } else {
+            setShowButton(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         //i18n.changeLanguage('it');
@@ -50,10 +63,16 @@ export function Home() {
                 </div>
 
                 <Services/>
-                
-                <Map/>
 
             </div>
+            {showButton &&
+                <button
+                    className="fixed z-50 bottom-10 right-10 p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700 focus:outline-none"
+                    onClick={handleButtonClick}
+                >
+                    <FontAwesomeIcon icon={faAngleDoubleUp}/>
+                </button>
+            }
 
         </Fragment>
     );
