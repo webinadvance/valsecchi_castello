@@ -1,12 +1,13 @@
 ﻿import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFacebookF, faTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons';
+import {routes} from "../Globals";
 
 const Footer = () => {
     return (
-        <div className="bg-gray-900 text-gray-300 pt-10">
+        <div className="text-center bg-gray-900 text-gray-300 pt-10">
             <div className="mx-auto">
-                <div className="flex flex-wrap -mx-4">
+                <div className="flex flex-wrap">
                     {/* Contacts */}
                     <div className="px-4 w-full md:w-1/3">
                         <h3 className="text-lg font-medium mb-4">Contacts</h3>
@@ -20,10 +21,12 @@ const Footer = () => {
                     <div className="px-4 w-full md:w-1/3">
                         <h3 className="text-lg font-medium mb-4">Menu</h3>
                         <ul className="mb-2">
-                            <li className="mb-1"><a href="#">Home</a></li>
-                            <li className="mb-1"><a href="#">About</a></li>
-                            <li className="mb-1"><a href="#">Services</a></li>
-                            <li className="mb-1"><a href="#">Contact</a></li>
+                            {routes.map((x, i) => {
+                                return (
+                                    <li key={i} className="mb-1 text-uppercase text-decoration-none"><a
+                                        href={x.key}>{x.title}</a></li>
+                                )
+                            })}
                         </ul>
                     </div>
 
@@ -48,7 +51,6 @@ const Footer = () => {
                 <div className="bg-gray-800 bg-opacity-50 mt-10 py-4 text-sm text-center">
                     <p>&copy; 2023 My Website. All Rights Reserved.</p>
                 </div>
-                
             </div>
         </div>
     );

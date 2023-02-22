@@ -8,6 +8,7 @@ import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
 import {Home} from "./components/Home";
 import {Counter} from "./components/Counter";
 import {matchRoutes, useLocation} from "react-router-dom"
+import Footer from "./components/Footer";
 
 export default function App() {
 
@@ -48,6 +49,7 @@ export default function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/villa" element={<Counter/>}/>
             </Routes>
+            <Footer/>
         </Fragment>
     );
 }

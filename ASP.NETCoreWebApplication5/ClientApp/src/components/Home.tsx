@@ -7,6 +7,8 @@ import {Trans} from 'react-i18next'
 import data from '../translations.json';
 import {T} from "../i18n";
 import Footer from "./Footer";
+import Services from "./Services";
+import {Map} from "./Map";
 
 export function Home() {
 
@@ -26,13 +28,31 @@ export function Home() {
                     <div className={"ch1 uppercase mt-6 text-center m-auto pt-8"}>
                         "the most luxurious villa on lake como"
                     </div>
+
                     <div className="divider"/>
                     <div className={"cp1 text-center"}>
                         {/*                    <Trans i18nKey="greeting" values={{name: "aaaa"}}/>*/}
                         {t("welcome1")}
                     </div>
+
+                    <div className="divider"/>
+                    <div className={"cp1 text-center"}>
+                        {/*                    <Trans i18nKey="greeting" values={{name: "aaaa"}}/>*/}
+                        {t("welcome1")}
+                    </div>
+
+                    <div className="divider"/>
+                    <div className={"cp1 text-center pb-6"}>
+                        {/*                    <Trans i18nKey="greeting" values={{name: "aaaa"}}/>*/}
+                        {t("welcome1")}
+                    </div>
+
                 </div>
-                <Footer/>
+
+                <Services/>
+                
+                <Map/>
+
             </div>
 
         </Fragment>
