@@ -86,3 +86,21 @@ video#videobg {
     width: 100%;
     margin: 0 auto 20px;
 }
+
+h2 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 4px;
+    line-height: 1.3;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0 20px;
+    margin: 0 auto 90px;
+    width: auto;
+    background: white;
+    display: block;
+    text-align: center;
+    margin: 40px auto;
+}

@@ -38,7 +38,7 @@ export default function App() {
                             type="video/mp4"/>
                     </video>
                 }
-                {(location.pathname.startsWith("/villa")) &&
+                {(location.pathname.startsWith("/gallery")) &&
                     <div style={{backgroundImage: "url('https://picsum.photos/2000/2000')"}}
                          className={"headerbg bg-center bg-cover bg-no-repea h-100 w-100"}>
                     </div>
