@@ -14,14 +14,51 @@ import ListItem from "@material-ui/core/ListItem";
 import {ListItemIcon} from "@material-ui/core";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import ListItemText from "@material-ui/core/ListItemText";
+import Zoom from "@material-ui/core/Zoom";
+import Fab from "@material-ui/core/Fab";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import {makeStyles} from "@material-ui/core/styles";
 
 export default function App() {
 
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
 
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            position: 'fixed',
+            bottom: theme.spacing(2),
+            right: theme.spacing(2),
+        },
+        button: {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+            '&:hover': {
+                backgroundColor: theme.palette.primary.dark,
+            },
+        },
+    }));
+    
+    const classes = useStyles();
+    const [showButton, setShowButton] = useState(false);
+    const handleClick = () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        
+    };
+
+    const handleScroll = () => {
+        if (window.scrollY > 1) {
+            setShowButton(true);
+        } else {
+            setShowButton(false);
+        }
+    };
+
     useEffect(() => {
-        /*        console.log(location);*/
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     return (
@@ -61,6 +98,14 @@ export default function App() {
             </Routes>
 
             <Footer/>
+
+            <Zoom in={showButton}>
+                <div onClick={handleClick} role="presentation" className={classes.root}>
+                    <Fab className={classes.button} size="small">
+                        <KeyboardArrowUpIcon/>
+                    </Fab>
+                </div>
+            </Zoom>
             
         </Fragment>
     );

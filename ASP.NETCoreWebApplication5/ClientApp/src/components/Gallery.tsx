@@ -51,11 +51,13 @@ const Gallery: React.FC<GalleryProps> = ({images}) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {images.map((image, i) => (
                     <div key={i}>
-                        <img
-                            className="cursor-pointer w-full"
-                            src={image.src}
-                            onClick={() => handleImageClick(image)}
-                        />
+                        <div className="relative overflow-hidden">
+                            <img
+                                className="cursor-pointer w-full transition-transform duration-300 transform hover:scale-110"
+                                src={image.src}
+                                onClick={() => handleImageClick(image)}
+                            />
+                        </div>
                     </div>
                 ))}
                 {selectedImage && (

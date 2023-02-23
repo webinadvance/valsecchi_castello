@@ -7,41 +7,9 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Zoom from '@material-ui/core/Zoom';
 
 export function Home() {
-
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            position: 'fixed',
-            bottom: theme.spacing(2),
-            right: theme.spacing(2),
-        },
-        button: {
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
-            '&:hover': {
-                backgroundColor: theme.palette.primary.dark,
-            },
-        },
-    }));
-    const classes = useStyles();
-
     const {t} = useTranslation();
-    const [showButton, setShowButton] = useState(false);
     const {i18n} = useTranslation();
-    const handleScroll = () => {
-        if (window.scrollY > 1) {
-            setShowButton(true);
-        } else {
-            setShowButton(false);
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
+    
     useEffect(() => {
         //i18n.changeLanguage('en');
     }, []);
@@ -81,14 +49,6 @@ export function Home() {
                 <Services/>
 
             </div>
-
-            <Zoom in={showButton}>
-                <div onClick={handleClick} role="presentation" className={classes.root}>
-                    <Fab className={classes.button} size="small">
-                        <KeyboardArrowUpIcon/>
-                    </Fab>
-                </div>
-            </Zoom>
 
         </Fragment>
     );
