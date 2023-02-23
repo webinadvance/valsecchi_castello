@@ -43,7 +43,7 @@ export function Home() {
     }, []);
 
     useEffect(() => {
-        //i18n.changeLanguage('it');
+        //i18n.changeLanguage('en');
     }, []);
 
     const handleClick = () => {

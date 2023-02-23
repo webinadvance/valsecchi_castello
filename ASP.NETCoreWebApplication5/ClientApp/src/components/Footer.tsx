@@ -2,6 +2,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFacebookF, faTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons';
 import {routes} from "../Globals";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Footer = () => {
     return (
@@ -36,6 +37,9 @@ const Footer = () => {
                         <p className="mb-2">Privacy Policy</p>
                         <p className="mb-2">Terms of Service</p>
                         <p>Accessibility</p>
+                        <div className={"mt-4"}>
+                            <LanguageSwitcher/>
+                        </div>
                     </div>
                 </div>
 
@@ -51,6 +55,8 @@ const Footer = () => {
                 <div className="bg-gray-800 bg-opacity-50 mt-10 py-4 text-sm text-center">
                     <p>&copy; 2023 My Website. All Rights Reserved.</p>
                 </div>
+                
+                
             </div>
         </div>
     );
