@@ -27,6 +27,22 @@
         <Content Include="ClientApp\src\locales\it.json" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Remove="ClientApp_ORIGINAL\**" />
+        <Content Remove="ClientApp_ORIGINAL\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="ClientApp_ORIGINAL\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="ClientApp_ORIGINAL\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="ClientApp_ORIGINAL\package-lock.json" />
+      <_ContentIncludedByDefault Remove="ClientApp_ORIGINAL\package.json" />
+      <_ContentIncludedByDefault Remove="ClientApp_ORIGINAL\public\manifest.json" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

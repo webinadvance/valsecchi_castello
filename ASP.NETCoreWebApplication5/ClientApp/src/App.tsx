@@ -9,6 +9,11 @@ import {Home} from "./components/Home";
 import {Counter} from "./components/Counter";
 import {matchRoutes, useLocation} from "react-router-dom"
 import Footer from "./components/Footer";
+import {routes} from "./Globals";
+import ListItem from "@material-ui/core/ListItem";
+import {ListItemIcon} from "@material-ui/core";
+import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import ListItemText from "@material-ui/core/ListItemText";
 
 export default function App() {
 
@@ -47,6 +52,11 @@ export default function App() {
             </div>
             <Routes>
                 <Route path="/" element={<Home/>}/>
+                {routes.map((x, i) => {
+                    return (
+                        <Route path={x.key} element={x.element}/>
+                    )
+                })}
                 <Route path="/villa" element={<Counter/>}/>
             </Routes>
 
