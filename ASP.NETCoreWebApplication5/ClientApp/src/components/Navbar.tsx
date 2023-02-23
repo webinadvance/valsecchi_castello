@@ -13,6 +13,8 @@ import {ListItemIcon} from "@material-ui/core";
 import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
 import {faCaretRight} from "@fortawesome/free-solid-svg-icons/faCaretRight";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 function Navbar() {
 
@@ -56,7 +58,10 @@ function Navbar() {
             color: 'white',
         },
     }));
+
     const classes = useStyles();
+    const {t} = useTranslation();
+    const navigate = useNavigate();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -77,7 +82,7 @@ function Navbar() {
                                 {routes.map((x, i) => {
                                     return (<a key={i} href={x.key}
                                                className="hover:border-b-white border-b-2 border-transparent hover:text-white px-3 py-2 text-sm font-bold text-white">
-                                        {x.title}
+                                        {t(x.title)}
                                     </a>)
                                 })}
                             </div>
@@ -105,7 +110,10 @@ function Navbar() {
                                     <ListItemIcon>
                                         <FontAwesomeIcon icon={faChevronRight}/>
                                     </ListItemIcon>
-                                    <ListItemText className={"uppercase"} primary={x.title}/>
+                                    <ListItemText onClick={() => {
+                                        setIsOpen(false);
+                                        navigate(x.key);
+                                    }} className={"uppercase"} primary={t(x.title)}/>
                                 </ListItem>)
                             })}
                         </List>
