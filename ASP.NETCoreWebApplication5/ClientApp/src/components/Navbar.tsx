@@ -3,8 +3,60 @@ import {Transition} from "@headlessui/react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from '@fortawesome/free-solid-svg-icons'
 import {routes} from "../Globals";
+import {makeStyles} from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import {Iso} from "@material-ui/icons";
+import {ListItemIcon} from "@material-ui/core";
+import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
+import {faCaretRight} from "@fortawesome/free-solid-svg-icons/faCaretRight";
+import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
 
 function Navbar() {
+
+    const drawerWidth = 250;
+
+    const useStyles = makeStyles((theme) => ({
+        list: {
+            width: 250,
+        },
+        drawer: {
+            [theme.breakpoints.up('sm')]: {
+                width: drawerWidth,
+                flexShrink: 0,
+            },
+        },
+        paper: {
+            background: theme.palette.primary.main
+        },
+        logoContainer: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100px',
+            backgroundColor: "white",
+        },
+        logo: {
+            height: '50px',
+        },
+        footerContainer: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50px',
+            backgroundColor: theme.palette.primary.main,
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+        },
+        footerText: {
+            color: 'white',
+        },
+    }));
+    const classes = useStyles();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -16,7 +68,7 @@ function Navbar() {
                         <div className="flex-shrink-0 bg-white p-1 mb-2">
                             <img
                                 className="w-36"
-                                src="/logo.png"
+                                src="logo.png"
                                 alt="Workflow"
                             />
                         </div>
@@ -37,26 +89,31 @@ function Navbar() {
                     </div>
                 </div>
 
-                <Transition
-                    show={isOpen}
-                    enter="transition ease-out duration-100 transform"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="transition ease-in duration-75 transform"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
+                <Drawer anchor="right" open={isOpen} onClose={(e) => {
+                    setIsOpen(false);
+                }}
+                    //classes={{ paper: classes.paper }}
                 >
-                    <div className="lg:hidden bg-white">
-                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                            {routes.map((x, i) => {
-                                return (<a key={i} href={x.key}
-                                           className="hover:bg-gray-700 text-black block px-3 py-2 rounded-lg text-base font-medium">
-                                    {x.title}
-                                </a>)
-                            })}
-                        </div>
+                    <div className={classes.logoContainer}>
+                        <img src="logo.png" alt="Logo" className={classes.logo}/>
                     </div>
-                </Transition>
+                    <div className={classes.list} role="presentation">
+                        <List>
+                            {routes.map((x, i) => {
+                                return (<ListItem className={""} key={i} button onClick={() => {
+                                }}>
+                                    <ListItemIcon>
+                                        <FontAwesomeIcon icon={faChevronRight}/>
+                                    </ListItemIcon>
+                                    <ListItemText className={"uppercase"} primary={x.title}/>
+                                </ListItem>)
+                            })}
+                        </List>
+                    </div>
+                    <div className={classes.footerContainer}>
+                        <p className={classes.footerText}>Copyright © 2022</p>
+                    </div>
+                </Drawer>
             </nav>
         </div>
     );

@@ -49,7 +49,9 @@ export default function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/villa" element={<Counter/>}/>
             </Routes>
+
             <Footer/>
+            
         </Fragment>
     );
 }
