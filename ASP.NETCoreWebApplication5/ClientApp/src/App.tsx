@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {Layout} from './components/Layout';
 import './custom.css';
@@ -38,12 +38,12 @@ export default function App() {
             },
         },
     }));
-    
+
     const classes = useStyles();
     const [showButton, setShowButton] = useState(false);
     const handleClick = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
-        
+
     };
 
     const handleScroll = () => {
@@ -60,6 +60,7 @@ export default function App() {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
 
     return (
         <Fragment>
@@ -81,17 +82,19 @@ export default function App() {
                     </div>
                 }
 
-                <FontAwesomeIcon icon={faArrowDown}
-                                 className={"cursor-pointer opacity-75 absolute bottom-0 mb-4 -translate-x-1/2 left-1/2 z-10"}
-                                 color={"white"}
-                                 size={"2x"}
-                                 onClick={() => setIsOpen(!isOpen)}/>
+                <a href="#welcome">
+                    <FontAwesomeIcon icon={faArrowDown}
+                                     className={"cursor-pointer opacity-75 absolute bottom-0 mb-4 -translate-x-1/2 left-1/2 z-10"}
+                                     color={"white"}
+                                     size={"2x"}/>
+                </a>
+
             </div>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 {routes.map((x, i) => {
                     return (
-                        <Route path={x.key} element={x.element}/>
+                        <Route key={i} path={x.key} element={x.element}/>
                     )
                 })}
                 <Route path="/villa" element={<Counter/>}/>
@@ -106,7 +109,7 @@ export default function App() {
                     </Fab>
                 </div>
             </Zoom>
-            
+
         </Fragment>
     );
 }

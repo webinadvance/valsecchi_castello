@@ -111,7 +111,7 @@ function Navbar() {
                         </List>
                     </div>
                     <div className={classes.footerContainer}>
-                        <p className={classes.footerText}>Copyright © 2022</p>
+                        <p className={classes.footerText}>Copyright © 2023</p>
                     </div>
                 </Drawer>
             </nav>

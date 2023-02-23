@@ -1,15 +1,11 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import Services from "./Services";
-import {makeStyles} from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Zoom from '@material-ui/core/Zoom';
 
 export function Home() {
     const {t} = useTranslation();
     const {i18n} = useTranslation();
-    
+
     useEffect(() => {
         //i18n.changeLanguage('en');
     }, []);
@@ -22,7 +18,7 @@ export function Home() {
         <Fragment>
             <div className={"text-center m-auto"}>
                 <div className={"px-4 max-w-4xl text-center m-auto"}>
-                    <div className={"ch1 uppercase mt-6 text-center m-auto pt-8"}>
+                    <div id={"welcome"} className={"ch1 uppercase mt-6 text-center m-auto pt-8"}>
                         "the most luxurious villa on lake como"
                     </div>
 
