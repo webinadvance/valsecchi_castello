@@ -1,14 +1,14 @@
-﻿import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import itLocale from './locales/it.json';
-import enLocale from './locales/en.json';
+﻿import i18n from "i18next";
+import {initReactI18next} from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import itLocale from "./locales/it.json";
+import enLocale from "./locales/en.json";
 import data from "./translations.json";
 
 interface MyJSON {
     [key: string]: {
-        [key: string]: string
-    }
+        [key: string]: string;
+    };
 }
 
 export function T(key: string) {
@@ -20,25 +20,23 @@ export function T(key: string) {
         }
         return key;
     }
-    return (key + "***");
+    return key + "***";
 }
 
-i18n
-    .use(LanguageDetector)
-    .init({
-        lng: 'en',
-        fallbackLng: 'en',
-        resources: {
-            it: {
-                translation: itLocale,
-            },
-            en: {
-                translation: enLocale,
-            },
+i18n.use(LanguageDetector).init({
+    lng: "en",
+    fallbackLng: "en",
+    resources: {
+        it: {
+            translation: itLocale,
         },
-        interpolation: {
-            escapeValue: true,
+        en: {
+            translation: enLocale,
         },
-    });
+    },
+    interpolation: {
+        escapeValue: true,
+    },
+});
 
 export default i18n;

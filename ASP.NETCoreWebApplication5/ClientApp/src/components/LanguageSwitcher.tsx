@@ -1,7 +1,5 @@
-﻿import {useState} from 'react';
-import {IoLanguage} from 'react-icons/io5';
-import {IconType} from 'react-icons/lib';
-import {useTranslation} from "react-i18next";
+﻿import {useTranslation} from "react-i18next";
+import { useCookies } from 'react-cookie';
 
 const languageNames: Record<string, string> = {
     en: 'English',
@@ -15,7 +13,9 @@ const languageIcons: Record<string, string> = {
 
 function LanguageSwitcher() {
 
+    const [cookies, setCookie] = useCookies(['preferredLanguage']);
     const handleLanguageChange = (newLanguage: string) => {
+        setCookie('preferredLanguage', newLanguage, { path: '/' });
         i18n.changeLanguage(newLanguage);
     };
 

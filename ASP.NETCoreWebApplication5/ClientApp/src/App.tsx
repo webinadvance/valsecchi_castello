@@ -18,12 +18,17 @@ import Zoom from "@material-ui/core/Zoom";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import {makeStyles} from "@material-ui/core/styles";
+import { useCookies } from 'react-cookie';
+import i18n from "i18next";
 
 export default function App() {
 
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
 
+    const [cookies, setCookie] = useCookies(['preferredLanguage']);
+    const [preferredLanguage, setPreferredLanguage] = useState<string>(cookies.preferredLanguage || 'en');
+    
     const useStyles = makeStyles((theme) => ({
         root: {
             position: 'fixed',
@@ -39,6 +44,11 @@ export default function App() {
         },
     }));
 
+    useEffect(() => {
+        setCookie('preferredLanguage', preferredLanguage, { path: '/' });
+        i18n.changeLanguage(preferredLanguage);
+    }, [preferredLanguage, setCookie]);
+    
     const classes = useStyles();
     const [showButton, setShowButton] = useState(false);
     const handleClick = () => {
