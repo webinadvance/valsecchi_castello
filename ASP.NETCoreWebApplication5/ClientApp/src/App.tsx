@@ -13,7 +13,7 @@ import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export default function App() {
-    
+
     const [cookies, setCookie] = useCookies(['preferredLanguage']);
     const [preferredLanguage] = useState<string>(cookies.preferredLanguage || 'en');
 
