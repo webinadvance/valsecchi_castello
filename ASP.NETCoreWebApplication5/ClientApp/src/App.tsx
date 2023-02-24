@@ -47,7 +47,6 @@ export default function App() {
     const [showButton, setShowButton] = useState(false);
     const handleClick = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
-
     };
 
     const handleScroll = () => {

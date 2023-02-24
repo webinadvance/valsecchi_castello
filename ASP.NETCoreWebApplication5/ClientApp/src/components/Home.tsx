@@ -9,10 +9,7 @@ export function Home() {
     useEffect(() => {
         //i18n.changeLanguage('en');
     }, []);
-
-    const handleClick = () => {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
+    
 
     return (
         <Fragment>

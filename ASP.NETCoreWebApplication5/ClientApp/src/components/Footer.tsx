@@ -3,8 +3,15 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFacebookF, faTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons';
 import {routes} from "../Globals";
 import LanguageSwitcher from "./LanguageSwitcher";
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState} from "../Store";
+import {increment} from "../dataSlice";
 
 const Footer = () => {
+
+    const count = useSelector((state: RootState) => state.data.value);
+    const dispatch = useDispatch();
+
     return (
         <div className="text-center bg-gray-900 text-gray-300 pt-10">
             <div className="mx-auto">
@@ -37,6 +44,7 @@ const Footer = () => {
                         <p className="mb-2">Privacy Policy</p>
                         <p className="mb-2">Terms of Service</p>
                         <p>Accessibility</p>
+                        <h1>Counter: {count}</h1>
                         <div className={"mt-4"}>
                             <LanguageSwitcher/>
                         </div>
@@ -45,7 +53,8 @@ const Footer = () => {
 
                 {/* Social Logins */}
                 <div className="flex justify-center mt-6">
-                    <a href="#" className="text-gray-400 hover:text-gray-300 mx-3"><FontAwesomeIcon icon={faFacebookF}/></a>
+                    <a href="#0" onClick={() => dispatch(increment())}
+                       className="text-gray-400 hover:text-gray-300 mx-3"><FontAwesomeIcon icon={faFacebookF}/></a>
                     <a href="#" className="text-gray-400 hover:text-gray-300 mx-3"><FontAwesomeIcon
                         icon={faTwitter}/></a>
                     <a href="#" className="text-gray-400 hover:text-gray-300 mx-3"><FontAwesomeIcon icon={faInstagram}/></a>
@@ -55,8 +64,8 @@ const Footer = () => {
                 <div className="bg-gray-800 bg-opacity-50 mt-10 py-4 text-sm text-center">
                     <p>&copy; 2023 My Website. All Rights Reserved.</p>
                 </div>
-                
-                
+
+
             </div>
         </div>
     );
