@@ -1,14 +1,13 @@
-﻿import React, {useState} from "react";
+﻿import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars} from '@fortawesome/free-solid-svg-icons'
+import {faBars, faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import {routes} from "../Globals";
-import {makeStyles} from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import {ListItemIcon} from "@material-ui/core";
-import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import {makeStyles} from '@mui/styles';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 
@@ -16,7 +15,7 @@ function Navbar() {
 
     const drawerWidth = 250;
 
-    const useStyles = makeStyles((theme) => ({
+    const useStyles = makeStyles((theme: any) => ({
         list: {
             width: 250,
         },

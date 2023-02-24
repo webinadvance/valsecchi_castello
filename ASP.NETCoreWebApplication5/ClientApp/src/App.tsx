@@ -12,10 +12,13 @@ import {makeStyles} from "@material-ui/core/styles";
 import {useCookies} from 'react-cookie';
 import i18n from "i18next";
 import {Header} from "./components/Header";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 
 export default function App() {
 
     const location = useLocation();
+
+    const theme = createTheme();
 
     const [cookies, setCookie] = useCookies(['preferredLanguage']);
     const [preferredLanguage] = useState<string>(cookies.preferredLanguage || 'en');
@@ -64,27 +67,28 @@ export default function App() {
 
     return (
         <Fragment>
-            <Header/>
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                {routes.map((x, i) => {
-                    return (
-                        <Route key={i} path={x.key} element={x.element}/>
-                    )
-                })}
-                <Route path="/villa" element={<Counter/>}/>
-            </Routes>
+            <ThemeProvider theme={theme}>
+                <Header/>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    {routes.map((x, i) => {
+                        return (
+                            <Route key={i} path={x.key} element={x.element}/>
+                        )
+                    })}
+                    <Route path="/villa" element={<Counter/>}/>
+                </Routes>
 
-            <Footer/>
+                <Footer/>
 
-            <Zoom in={showButton}>
-                <div onClick={handleClick} role="presentation" className={classes.root}>
-                    <Fab className={classes.button} size="small">
-                        <KeyboardArrowUpIcon/>
-                    </Fab>
-                </div>
-            </Zoom>
-
+                <Zoom in={showButton}>
+                    <div onClick={handleClick} role="presentation" className={classes.root}>
+                        <Fab className={classes.button} size="small">
+                            <KeyboardArrowUpIcon/>
+                        </Fab>
+                    </div>
+                </Zoom>
+            </ThemeProvider>
         </Fragment>
     );
 }
