@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {Route, Routes, useLocation} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import './custom.css';
 import {Home} from "./components/Home";
 import {Counter} from "./components/Counter";
@@ -8,17 +8,12 @@ import {routes} from "./Globals";
 import {useCookies} from 'react-cookie';
 import i18n from "i18next";
 import {Header} from "./components/Header";
-import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {makeStyles} from '@mui/styles';
 import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export default function App() {
-
-    const location = useLocation();
-
-    const theme = createTheme();
-
+    
     const [cookies, setCookie] = useCookies(['preferredLanguage']);
     const [preferredLanguage] = useState<string>(cookies.preferredLanguage || 'en');
 
