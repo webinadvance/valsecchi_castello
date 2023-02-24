@@ -2,8 +2,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {BrowserRouter} from 'react-router-dom';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
 import App from "./App";
 import {I18nextProvider} from 'react-i18next';
 import i18n from './i18n';
@@ -18,6 +16,3 @@ root.render(
             <App/>
         </I18nextProvider>
     </BrowserRouter>);
-
-//serviceWorkerRegistration.unregister();
-//reportWebVitals();
