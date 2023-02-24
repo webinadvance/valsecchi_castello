@@ -5,14 +5,13 @@ import {Home} from "./components/Home";
 import {Counter} from "./components/Counter";
 import Footer from "./components/Footer";
 import {routes} from "./Globals";
-import Zoom from "@material-ui/core/Zoom";
-import Fab from "@material-ui/core/Fab";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import {makeStyles} from "@material-ui/core/styles";
 import {useCookies} from 'react-cookie';
 import i18n from "i18next";
 import {Header} from "./components/Header";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {makeStyles} from '@mui/styles';
+import {Fab, Zoom} from '@mui/material';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export default function App() {
 
@@ -23,7 +22,7 @@ export default function App() {
     const [cookies, setCookie] = useCookies(['preferredLanguage']);
     const [preferredLanguage] = useState<string>(cookies.preferredLanguage || 'en');
 
-    const useStyles = makeStyles((theme) => ({
+    const useStyles = makeStyles((theme: any) => ({
         root: {
             position: 'fixed',
             bottom: theme.spacing(2),
@@ -67,28 +66,26 @@ export default function App() {
 
     return (
         <Fragment>
-            <ThemeProvider theme={theme}>
-                <Header/>
-                <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    {routes.map((x, i) => {
-                        return (
-                            <Route key={i} path={x.key} element={x.element}/>
-                        )
-                    })}
-                    <Route path="/villa" element={<Counter/>}/>
-                </Routes>
+            <Header/>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                {routes.map((x, i) => {
+                    return (
+                        <Route key={i} path={x.key} element={x.element}/>
+                    )
+                })}
+                <Route path="/villa" element={<Counter/>}/>
+            </Routes>
 
-                <Footer/>
+            <Footer/>
 
-                <Zoom in={showButton}>
-                    <div onClick={handleClick} role="presentation" className={classes.root}>
-                        <Fab className={classes.button} size="small">
-                            <KeyboardArrowUpIcon/>
-                        </Fab>
-                    </div>
-                </Zoom>
-            </ThemeProvider>
+            <Zoom in={showButton}>
+                <div onClick={handleClick} role="presentation" className={classes.root}>
+                    <Fab className={classes.button} size="small">
+                        <KeyboardArrowUpIcon/>
+                    </Fab>
+                </div>
+            </Zoom>
         </Fragment>
     );
 }

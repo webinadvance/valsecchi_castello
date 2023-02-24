@@ -6,16 +6,20 @@ import {I18nextProvider} from 'react-i18next';
 import i18n from './i18n';
 import {Provider} from 'react-redux';
 import {store} from './Store';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 
 const baseUrl = document.getElementsByTagName('base')[0]?.getAttribute('href') ?? '';
 const rootElement = document.getElementById('root') as any;
 const root = createRoot(rootElement);
+const theme = createTheme();
 
 root.render(
     <BrowserRouter basename={baseUrl}>
         <I18nextProvider i18n={i18n}>
             <Provider store={store}>
-                <App/>
+                <ThemeProvider theme={theme}>
+                    <App/>
+                </ThemeProvider>
             </Provider>
         </I18nextProvider>
     </BrowserRouter>);
