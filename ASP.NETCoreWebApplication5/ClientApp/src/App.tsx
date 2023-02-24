@@ -1,6 +1,5 @@
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
-import {Layout} from './components/Layout';
 import './custom.css';
 import Navbar from "./components/Navbar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -10,25 +9,20 @@ import {Counter} from "./components/Counter";
 import {matchRoutes, useLocation} from "react-router-dom"
 import Footer from "./components/Footer";
 import {routes} from "./Globals";
-import ListItem from "@material-ui/core/ListItem";
-import {ListItemIcon} from "@material-ui/core";
-import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
-import ListItemText from "@material-ui/core/ListItemText";
 import Zoom from "@material-ui/core/Zoom";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import {makeStyles} from "@material-ui/core/styles";
-import { useCookies } from 'react-cookie';
+import {useCookies} from 'react-cookie';
 import i18n from "i18next";
 
 export default function App() {
-
-    const [isOpen, setIsOpen] = useState(false);
+    
     const location = useLocation();
 
     const [cookies, setCookie] = useCookies(['preferredLanguage']);
-    const [preferredLanguage, setPreferredLanguage] = useState<string>(cookies.preferredLanguage || 'en');
-    
+    const [preferredLanguage] = useState<string>(cookies.preferredLanguage || 'en');
+
     const useStyles = makeStyles((theme) => ({
         root: {
             position: 'fixed',
@@ -45,10 +39,10 @@ export default function App() {
     }));
 
     useEffect(() => {
-        setCookie('preferredLanguage', preferredLanguage, { path: '/' });
+        setCookie('preferredLanguage', preferredLanguage, {path: '/'});
         i18n.changeLanguage(preferredLanguage);
     }, [preferredLanguage, setCookie]);
-    
+
     const classes = useStyles();
     const [showButton, setShowButton] = useState(false);
     const handleClick = () => {

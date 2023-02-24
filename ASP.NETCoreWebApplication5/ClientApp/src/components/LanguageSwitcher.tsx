@@ -13,7 +13,7 @@ const languageIcons: Record<string, string> = {
 
 function LanguageSwitcher() {
 
-    const [cookies, setCookie] = useCookies(['preferredLanguage']);
+    const [, setCookie] = useCookies(['preferredLanguage']);
     const handleLanguageChange = (newLanguage: string) => {
         setCookie('preferredLanguage', newLanguage, { path: '/' });
         i18n.changeLanguage(newLanguage);
