@@ -1,5 +1,5 @@
 ﻿import {useTranslation} from "react-i18next";
-import { useCookies } from 'react-cookie';
+import {useCookies} from 'react-cookie';
 
 const languageNames: Record<string, string> = {
     en: 'English',
@@ -15,14 +15,14 @@ function LanguageSwitcher() {
 
     const [, setCookie] = useCookies(['preferredLanguage']);
     const handleLanguageChange = (newLanguage: string) => {
-        setCookie('preferredLanguage', newLanguage, { path: '/' });
+        setCookie('preferredLanguage', newLanguage, {path: '/'});
         i18n.changeLanguage(newLanguage);
     };
 
     const {i18n} = useTranslation();
 
     return (
-        <div className="flex flex-column items-center">
+        <div className="flex flex-col items-center">
             {Object.keys(languageNames).map((lang) => {
                 const languageCode = lang as string;
                 return (
@@ -48,4 +48,4 @@ function LanguageSwitcher() {
     );
 }
 
-    export default LanguageSwitcher;
+export default LanguageSwitcher;

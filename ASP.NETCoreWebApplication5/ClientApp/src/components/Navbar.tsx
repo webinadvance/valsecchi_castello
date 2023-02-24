@@ -69,7 +69,7 @@ function Navbar() {
         <div>
             <nav>
                 <div className="flex justify-content-between w-100 lg:px-8">
-                    <div className="lg:border-b flex items-center justify-content-between w-100">
+                    <div className="lg:border-b flex items-center justify-between w-full">
                         <div className="flex-shrink-0 bg-white p-1 mb-2">
                             <img
                                 className="w-36"
