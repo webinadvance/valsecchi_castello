@@ -32,11 +32,8 @@ export function Home() {
                     </div>
 
                 </div>
-
                 <Services/>
-
             </div>
-
         </Fragment>
     );
 }

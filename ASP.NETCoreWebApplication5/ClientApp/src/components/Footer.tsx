@@ -44,7 +44,7 @@ const Footer = () => {
                         <p className="mb-2">Privacy Policy</p>
                         <p className="mb-2">Terms of Service</p>
                         <p>Accessibility</p>
-                        <h1>Counter: {count}</h1>
+                        {/*       <h1>Counter: {count}</h1>*/}
                         <div className={"mt-4"}>
                             <LanguageSwitcher/>
                         </div>
