@@ -1,15 +1,9 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment} from 'react';
 import {useTranslation} from 'react-i18next';
 import Services from "./Services";
 
 export function Home() {
     const {t} = useTranslation();
-    const {i18n} = useTranslation();
-
-    useEffect(() => {
-        //i18n.changeLanguage('en');
-    }, []);
-    
 
     return (
         <Fragment>

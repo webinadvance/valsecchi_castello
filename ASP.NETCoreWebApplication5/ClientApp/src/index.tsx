@@ -5,7 +5,6 @@ import {BrowserRouter} from 'react-router-dom';
 import App from "./App";
 import {I18nextProvider} from 'react-i18next';
 import i18n from './i18n';
-import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import {store} from './Store';
 
