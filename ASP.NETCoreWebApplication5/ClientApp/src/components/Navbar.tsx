@@ -1,5 +1,4 @@
 ﻿import React, {useState} from "react";
-import {Transition} from "@headlessui/react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from '@fortawesome/free-solid-svg-icons'
 import {routes} from "../Globals";
@@ -8,10 +7,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Iso} from "@material-ui/icons";
 import {ListItemIcon} from "@material-ui/core";
-import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
-import {faCaretRight} from "@fortawesome/free-solid-svg-icons/faCaretRight";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
