@@ -14,9 +14,11 @@ import {
     TableHead,
     TableRow,
     TextField,
+    InputLabel, useTheme, DialogProps
 } from "@mui/material";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const useStyles = makeStyles({
     table: {
@@ -60,12 +62,28 @@ const Admin = React.memo(function () {
     const RenderEditDialog = React.memo(function () {
         const [value, setValue] = useState(selectedRow);
 
+        const useStyles = makeStyles({
+            customDialog: {
+                paddingTop: "1rem",
+                maxWidth: 'none', // set maxWidth to 'none' to allow custom width
+                '& .MuiDialog-paper': {
+                    width: '50vw', // set width to 50% of viewport width
+                },
+            },
+        });
+        const classes = useStyles();
+        const theme = useTheme();
+        const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+        const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('lg');
+
         return (
-            <Dialog open={openEditDialog} onClose={handleEditDialogClose}>
+            <Dialog fullWidth={true} maxWidth={"md"} fullScreen={fullScreen}
+                    open={openEditDialog}
+                    onClose={handleEditDialogClose}>
                 <DialogTitle>Edit Data</DialogTitle>
-                <DialogContent>
+                <DialogContent style={{paddingTop: "6px"}}>
                     <TextField
-                        label="key"
+                        label={"key"}
                         value={value ? value.key : ""}
                         onChange={(event) =>
                             setValue({
@@ -73,13 +91,17 @@ const Admin = React.memo(function () {
                                 key: event.target.value,
                             })
                         }
+                        InputProps={{
+                            readOnly: true
+                        }}
                         fullWidth
                     />
                     <div className={"my-4"}/>
+                    <InputLabel>Italiano</InputLabel>
                     <ReactQuill
                         modules={{toolbar: false}}
                         formats={['plain']}
-                        style={{height: '200px'}}
+                        style={{height: '100px'}}
                         value={value ? value.eng : ""}
                         onChange={(content: any, delta, source, editor) => {
                             const text = editor.getText(content);
@@ -88,10 +110,11 @@ const Admin = React.memo(function () {
                         }}
                     />
                     <div className={"my-4"}/>
+                    <InputLabel>English</InputLabel>
                     <ReactQuill
                         modules={{toolbar: false}}
                         formats={['plain']}
-                        style={{height: '200px'}}
+                        style={{height: '100px'}}
                         value={value ? value.it : ""}
                         onChange={(content: any, delta, source, editor) => {
                             const text = editor.getText(content);
