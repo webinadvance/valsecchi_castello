@@ -8,7 +8,7 @@ namespace ASP.NETCoreWebApplication5.Controllers;
 [Route("api/[controller]")]
 public class DbController : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<DbController> _logger;
 
     private readonly palazzoContext _dbContext;
     
@@ -18,7 +18,15 @@ public class DbController : ControllerBase
     }
 
     [HttpGet]
+    [Route("all")]
     public async Task<List<lang>> Get()
+    {
+        return await _dbContext.lang.ToListAsync();
+    }
+    
+    [HttpGet]
+    [Route("it")]
+    public async Task<List<lang>> GetIt()
     {
         return await _dbContext.lang.ToListAsync();
     }

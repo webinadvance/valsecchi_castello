@@ -11,6 +11,7 @@ import {makeStyles} from '@mui/styles';
 import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Admin from "./components/Admin";
+
 export default function App() {
 
     const [cookies, setCookie] = useCookies(['preferredLanguage']);

@@ -32,7 +32,7 @@ const Admin = React.memo(function () {
 
     const fetchData = async () => {
         try {
-            const response = await fetch("/api/db");
+            const response = await fetch("/api/db/all");
             const json = await response.json();
             setData(json);
         } catch (error) {
