@@ -65,7 +65,7 @@ const Admin = React.memo(function () {
                 <DialogTitle>Edit Data</DialogTitle>
                 <DialogContent>
                     <TextField
-                        label="Field 1"
+                        label="key"
                         value={value ? value.key : ""}
                         onChange={(event) =>
                             setValue({
@@ -80,7 +80,19 @@ const Admin = React.memo(function () {
                         modules={{toolbar: false}}
                         formats={['plain']}
                         style={{height: '200px'}}
-                        value={value ? value.value : ""}
+                        value={value ? value.eng : ""}
+                        onChange={(content: any, delta, source, editor) => {
+                            const text = editor.getText(content);
+                            const modifiedText = text.replace(/\n/g, '<br/>').replace(/^(<br\/>)+|(<br\/>)+$/g, '').trim();
+                            console.log(modifiedText);
+                        }}
+                    />
+                    <div className={"my-4"}/>
+                    <ReactQuill
+                        modules={{toolbar: false}}
+                        formats={['plain']}
+                        style={{height: '200px'}}
+                        value={value ? value.it : ""}
                         onChange={(content: any, delta, source, editor) => {
                             const text = editor.getText(content);
                             const modifiedText = text.replace(/\n/g, '<br/>').replace(/^(<br\/>)+|(<br\/>)+$/g, '').trim();

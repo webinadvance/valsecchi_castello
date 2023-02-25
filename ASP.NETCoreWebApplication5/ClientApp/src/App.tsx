@@ -74,8 +74,8 @@ export default function App() {
                 })}
                 <Route path={"/admin"} element={<Admin/>}/>
             </Routes>
-
-            <Footer/>
+            
+            {!match && <Footer/>}
 
             <Zoom in={showButton}>
                 <div onClick={handleClick} role="presentation" className={classes.root}>

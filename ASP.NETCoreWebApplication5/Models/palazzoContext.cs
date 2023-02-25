@@ -19,7 +19,7 @@ public partial class palazzoContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=141.94.17.42\\SQLEXPRESS;Initial Catalog=palazzo;Integrated Security=False;User ID=sa;Password=12345Aa!;MultipleActiveResultSets\n=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=141.94.17.42\\SQLEXPRESS;Database=palazzo;User=sa;Password=12345Aa!;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,9 +27,7 @@ public partial class palazzoContext : DbContext
         {
             entity.HasKey(e => e.key).HasName("lang_pk");
 
-            entity.ToTable("lang", "iso");
-
-            entity.Property(e => e.key).HasMaxLength(1);
+            entity.Property(e => e.key).HasMaxLength(255);
         });
 
         OnModelCreatingPartial(modelBuilder);
