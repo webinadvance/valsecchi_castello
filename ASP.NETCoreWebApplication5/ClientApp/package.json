@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@types/react-dom": "^18.0.11",
+    "@types/react-image-gallery": "^1.2.0",
     "@types/smoothscroll-polyfill": "^0.3.1",
     "ajv": "^8.11.0",
     "cross-env": "^7.0.3",
@@ -61,6 +62,7 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.30.1",
     "nan": "^2.16.0",
+    "react-image-gallery": "^1.2.11",
     "smoothscroll-polyfill": "^0.4.4",
     "tailwindcss": "^3.2.7",
     "typescript": "^4.7.4"

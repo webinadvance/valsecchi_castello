@@ -7,6 +7,7 @@ export const Gallery1 = () => {
             <h2 className={""}>
                 the villa
             </h2>
+            
             <Gallery
                 images={[
                     {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
@@ -17,6 +18,7 @@ export const Gallery1 = () => {
                     {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                     {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                 ]}/>
+            
             <h2 className={""}>
                 the rooms
             </h2>

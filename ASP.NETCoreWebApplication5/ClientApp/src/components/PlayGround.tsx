@@ -1,67 +1,75 @@
-﻿import React, { useState } from 'react';
-import { GridList, GridListTile, GridListTileBar, Modal } from '@mui/material';
+import React from 'react';
+import ImageGallery, {ReactImageGalleryItem} from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
-const testImages = [
+const images: ReactImageGalleryItem[] = [
     {
-        id: 1,
-        thumbnail: 'https://picsum.photos/id/1/200/300',
-        original: 'https://picsum.photos/id/1/1200/800',
-        title: 'Image 1',
+        original: 'https://picsum.photos/id/1018/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1018/250/150/',
+        originalAlt: 'Image 1',
+        description: 'This is image 1',
     },
     {
-        id: 2,
-        thumbnail: 'https://picsum.photos/id/2/200/300',
-        original: 'https://picsum.photos/id/2/1200/800',
-        title: 'Image 2',
+        original: 'https://picsum.photos/id/1015/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1015/250/150/',
+        originalAlt: 'Image 1',
+        description: 'This is image 1',
     },
     {
-        id: 3,
-        thumbnail: 'https://picsum.photos/id/3/200/300',
-        original: 'https://picsum.photos/id/3/1200/800',
-        title: 'Image 3',
+        original: 'https://picsum.photos/id/1019/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+        originalAlt: 'Image 1',
+        description: 'This is image 1',
     },
     {
-        id: 4,
-        thumbnail: 'https://picsum.photos/id/4/200/300',
-        original: 'https://picsum.photos/id/4/1200/800',
-        title: 'Image 4',
+        original: 'https://picsum.photos/id/1019/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+        originalAlt: 'Image 1',
+        description: 'Lumen de peritus secula, consumere usus!',
     },
     {
-        id: 5,
-        thumbnail: 'https://picsum.photos/id/5/200/300',
-        original: 'https://picsum.photos/id/5/1200/800',
-        title: 'Image 5',
+        original: 'https://picsum.photos/id/1019/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+        originalAlt: 'Image 1',
+        description: 'Ascension, afterlife and a united body of light!',
+    },
+    {
+        original: 'https://picsum.photos/id/1019/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+        originalAlt: 'Image 1',
+        description: 'This is image 1',
+    },
+    {
+        original: 'https://picsum.photos/id/1019/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+        originalAlt: 'Image 1',
+        description: 'This is image 1',
     },
 ];
 
-const PlayGround = () => {
-    const [selectedImage, setSelectedImage] = useState(null);
-
-    const handleImageClick = (item:any) => {
-        setSelectedImage(item);
-    };
-
-    const handleModalClose = () => {
-        setSelectedImage(null);
-    };
-
+const PlayGround: React.FC = () => {
     return (
         <>
-            <GridList cols={4}>
-                {testImages.map((item) => (
-                    <GridListTile key={item.id} onClick={() => handleImageClick(item)}>
-                        <img src={item.thumbnail} alt={item.title} />
-                        <GridListTileBar title={item.title} />
-                    </GridListTile>
-                ))}
-            </GridList>
-            <Modal open={selectedImage !== null} onClose={handleModalClose}>
-                <div>
-                    {selectedImage && (
-                        <img src={selectedImage.original} alt={selectedImage.title} />
-                    )}
+            <h2 className={""}>
+                the villa
+            </h2>
+
+            <div className="w-full py-8 h-full flex justify-center items-center">
+                <div className="w-full sm:max-w-4xl">
+                    <ImageGallery items={images}/>
                 </div>
-            </Modal>
+            </div>
+
+            <h2 className={""}>
+                the villa 2
+            </h2>
+
+            <div className="w-full py-8 h-full flex justify-center items-center">
+                <div className="w-full sm:max-w-4xl">
+                    <ImageGallery items={images}/>
+                </div>
+            </div>
+
         </>
     );
 };
