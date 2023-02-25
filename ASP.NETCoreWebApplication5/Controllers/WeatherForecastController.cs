@@ -1,6 +1,4 @@
-﻿using ASP.NETCoreWebApplication5.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NETCoreWebApplication5.Controllers;
 
@@ -30,26 +28,5 @@ public class WeatherForecastController : ControllerBase
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
-    }
-}
-
-
-[ApiController]
-[Route("api/[controller]")]
-public class DbController : ControllerBase
-{
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    private readonly palazzoContext _dbContext;
-    
-    public DbController(palazzoContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
-    [HttpGet]
-    public async Task<List<lang>> Get()
-    {
-        return await _dbContext.lang.ToListAsync();
     }
 }

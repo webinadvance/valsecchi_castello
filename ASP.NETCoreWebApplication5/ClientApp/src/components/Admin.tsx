@@ -1,53 +1,65 @@
 import React, {useState, useEffect} from "react";
+import {makeStyles} from "@mui/styles";
+import {
+    TableContainer,
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    Paper,
+} from "@mui/material";
 
-interface Props {
-    onUpdateJson: (newJsonString: string) => void;
-}
+const useStyles = makeStyles({
+    table: {
+        minWidth: 650,
+    },
+});
 
-const Admin = () => {
-    const [json, setJson] = useState<any>();
-    const [error, setError] = useState("");
+function Admin() {
+    const [data, setData] = useState([]);
+    const classes = useStyles();
 
-    const jsonFilePath = "/locales/en.json";
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const value = e.target.value;
+    const fetchData = async () => {
         try {
-            const newJson = JSON.parse(value);
-            setJson(newJson);
-            setError("");
-        } catch (err: any) {
-            setError(err.message);
+            const response = await fetch("/api/db");
+            const json = await response.json();
+            setData(json);
+        } catch (error) {
+            console.error(error);
         }
     };
 
-    const handleRegenerateClick = () => {
-        /*     onUpdateJson(JSON.stringify(json));*/
-    };
-
-    // Load the initial JSON file from the provided file path
     useEffect(() => {
-        fetch(jsonFilePath)
-            .then((response) => response.json())
-            .then((data) => {
-                setJson(data);
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
-    }, [jsonFilePath]);
+        fetchData();
+    }, []);
 
-    // Render the component once the initial JSON file is loaded
-    return json ? (
-        <div>
-            <h2>Edit JSON</h2>
-            <textarea value={JSON.stringify(json, null, 2)} onChange={handleInputChange}/>
-            {error && <div>{error}</div>}
-            <button onClick={handleRegenerateClick}>Regenerate</button>
-        </div>
-    ) : (
-        <div>Loading JSON file...</div>
-    );
-};
+    if (data.length > 0) {
+        return (
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="data table">
+                    <TableHead>
+                        <TableRow>
+                            {Object.keys(data[0]).map((key) => (
+                                <TableCell key={key}>{key}</TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row, index) => (
+                            <TableRow key={index}>
+                                {Object.values(row).map((value: any, index) => (
+                                    <TableCell key={index}>{value}</TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+    } else {
+        return <div>No data available</div>;
+    }
+}
 
 export default Admin;
