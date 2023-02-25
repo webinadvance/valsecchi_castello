@@ -15,6 +15,8 @@ import {
     Button,
     TextField,
 } from "@mui/material";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const useStyles = makeStyles({
     table: {
@@ -22,7 +24,7 @@ const useStyles = makeStyles({
     },
 });
 
-function Admin() {
+const Admin = React.memo(function () {
     const [data, setData] = useState([]);
     const [selectedRow, setSelectedRow] = useState<any>(null);
     const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -55,36 +57,36 @@ function Admin() {
         setOpenEditDialog(false);
     };
 
-    const renderEditDialog = () => {
-        console.log(selectedRow);
+    const RenderEditDialog = React.memo(function () {
+        const [value, setValue] = useState(selectedRow);
+
         return (
             <Dialog open={openEditDialog} onClose={handleEditDialogClose}>
                 <DialogTitle>Edit Data</DialogTitle>
                 <DialogContent>
                     <TextField
                         label="Field 1"
-                        value={selectedRow ? selectedRow.key : ""}
+                        value={value ? value.key : ""}
                         onChange={(event) =>
-                            setSelectedRow({
-                                ...selectedRow,
-                                field1: event.target.value,
+                            setValue({
+                                ...value,
+                                key: event.target.value,
                             })
                         }
                         fullWidth
                     />
-                    <div className={"py-4"}/>
-                    <TextField
-                        label="Field 2"
-                        value={selectedRow ? selectedRow.value : ""}
-                        onChange={(event) =>
-                            setSelectedRow({
-                                ...selectedRow,
-                                field2: event.target.value,
-                            })
-                        }
-                        fullWidth
+                    <div className={"my-4"}/>
+                    <ReactQuill
+                        modules={{toolbar: false}}
+                        formats={['plain']}
+                        style={{height: '200px'}}
+                        value={value ? value.value : ""}
+                        onChange={(content: any, delta, source, editor) => {
+                            const text = editor.getText(content);
+                            const modifiedText = text.replace(/\n/g, '<br/>').replace(/^(<br\/>)+|(<br\/>)+$/g, '').trim();
+                            console.log(modifiedText);
+                        }}
                     />
-                    {/* Add more fields as needed */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleEditDialogClose}>Cancel</Button>
@@ -94,7 +96,7 @@ function Admin() {
                 </DialogActions>
             </Dialog>
         );
-    };
+    });
 
     if (data.length > 0) {
         return (
@@ -123,12 +125,12 @@ function Admin() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                {renderEditDialog()}
+                <RenderEditDialog/>
             </>
         );
     } else {
         return <div>No data available</div>;
     }
-}
+})
 
 export default Admin
