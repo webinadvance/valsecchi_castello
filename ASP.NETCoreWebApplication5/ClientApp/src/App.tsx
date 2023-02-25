@@ -1,8 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes, useMatch} from 'react-router-dom';
 import './custom.css';
 import {Home} from "./components/Home";
-import {Counter} from "./components/Counter";
 import Footer from "./components/Footer";
 import {routes} from "./Globals";
 import {useCookies} from 'react-cookie';
@@ -58,10 +57,13 @@ export default function App() {
         };
     }, []);
 
+    const match = useMatch("/admin");
 
     return (
         <Fragment>
-            <Header/>
+
+            {!match && <Header/>}
+
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 {routes.map((x, i) => {
@@ -69,10 +71,9 @@ export default function App() {
                         <Route key={i} path={x.key} element={x.element}/>
                     )
                 })}
-                <Route path="/villa" element={<Counter/>}/>
             </Routes>
 
-            <Footer/>
+            {!match && <Header/>}
 
             <Zoom in={showButton}>
                 <div onClick={handleClick} role="presentation" className={classes.root}>
