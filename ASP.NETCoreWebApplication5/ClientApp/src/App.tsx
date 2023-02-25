@@ -11,6 +11,7 @@ import {makeStyles} from '@mui/styles';
 import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Admin from "./components/Admin";
+import {CookieBanner} from "./components/CookieBanner";
 
 export default function App() {
 
@@ -75,7 +76,7 @@ export default function App() {
                 <Route path={"/admin"} element={<Admin/>}/>
             </Routes>
 
-            {!match && <Header/>}
+            <Footer/>
 
             <Zoom in={showButton}>
                 <div onClick={handleClick} role="presentation" className={classes.root}>
@@ -84,6 +85,7 @@ export default function App() {
                     </Fab>
                 </div>
             </Zoom>
+
         </Fragment>
     );
 }
