@@ -42,6 +42,8 @@
       <_ContentIncludedByDefault Remove="ClientApp_ORIGINAL\package-lock.json" />
       <_ContentIncludedByDefault Remove="ClientApp_ORIGINAL\package.json" />
       <_ContentIncludedByDefault Remove="ClientApp_ORIGINAL\public\manifest.json" />
+      <_ContentIncludedByDefault Remove="ClientApp\public\locales\en.json" />
+      <_ContentIncludedByDefault Remove="ClientApp\public\locales\it.json" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

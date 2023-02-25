@@ -10,6 +10,7 @@ import {Header} from "./components/Header";
 import {makeStyles} from '@mui/styles';
 import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Admin from "./components/Admin";
 
 export default function App() {
 
@@ -71,6 +72,7 @@ export default function App() {
                         <Route key={i} path={x.key} element={x.element}/>
                     )
                 })}
+                <Route path={"/admin"} element={<Admin/>}/>
             </Routes>
 
             {!match && <Header/>}
