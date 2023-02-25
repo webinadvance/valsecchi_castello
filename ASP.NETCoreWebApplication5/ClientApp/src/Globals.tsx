@@ -1,7 +1,4 @@
-import {Counter} from "./components/Counter";
-import {Home} from "./components/Home";
-import React, {HTMLProps} from "react";
-import Gallery from "./components/Gallery";
+import React from "react";
 import {Gallery1} from "./components/Gallery1";
 
 export const routes = [

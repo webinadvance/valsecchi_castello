@@ -1,9 +1,11 @@
 ﻿import React, {useState} from "react";
 
+interface Image {
+    src: string;
+}
+
 interface ImageModalProps {
-    image: {
-        src: string;
-    };
+    image: Image;
     onClose: () => void;
 }
 
@@ -27,15 +29,11 @@ const ImageModal: React.FC<ImageModalProps> = ({image, onClose}) => {
     );
 };
 
-interface Image {
-    src: string;
-}
-
 interface GalleryProps {
     images: Image[];
 }
 
-const Gallery: React.FC<GalleryProps> = ({images}) => {
+export const Gallery: React.FC<GalleryProps> = ({images}) => {
     const [selectedImage, setSelectedImage] = useState<Image | null>(null);
 
     const handleImageClick = (image: Image) => {
@@ -58,12 +56,10 @@ const Gallery: React.FC<GalleryProps> = ({images}) => {
                         />
                     </div>
                 ))}
-                {selectedImage && (
-                    <ImageModal image={selectedImage} onClose={handleModalClose}/>
-                )}
             </div>
+            {selectedImage && (
+                <ImageModal image={selectedImage} onClose={handleModalClose}/>
+            )}
         </div>
     );
 };
-
-export default Gallery;

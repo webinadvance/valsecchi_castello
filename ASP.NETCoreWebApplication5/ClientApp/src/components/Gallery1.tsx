@@ -1,4 +1,5 @@
-﻿import Gallery from "./Gallery";
+﻿import React from "react";
+import {Gallery} from "./Gallery";
 
 export const Gallery1 = () => {
     return (
