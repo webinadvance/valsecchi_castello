@@ -23,9 +23,12 @@ const dataSlice = createSlice({
         incrementByAmount(state, action: { payload: number }) {
             state.value += action.payload;
         },
+        loading(state, action: { payload: boolean }) {
+            state.loading = action.payload;
+        },
     },
 });
 
-export const {increment, decrement, incrementByAmount} = dataSlice.actions;
+export const {increment, decrement, incrementByAmount,loading} = dataSlice.actions;
 
 export default dataSlice.reducer;

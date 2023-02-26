@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: any) =>
 const Loader = () => {
 
     const loading = useSelector((state: RootState) => state.data.loading);
-    
+
     const classes = useStyles();
 
     return (

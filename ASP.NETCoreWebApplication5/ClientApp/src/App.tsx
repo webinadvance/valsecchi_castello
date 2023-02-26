@@ -86,7 +86,7 @@ export default function App() {
                 </div>
             </Zoom>
 
-            <Loader isLoading={true}/>
+            <Loader/>
             
         </Fragment>
 
