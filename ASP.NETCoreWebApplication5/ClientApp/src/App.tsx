@@ -12,6 +12,7 @@ import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Admin from "./components/Admin";
 import Loader from "./components/Loader";
+import {callApi, getUserEndpoint} from './Api';
 
 export default function App() {
 
@@ -53,6 +54,12 @@ export default function App() {
     };
 
     useEffect(() => {
+
+        (async () => {
+            const res = await callApi(getUserEndpoint(), 'GET');
+            console.log(res);
+        })();
+
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -87,7 +94,7 @@ export default function App() {
             </Zoom>
 
             <Loader/>
-            
+
         </Fragment>
 
     );

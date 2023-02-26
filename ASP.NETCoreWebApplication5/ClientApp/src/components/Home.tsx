@@ -2,7 +2,6 @@ import React, {Fragment, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import Services from "./Services";
 import {useDispatch} from "react-redux";
-import {loading} from "../dataSlice";
 
 export function Home() {
     const {t} = useTranslation();

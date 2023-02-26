@@ -38,7 +38,11 @@ builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     })
-    .AddCookie()
+    .AddCookie(options =>
+    {
+        options.Cookie.SameSite = SameSiteMode.None;
+        options.Cookie.HttpOnly = false;
+    })
     .AddGoogle(options =>
     {
         options.ClientId = "143604866511-58ov9g9nokffvj0bjke3e0up56qgcsuo.apps.googleusercontent.com";

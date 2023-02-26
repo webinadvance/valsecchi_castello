@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ASP.NETCoreWebApplication5.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api")]
 public class PublicController : ControllerBase
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -36,7 +36,7 @@ public class PublicController : ControllerBase
     [HttpGet("login")]
     public async Task<IActionResult> login()
     {
-        var authenticationProperties = new AuthenticationProperties { RedirectUri = "/api/google/response" };
+        var authenticationProperties = new AuthenticationProperties { RedirectUri = "/api/response" };
         return Challenge(authenticationProperties, GoogleDefaults.AuthenticationScheme);
     }
 

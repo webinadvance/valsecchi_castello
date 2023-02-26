@@ -6,6 +6,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from "../Store";
 import {increment} from "../dataSlice";
+import withGoogleAuth from "./WithGoogleAuth";
 
 const Footer = () => {
 
@@ -70,5 +71,4 @@ const Footer = () => {
         </div>
     );
 };
-
-export default Footer;
+export default withGoogleAuth(Footer);
