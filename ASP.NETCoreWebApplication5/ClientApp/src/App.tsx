@@ -12,7 +12,7 @@ import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Admin from "./components/Admin";
 import Loader from "./components/Loader";
-import {callApi, getUserEndpoint} from './Api';
+import Api from "./Api";
 
 export default function App() {
 
@@ -56,7 +56,7 @@ export default function App() {
     useEffect(() => {
 
         (async () => {
-            const res = await callApi(getUserEndpoint(), 'GET');
+            const res = await Api.User();
             console.log(res);
         })();
 
