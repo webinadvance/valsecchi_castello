@@ -11,6 +11,7 @@ import {makeStyles} from '@mui/styles';
 import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Admin from "./components/Admin";
+import Loader from "./components/Loader";
 
 export default function App() {
 
@@ -74,7 +75,7 @@ export default function App() {
                 })}
                 <Route path={"/admin"} element={<Admin/>}/>
             </Routes>
-            
+
             {!match && <Footer/>}
 
             <Zoom in={showButton}>
@@ -85,7 +86,10 @@ export default function App() {
                 </div>
             </Zoom>
 
+            <Loader isLoading={true}/>
+            
         </Fragment>
+
     );
 }
 
