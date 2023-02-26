@@ -71,10 +71,8 @@ const Admin = React.memo(function () {
                 },
             },
         });
-        const classes = useStyles();
         const theme = useTheme();
         const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-        const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('lg');
 
         return (
             <Dialog fullWidth={true} maxWidth={"md"} fullScreen={fullScreen}
