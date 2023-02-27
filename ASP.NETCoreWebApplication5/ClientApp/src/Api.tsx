@@ -1,5 +1,4 @@
 import axios, {AxiosResponse} from 'axios';
-import Cookies from "js-cookie";
 
 class Api {
     static async Eng(): Promise<AxiosResponse> {
@@ -7,13 +6,9 @@ class Api {
     }
 
     static async User(): Promise<AxiosResponse> {
-        const token = Cookies.get(".AspNetCore.Cookies");
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
-        return await axios.get('/api/user', config);
+        return await axios.get('/api/user', {
+            withCredentials: true,
+        });
     }
 
     // add more endpoint methods as needed
