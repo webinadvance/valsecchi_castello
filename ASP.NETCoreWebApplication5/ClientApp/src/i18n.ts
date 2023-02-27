@@ -11,7 +11,7 @@ i18n
         lng: "en",
         fallbackLng: "en",
         backend: {
-            loadPath: "/api/db/locales/{{lng}}"
+            loadPath: "/locales/{{lng}}.json"
         },
         interpolation: {
             escapeValue: true,
