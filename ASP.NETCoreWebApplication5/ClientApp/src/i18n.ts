@@ -2,8 +2,6 @@
 import {initReactI18next} from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import Backend from "i18next-http-backend";
-import LocalStorageBackend from "i18next-localstorage-backend";
-import i18nextMiddleware from "i18next-http-middleware";
 
 i18n
     .use(LanguageDetector)
