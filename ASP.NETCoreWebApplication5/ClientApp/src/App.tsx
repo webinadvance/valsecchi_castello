@@ -13,6 +13,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Admin from "./components/Admin";
 import Loader from "./components/Loader";
 import Api from "./Api";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "./Store";
+import {user} from "./dataSlice";
 
 export default function App() {
 
@@ -53,11 +56,14 @@ export default function App() {
         }
     };
 
+    const dispatch = useDispatch();
+    const d_user = useSelector((state: RootState) => state.data.user);
+
     useEffect(() => {
 
         (async () => {
-            const res = await Api.User();
-            console.log(res);
+            const res = await Api.user();
+            dispatch(user(res));
         })();
 
         window.addEventListener('scroll', handleScroll);

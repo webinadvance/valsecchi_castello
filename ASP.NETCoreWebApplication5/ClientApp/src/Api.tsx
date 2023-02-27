@@ -5,13 +5,27 @@ class Api {
         return await axios.get('/api/user');
     }
 
-    static async User(): Promise<AxiosResponse> {
-        return await axios.get('/api/user', {
-            withCredentials: true,
-        });
+    static async getData(endpoint: string, params?: object): Promise<any> {
+        try {
+            const response = await axios.get(endpoint, {params, withCredentials: true});
+            return response.data;
+        } catch (error: any) {
+            if (axios.isAxiosError(error)) {
+                return null;
+            } else {
+                return null;
+            }
+        }
     }
 
-    // add more endpoint methods as needed
+    static async user() {
+        return await Api.getData('/api/user');
+    }
+
+    static async userparam(aaa: string) {
+        return await Api.getData('/api/userparam', {aaa: aaa});
+    }
+
 }
 
 export default Api;
