@@ -11,7 +11,7 @@ public class DbController : ControllerBase
     private readonly ILogger<DbController> _logger;
 
     private readonly palazzoContext _dbContext;
-    
+
     public DbController(palazzoContext dbContext)
     {
         _dbContext = dbContext;
@@ -23,7 +23,7 @@ public class DbController : ControllerBase
     {
         return await _dbContext.lang.ToListAsync();
     }
-    
+
     [HttpGet]
     [Route("it")]
     public async Task<List<lang>> GetIt()
