@@ -1,12 +1,11 @@
 ﻿import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faFacebookF, faTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons';
+import {faFacebookF, faInstagram, faTwitter} from '@fortawesome/free-brands-svg-icons';
 import {routes} from "../Globals";
 import LanguageSwitcher from "./LanguageSwitcher";
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from "../Store";
 import {increment} from "../dataSlice";
-import withGoogleAuth from "./WithGoogleAuth";
 
 const Footer = () => {
 
@@ -71,4 +70,4 @@ const Footer = () => {
         </div>
     );
 };
-export default withGoogleAuth(Footer);
+export default Footer;
