@@ -6,6 +6,7 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    InputLabel,
     Paper,
     Table,
     TableBody,
@@ -14,11 +15,12 @@ import {
     TableHead,
     TableRow,
     TextField,
-    InputLabel, useTheme, DialogProps
+    useTheme
 } from "@mui/material";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import withGoogleAuth from "./WithGoogleAuth";
 
 const useStyles = makeStyles({
     table: {
@@ -166,4 +168,4 @@ const Admin = React.memo(function () {
     }
 })
 
-export default Admin
+export default withGoogleAuth(Admin)

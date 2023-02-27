@@ -42,15 +42,16 @@ public class PublicController : ControllerBase
     }
 
     [HttpGet("login")]
-    public async Task<IActionResult> login()
+    public async Task<IActionResult> login([FromQuery] string? url)
     {
-        var authenticationProperties = new AuthenticationProperties {RedirectUri = "/api/response"};
+        var authenticationProperties = new AuthenticationProperties
+            {RedirectUri = "/api/response?url=" + url};
         return Challenge(authenticationProperties, GoogleDefaults.AuthenticationScheme);
     }
 
     [HttpGet("response")]
-    public async Task<IActionResult> response()
+    public async Task<IActionResult> response([FromQuery] string? url)
     {
-        return Redirect("/");
+        return Redirect(!string.IsNullOrEmpty(url) ? url : "/");
     }
 }
