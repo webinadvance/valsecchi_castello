@@ -7,20 +7,11 @@ i18n
     .use(LanguageDetector)
     .use(Backend)
     .use(initReactI18next)
-    //.use(resourcesToBackend((language: any, namespace: any) => import(`./locales/${language}.json`)))
     .init({
         lng: "en",
         fallbackLng: "en",
-        /*        resources: {
-                    it: {
-                        translation: itLocale,
-                    },
-                    en: {
-                        translation: enLocale,
-                    },
-                },*/
         backend: {
-            loadPath: "./locales/{{lng}}.json"
+            loadPath: "/api/db/locales/{{lng}}"
         },
         interpolation: {
             escapeValue: true,
