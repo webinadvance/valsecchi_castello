@@ -40,6 +40,9 @@ export default function App() {
     useEffect(() => {
         setCookie('preferredLanguage', preferredLanguage, {path: '/'});
         i18n.changeLanguage(preferredLanguage);
+        /*       (async () => {
+                   await i18n.reloadResources();
+               })();*/
     }, [preferredLanguage, setCookie]);
 
     const classes = useStyles();
