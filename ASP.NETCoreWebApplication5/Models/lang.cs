@@ -9,5 +9,5 @@ public partial class lang
 
     public string? it { get; set; }
 
-    public string? eng { get; set; }
+    public string? en { get; set; }
 }
