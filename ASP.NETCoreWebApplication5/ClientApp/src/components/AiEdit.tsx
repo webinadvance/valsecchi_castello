@@ -15,6 +15,8 @@ import {
     TableHead,
     TableRow,
     TextField,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import {Edit} from '@mui/icons-material';
 
@@ -25,6 +27,8 @@ interface DataTableProps<T> {
 }
 
 interface Column<T> {
+
+    colspan: number;
     key: keyof T;
     label: string;
 }
@@ -44,6 +48,7 @@ export function AiTable<T extends object>({
 
     const handleSaveClick = () => {
         if (editedData) {
+            console.log(editedData);
             onSave(editedData);
             setEditDialogOpen(false);
             setEditedData(null);
@@ -57,6 +62,8 @@ export function AiTable<T extends object>({
 
     const handleFieldChange = (key: keyof T, value: any) => {
         if (editedData) {
+            /*            console.log(key);
+                        console.log(value);*/
             setEditedData((prevData: any) => ({
                 ...prevData,
                 [key]: value,
@@ -64,27 +71,34 @@ export function AiTable<T extends object>({
         }
     };
 
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
     return (
         <React.Fragment>
             <TableContainer component={Paper}>
-                <Table>
+                <Table style={{tableLayout: "fixed"}}>
                     <TableHead>
                         <TableRow>
                             {columns.map((col: any) => (
-                                <TableCell key={col.key}>{col.label}</TableCell>
+                                <TableCell colSpan={col.colspan} key={col.key}>{col.label}</TableCell>
                             ))}
-                            <TableCell/>
+                            <TableCell colSpan={1} sx={{textAlign: "right"}}/>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {data.map((row: any) => (
                             <TableRow key={JSON.stringify(row)}>
                                 {columns.map((col: any) => (
-                                    <TableCell key={col.key}>
+                                    <TableCell colSpan={col.colspan} sx={{
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        whiteSpace: "nowrap"
+                                    }} key={col.key}>
                                         {row[col.key]}
                                     </TableCell>
                                 ))}
-                                <TableCell>
+                                <TableCell colSpan={1} sx={{textAlign: "right"}}>
                                     <IconButton onClick={() => handleEditClick(row)}>
                                         <Edit/>
                                     </IconButton>
@@ -94,7 +108,8 @@ export function AiTable<T extends object>({
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Dialog open={editDialogOpen} onClose={handleCancelClick}>
+            <Dialog fullWidth={true} maxWidth={"md"} fullScreen={fullScreen} open={editDialogOpen}
+                    onClose={handleCancelClick}>
                 <DialogTitle>Edit Row</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -102,16 +117,25 @@ export function AiTable<T extends object>({
                     </DialogContentText>
                     {editedData &&
                         columns.map((col) => (
-                            <TextField
-                                key={col.key as string}
-                                label={col.label}
-                                value={editedData[col.key] as any}
-                                onChange={(e) =>
-                                    handleFieldChange(col.key, e.target.value)
-                                }
-                                fullWidth
-                                margin="normal"
-                            />
+                            <div key={col.key as string}>
+                                <TextField
+                                    multiline={true}
+                                    label={col.label}
+                                    value={editedData[col.key] as any}
+                                    onChange={(e) =>
+                                        handleFieldChange(col.key, e.target.value)
+                                    }
+                                    fullWidth
+                                    margin="normal"></TextField>
+                                {/* <ReactQuill
+                                    modules={{toolbar: false}}
+                                    formats={["plain"]}
+                                    value={editedData[col.key] as any}
+                                    onChange={(value) => {
+                                        handleFieldChange(col.key, value)
+                                    }}
+                                />*/}
+                            </div>
                         ))}
                 </DialogContent>
                 <DialogActions>
@@ -124,5 +148,5 @@ export function AiTable<T extends object>({
                 </DialogActions>
             </Dialog>
         </React.Fragment>
-    );
+    )
 }
