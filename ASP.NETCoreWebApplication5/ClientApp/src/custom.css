@@ -197,3 +197,7 @@ section {
     @apply max-w-4xl;
     @apply m-auto;
 }
+
+#admin th.MuiTableCell-root {
+    font-weight: 800 !important;
+}

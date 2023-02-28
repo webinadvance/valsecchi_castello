@@ -52,7 +52,7 @@ public class DbController : ControllerBase
                 res.ToList().ToDictionary(c => c.key, c => c.GetType().GetProperty(s).GetValue(c).ToString());
             var options = new JsonSerializerOptions();
             var json = JsonSerializer.Serialize(dictionary, options);
-            
+
 #if DEBUG
             var rootDirectory = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\locales\\" + s + ".json";
 #else

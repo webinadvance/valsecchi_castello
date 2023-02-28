@@ -1,10 +1,6 @@
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 
 class Api {
-    static async Eng(): Promise<AxiosResponse> {
-        return await axios.get('/api/user');
-    }
-
     static async getData(endpoint: string, params?: object): Promise<any> {
         try {
             const response = await axios.get(endpoint, {params, withCredentials: true});
@@ -16,6 +12,10 @@ class Api {
                 return null;
             }
         }
+    }
+
+    static async langAll() {
+        return await Api.getData('/api/db/all');
     }
 
     static async user() {

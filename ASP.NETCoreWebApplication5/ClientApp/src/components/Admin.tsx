@@ -21,6 +21,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import withGoogleAuth from "./WithGoogleAuth";
+import Api from "../Api";
 
 const useStyles = makeStyles({
     table: {
@@ -36,8 +37,8 @@ const Admin = React.memo(function () {
 
     const fetchData = async () => {
         try {
-            const response = await fetch("/api/db/all");
-            const json = await response.json();
+            const response = await Api.langAll();
+            const json = response;
             setData(json);
         } catch (error) {
             console.error(error);
@@ -102,7 +103,7 @@ const Admin = React.memo(function () {
                         modules={{toolbar: false}}
                         formats={['plain']}
                         style={{height: '100px'}}
-                        value={value ? value.eng : ""}
+                        value={value ? value.en : ""}
                         onChange={(content: any, delta, source, editor) => {
                             const text = editor.getText(content);
                             const modifiedText = text.replace(/\n/g, '<br/>').replace(/^(<br\/>)+|(<br\/>)+$/g, '').trim();
@@ -136,7 +137,7 @@ const Admin = React.memo(function () {
     if (data.length > 0) {
         return (
             <>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} id={"admin"}>
                     <Table className={classes.table} aria-label="data table">
                         <TableHead>
                             <TableRow>
