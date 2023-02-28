@@ -19,9 +19,18 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "sourceMap": true
+    "sourceMap": true,
+    "allowedFileExtensions": [
+      ".ts",
+      ".tsx",
+      ".js",
+      ".jsx",
+      ".json",
+      ".less"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    "src/**/*.less"
   ]
 }
