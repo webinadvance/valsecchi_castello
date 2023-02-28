@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@heading-bg: url(https://www.serenohotels.com/app/themes/_serenohotels/images/heading-bg.png);
+@font-family: 'Raleway', sans-serif;
+@h-text-align: center;
+@h-text-transform: uppercase;
 
 body {
-  /*    font-family: ui-sans-serif, system-ui;*/
-  font-family: 'Raleway', sans-serif;
+  font-family: @font-family;
 }
 
 a {
@@ -64,10 +67,7 @@ video#videobg {
 }
 
 .ch1 {
-  /* font-family: 'Libre Baskerville', sans-serif; */
   font-family: 'Raleway', sans-serif;
-  /* font-size: 52px; */
-  font-size: 45px;
   font-size: 45px;
   font-weight: 500;
   color: #604a3f;
@@ -86,14 +86,17 @@ video#videobg {
   margin: 0 auto 20px;
 }
 
+h1, h2 {
+  font-family: @font-family;
+  text-align: @h-text-align;
+  text-transform: @h-text-transform;
+}
+
 h2 {
-  font-family: 'Raleway', sans-serif;
   font-size: 22px;
   color: #333;
   letter-spacing: 4px;
   line-height: 1.3;
-  text-align: center;
-  text-transform: uppercase;
   padding: 0 20px;
   width: auto;
   background: white;
@@ -102,48 +105,41 @@ h2 {
   font-weight: 300;
 }
 
-
 h1 {
-  font-family: 'Raleway', sans-serif;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: none;
   box-sizing: inherit;
   -webkit-font-smoothing: antialiased;
   clear: both;
   font-size: 45px;
-  font-weight: 500;
+  font-weight: bold;
   letter-spacing: -1px;
-  line-height: 1.2;
-  text-align: center;
-  padding: 0;
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
   text-transform: none;
   color: #604A3F;
-  margin: 10px auto;
-  width: 83%;
-@apply uppercase;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: auto;
 }
 
 @media only screen and (min-width: 800px) {
+  h2 {
+    &:before, &:after {
+      width: 30px;
+      display: inline-block;
+      padding: 0 10px;
+      margin-right: 20px;
+      text-indent: -9999px;
+      content: "&nbsp;";
+      background: @heading-bg repeat-x 50% 50%;
+      opacity: 0.3;
+    }
 
-  h2:before {
-    width: 30px;
-    display: inline-block;
-    padding: 0 10px;
-    margin-right: 20px;
-    text-indent: -9999px;
-    content: "&nbsp;";
-    background: url(https://www.serenohotels.com/app/themes/_serenohotels/images/heading-bg.png) repeat-x 50% 50%;
-    opacity: 0.3;
-  }
-
-  h2:after {
-    width: 30px;
-    display: inline-block;
-    padding: 0 10px;
-    margin-left: 20px;
-    text-indent: -9999px;
-    content: "&nbsp;";
-    background: url(https://www.serenohotels.com/app/themes/_serenohotels/images/heading-bg.png) repeat-x 50% 50%;
-    opacity: 0.3;
+    &:after {
+      margin-right: 0;
+      margin-left: 20px;
+    }
   }
 }
 
@@ -194,9 +190,10 @@ article em {
 
 
 section {
-@apply px-4;
-@apply max-w-4xl;
-@apply m-auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 56rem;
+  margin: 0 auto;
 }
 
 #admin th.MuiTableCell-root {
