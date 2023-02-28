@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @heading-bg: url(https://www.serenohotels.com/app/themes/_serenohotels/images/heading-bg.png);
-@font-family: 'Raleway', sans-serif;
+@font-family: "Raleway", sans-serif;
 @h-text-align: center;
 @h-text-transform: uppercase;
 
@@ -15,12 +15,16 @@ a {
   color: #0366d6;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 code {
-  color: #E01A76;
+  color: #e01a76;
 }
 
 .btn-primary {
@@ -63,11 +67,11 @@ video#videobg {
   width: 70%;
   margin: 40px auto;
   height: 4px;
-  background: url('https://www.serenohotels.com/app/themes/_serenohotels/images/divider.png') no-repeat top center;
+  background: url("https://www.serenohotels.com/app/themes/_serenohotels/images/divider.png") no-repeat top center;
 }
 
 .ch1 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 45px;
   font-weight: 500;
   color: #604a3f;
@@ -76,7 +80,7 @@ video#videobg {
 }
 
 .cp1 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.7;
@@ -86,7 +90,8 @@ video#videobg {
   margin: 0 auto 20px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: @font-family;
   text-align: @h-text-align;
   text-transform: @h-text-transform;
@@ -117,7 +122,7 @@ h1 {
   padding-top: 0;
   padding-bottom: 0;
   text-transform: none;
-  color: #604A3F;
+  color: #604a3f;
   margin-top: 10px;
   margin-bottom: 10px;
   width: auto;
@@ -125,7 +130,8 @@ h1 {
 
 @media only screen and (min-width: 800px) {
   h2 {
-    &:before, &:after {
+    &:before,
+    &:after {
       width: 30px;
       display: inline-block;
       padding: 0 10px;
@@ -144,7 +150,7 @@ h1 {
 }
 
 article {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.7;
@@ -164,7 +170,7 @@ article em {
 
 @media only screen and (min-width: 900px) {
   article {
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.7;
@@ -188,7 +194,6 @@ article em {
   cursor: pointer;
 }
 
-
 section {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -196,6 +201,21 @@ section {
   margin: 0 auto;
 }
 
-#admin th.MuiTableCell-root {
-  font-weight: 800 !important;
+#admin {
+
+  .MuiTableCell-head {
+    font-weight: 900;
+  }
+
+  .MuiTableRow-root {
+    &:nth-of-type(odd) {
+      background-color: #f5f5f5;
+    }
+
+    &:hover {
+      background-color: #e0e0e0;
+      cursor: pointer;
+    }
+  }
+
 }

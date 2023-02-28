@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 a {
   color: #0366d6;
@@ -15,7 +15,7 @@ a {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 code {
-  color: #E01A76;
+  color: #e01a76;
 }
 .btn-primary {
   color: #fff;
@@ -52,10 +52,10 @@ video#videobg {
   width: 70%;
   margin: 40px auto;
   height: 4px;
-  background: url('https://www.serenohotels.com/app/themes/_serenohotels/images/divider.png') no-repeat top center;
+  background: url("https://www.serenohotels.com/app/themes/_serenohotels/images/divider.png") no-repeat top center;
 }
 .ch1 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 45px;
   font-weight: 500;
   color: #604a3f;
@@ -63,7 +63,7 @@ video#videobg {
   line-height: 1.2;
 }
 .cp1 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.7;
@@ -74,7 +74,7 @@ video#videobg {
 }
 h1,
 h2 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   text-align: center;
   text-transform: uppercase;
 }
@@ -102,7 +102,7 @@ h1 {
   padding-top: 0;
   padding-bottom: 0;
   text-transform: none;
-  color: #604A3F;
+  color: #604a3f;
   margin-top: 10px;
   margin-bottom: 10px;
   width: auto;
@@ -125,7 +125,7 @@ h1 {
   }
 }
 article {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.7;
@@ -142,7 +142,7 @@ article em {
 }
 @media only screen and (min-width: 900px) {
   article {
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.7;
@@ -168,7 +168,14 @@ section {
   max-width: 56rem;
   margin: 0 auto;
 }
-#admin th.MuiTableCell-root {
-  font-weight: 800 !important;
+#admin .MuiTableCell-head {
+  font-weight: 900;
+}
+#admin .MuiTableRow-root:nth-of-type(odd) {
+  background-color: #f5f5f5;
+}
+#admin .MuiTableRow-root:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
 }
 /*# sourceMappingURL=custom.css.map */

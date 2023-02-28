@@ -33,7 +33,6 @@ const Admin = React.memo(function () {
     const [data, setData] = useState([]);
     const [selectedRow, setSelectedRow] = useState<any>(null);
     const [openEditDialog, setOpenEditDialog] = useState(false);
-    const classes = useStyles();
 
     const fetchData = async () => {
         try {
@@ -136,25 +135,28 @@ const Admin = React.memo(function () {
 
     if (data.length > 0) {
         return (
-            <>
-                <TableContainer component={Paper} id={"admin"}>
-                    <Table className={classes.table} aria-label="data table">
+            <div id={"admin"}>
+                <TableContainer component={Paper}>
+                    <Table aria-label="data table">
                         <TableHead>
                             <TableRow>
                                 {Object.keys(data[0]).map((key) => (
-                                    <TableCell key={key}>{key}</TableCell>
+                                    // Replace className prop
+                                    <TableCell key={key}>
+                                        {key}
+                                    </TableCell>
                                 ))}
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.map((row, index) => (
-                                <TableRow
-                                    key={index}
-                                    onClick={() => handleRowClick(row)}
-                                    style={{cursor: "pointer"}}
-                                >
-                                    {Object.values(row).map((value: any, index) => (
-                                        <TableCell key={index}>{value}</TableCell>
+                            {data.map((row: any) => (
+                                // Replace className prop
+                                <TableRow key={row.name} onClick={() => handleRowClick(row)}>
+                                    {Object.values(row).map((value: any) => (
+                                        // Replace className prop
+                                        <TableCell key={value}>
+                                            {value}
+                                        </TableCell>
                                     ))}
                                 </TableRow>
                             ))}
@@ -162,7 +164,7 @@ const Admin = React.memo(function () {
                     </Table>
                 </TableContainer>
                 <RenderEditDialog/>
-            </>
+            </div>
         );
     } else {
         return <div>No data available</div>;
