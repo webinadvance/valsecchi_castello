@@ -39,7 +39,7 @@ const Admin = React.memo(function () {
         <AiTable<Lang>
             data={data2}
             columns={[
-                {key: 'key', label: 'key', colspan: 1},
+                {key: 'key', label: 'key', colspan: 1, readonly: true},
                 {key: 'en', label: 'en', colspan: 2},
                 {key: 'it', label: 'it', colspan: 2},
             ]}

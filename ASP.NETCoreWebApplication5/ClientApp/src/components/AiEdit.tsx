@@ -28,6 +28,8 @@ interface DataTableProps<T> {
 
 interface Column<T> {
 
+    readonly?: boolean,
+
     colspan: number;
     key: keyof T;
     label: string;
@@ -62,8 +64,6 @@ export function AiTable<T extends object>({
 
     const handleFieldChange = (key: keyof T, value: any) => {
         if (editedData) {
-            /*            console.log(key);
-                        console.log(value);*/
             setEditedData((prevData: any) => ({
                 ...prevData,
                 [key]: value,
@@ -119,6 +119,9 @@ export function AiTable<T extends object>({
                         columns.map((col) => (
                             <div key={col.key as string}>
                                 <TextField
+                                    InputProps={{
+                                        readOnly: col.readonly,
+                                    }}
                                     multiline={true}
                                     label={col.label}
                                     value={editedData[col.key] as any}
@@ -127,14 +130,6 @@ export function AiTable<T extends object>({
                                     }
                                     fullWidth
                                     margin="normal"></TextField>
-                                {/* <ReactQuill
-                                    modules={{toolbar: false}}
-                                    formats={["plain"]}
-                                    value={editedData[col.key] as any}
-                                    onChange={(value) => {
-                                        handleFieldChange(col.key, value)
-                                    }}
-                                />*/}
                             </div>
                         ))}
                 </DialogContent>
