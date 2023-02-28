@@ -64,15 +64,6 @@ const Admin = React.memo(function () {
     const RenderEditDialog = React.memo(function () {
         const [value, setValue] = useState(selectedRow);
 
-        const useStyles = makeStyles({
-            customDialog: {
-                paddingTop: "1rem",
-                maxWidth: 'none', // set maxWidth to 'none' to allow custom width
-                '& .MuiDialog-paper': {
-                    width: '50vw', // set width to 50% of viewport width
-                },
-            },
-        });
         const theme = useTheme();
         const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -106,7 +97,6 @@ const Admin = React.memo(function () {
                         onChange={(content: any, delta, source, editor) => {
                             const text = editor.getText(content);
                             const modifiedText = text.replace(/\n/g, '<br/>').replace(/^(<br\/>)+|(<br\/>)+$/g, '').trim();
-                            console.log(modifiedText);
                         }}
                     />
                     <div className={"my-4"}/>
@@ -119,7 +109,6 @@ const Admin = React.memo(function () {
                         onChange={(content: any, delta, source, editor) => {
                             const text = editor.getText(content);
                             const modifiedText = text.replace(/\n/g, '<br/>').replace(/^(<br\/>)+|(<br\/>)+$/g, '').trim();
-                            console.log(modifiedText);
                         }}
                     />
                 </DialogContent>
@@ -141,7 +130,6 @@ const Admin = React.memo(function () {
                         <TableHead>
                             <TableRow>
                                 {Object.keys(data[0]).map((key) => (
-                                    // Replace className prop
                                     <TableCell key={key}>
                                         {key}
                                     </TableCell>
@@ -150,8 +138,7 @@ const Admin = React.memo(function () {
                         </TableHead>
                         <TableBody>
                             {data.map((row: any) => (
-                                // Replace className prop
-                                <TableRow key={row.name} onClick={() => handleRowClick(row)}>
+                                <TableRow key={row.key} onClick={() => handleRowClick(row)}>
                                     {Object.values(row).map((value: any) => (
                                         // Replace className prop
                                         <TableCell key={value}>
