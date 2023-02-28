@@ -41,11 +41,6 @@ const Admin = React.memo(function () {
         fetchData();
     }, []);
 
-    const handleRowClick = (rowData: any) => {
-        setSelectedRow(rowData);
-        setOpenEditDialog(true);
-    };
-
     const RenderEditDialog = React.memo(function () {
         const [value, setValue] = useState(selectedRow);
 
@@ -80,14 +75,14 @@ const Admin = React.memo(function () {
                         modules={{toolbar: false}}
                         formats={['plain']}
                         style={{height: '100px'}}
-                        value={value ? value.en : ""}
+                        value={value ? value.it : ""}
                         onChange={(content: any, delta, source, editor) => {
                             const text = editor.getText(content);
                             const modifiedText = text.replace(/\n/g, '<br/>').replace(/^(<br\/>)+|(<br\/>)+$/g, '').trim();
-                            if (modifiedText != value.en)
+                            if (modifiedText != value.it)
                                 setValue({
                                     ...value,
-                                    en: modifiedText,
+                                    it: modifiedText,
                                 })
                         }}
                     />
@@ -97,11 +92,11 @@ const Admin = React.memo(function () {
                         modules={{toolbar: false}}
                         formats={['plain']}
                         style={{height: '100px'}}
-                        value={value ? value.it : ""}
+                        value={value ? value.en : ""}
                         onChange={(content: any, delta, source, editor) => {
                             const text = editor.getText(content);
                             const modifiedText = text.replace(/\n/g, '<br/>').replace(/^(<br\/>)+|(<br\/>)+$/g, '').trim();
-                            if (modifiedText != value.it)
+                            if (modifiedText != value.en)
                                 setValue({
                                     ...value,
                                     en: modifiedText,
@@ -115,7 +110,13 @@ const Admin = React.memo(function () {
                         setOpenEditDialog(false);
                     }}>Cancel</Button>
                     <Button onClick={() => {
-                        setSelectedRow(value);
+                        const newState: any = dbData.map((item: any) => {
+                            if (item.key === value.key) {
+                                return value;
+                            }
+                            return item;
+                        });
+                        setDbData(newState);
                         setOpenEditDialog(false);
                     }} color="primary">
                         Save
@@ -141,7 +142,10 @@ const Admin = React.memo(function () {
                         </TableHead>
                         <TableBody>
                             {dbData.map((row: any) => (
-                                <TableRow key={row.key} onClick={() => handleRowClick(row)}>
+                                <TableRow key={row.key} onClick={() => {
+                                    setSelectedRow(row);
+                                    setOpenEditDialog(true);
+                                }}>
                                     {Object.values(row).map((value: any) => (
                                         // Replace className prop
                                         <TableCell key={value}>
