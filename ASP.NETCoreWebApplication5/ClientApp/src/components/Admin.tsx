@@ -38,7 +38,7 @@ const Admin = React.memo(function () {
                 return {key: "t_"} as Lang
             }}
             onDelete={async (row) => {
-                await Api.deleteadmin(row);
+                await Api.deleteadmin(row as Lang);
                 await loadData();
             }}
             columns={[
