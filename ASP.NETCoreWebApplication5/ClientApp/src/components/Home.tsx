@@ -24,24 +24,12 @@ export function Home() {
                     <div className="divider"/>
 
                     <article>
-                        {/*                    <Trans i18nKey="greeting" values={{name: "aaaa"}}/>*/}
-                        {t("welcome1")}
-                    </article>
-
-                    <div className="divider"/>
-
-                    <article>
-                        {t("welcome1")}
-                    </article>
-
-                    <div className="divider"/>
-
-                    <article>
-                        {t("welcome1")}
-                    </article>
-
-                    <article>
-                        {t("welcome10")}
+                        {[...Array(100)].filter((_, i) => t(`welcome${i + 1}`) !== `welcome${i + 1}`).map((_, i, arr) => (
+                            <Fragment key={i}>
+                                <div>{t(`welcome${i + 1}`)}</div>
+                                {i !== arr.length - 1 && <div className="divider"/>}
+                            </Fragment>
+                        ))}
                     </article>
 
                 </section>
