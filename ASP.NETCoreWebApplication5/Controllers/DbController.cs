@@ -66,8 +66,11 @@ public class DbController : ControllerBase
     [Route("saveadmin")]
     public async Task saveadmin([FromBody] lang newData)
     {
-        var oldData = await _dbContext.lang.SingleAsync(x => x.key == newData.key);
-        _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
+        var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == newData.key);
+        if (oldData == null)
+            _dbContext.lang.Add(newData);
+        else
+            _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
         await _dbContext.SaveChangesAsync();
     }
 }

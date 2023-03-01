@@ -18,12 +18,14 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
-import {Edit} from '@mui/icons-material';
+import {Add, Edit} from '@mui/icons-material';
 
 interface DataTableProps<T> {
     data: T[];
     columns: Column<T>[];
     onSave: (data: T) => void;
+
+    onNew: () => T;
 }
 
 interface Column<T> {
@@ -39,16 +41,17 @@ export function AiTable<T extends object>({
                                               data,
                                               columns,
                                               onSave,
+                                              onNew,
                                           }: DataTableProps<T>) {
     const [editDialogOpen, setEditDialogOpen] = React.useState(false);
     const [editedData, setEditedData] = React.useState<T | null>(null);
-
     const handleEditClick = (row: T) => {
         setEditedData(row);
         setEditDialogOpen(true);
     };
 
     const handleSaveClick = () => {
+        console.log(editedData);
         if (editedData) {
             onSave(editedData);
             setEditDialogOpen(false);
@@ -82,7 +85,11 @@ export function AiTable<T extends object>({
                             {columns.map((col: any) => (
                                 <TableCell colSpan={col.colspan} key={col.key}>{col.label}</TableCell>
                             ))}
-                            <TableCell colSpan={1} sx={{textAlign: "right"}}/>
+                            <TableCell colSpan={1} sx={{textAlign: "right"}}>
+                                <IconButton onClick={() => handleEditClick(onNew())}>
+                                    <Add/>
+                                </IconButton>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

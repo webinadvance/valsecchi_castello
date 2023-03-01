@@ -16,7 +16,9 @@ const Admin = React.memo(function () {
     };
 
     useEffect(() => {
-        loadData();
+        (async () => {
+            await loadData();
+        })();
     }, []);
 
     interface Lang {
@@ -34,13 +36,17 @@ const Admin = React.memo(function () {
             prevData.map((p) => (p.key === obj.key ? obj : p))
         );
         await Api.saveadmin(obj);
+        await loadData();
     };
 
     return (
         <AiTable<Lang>
             data={data2}
+            onNew={() => {
+                return {key: "t_"} as Lang
+            }}
             columns={[
-                {key: 'key', label: 'key', colspan: 1, readonly: true},
+                {key: 'key', label: 'key', colspan: 1, readonly: false},
                 {key: 'en', label: 'en', colspan: 2},
                 {key: 'it', label: 'it', colspan: 2},
             ]}
