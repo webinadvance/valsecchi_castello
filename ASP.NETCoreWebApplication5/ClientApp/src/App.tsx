@@ -2,11 +2,11 @@ import {useEffect, useState} from 'react';
 import {Route, Routes, useMatch} from 'react-router-dom';
 import {useCookies} from 'react-cookie';
 import {useDispatch, useSelector} from 'react-redux';
-import i18n from 'i18next';
 import {makeStyles} from '@mui/styles';
-import {Fab, Zoom} from '@mui/material';
+import {Fab, Theme, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import {Theme} from '@mui/material/styles';
+
+import i18n from 'i18next';
 
 import './custom.css';
 
