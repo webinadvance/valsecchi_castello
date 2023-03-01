@@ -63,6 +63,18 @@ public class DbController : ControllerBase
     }
 
     [HttpPost]
+    [Route("deleteadmin")]
+    public async Task deleteadmin([FromBody] lang dataToDelete)
+    {
+        var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == dataToDelete.key);
+        if (oldData != null)
+        {
+            _dbContext.lang.Remove(oldData);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+
+    [HttpPost]
     [Route("saveadmin")]
     public async Task saveadmin([FromBody] lang newData)
     {

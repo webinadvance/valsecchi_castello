@@ -31,26 +31,28 @@ const Admin = React.memo(function () {
 
     const [data2, setData2] = React.useState(initialData);
 
-    const handleSave = async (obj: Lang) => {
-        setData2((prevData) =>
-            prevData.map((p) => (p.key === obj.key ? obj : p))
-        );
-        await Api.saveadmin(obj);
-        await loadData();
-    };
-
     return (
         <AiTable<Lang>
             data={data2}
             onNew={() => {
                 return {key: "t_"} as Lang
             }}
+            onDelete={async (row) => {
+                await Api.deleteadmin(row);
+                await loadData();
+            }}
             columns={[
                 {key: 'key', label: 'key', colspan: 1, readonly: false},
                 {key: 'en', label: 'en', colspan: 2},
                 {key: 'it', label: 'it', colspan: 2},
             ]}
-            onSave={handleSave}
+            onSave={async (obj: Lang) => {
+                setData2((prevData) =>
+                    prevData.map((p) => (p.key === obj.key ? obj : p))
+                );
+                await Api.saveadmin(obj);
+                await loadData();
+            }}
         />
     );
 })

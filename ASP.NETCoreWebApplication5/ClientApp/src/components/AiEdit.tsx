@@ -18,7 +18,7 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
-import {Add, Edit} from '@mui/icons-material';
+import {Add, Delete, Edit} from '@mui/icons-material';
 
 interface DataTableProps<T> {
     data: T[];
@@ -26,6 +26,8 @@ interface DataTableProps<T> {
     onSave: (data: T) => void;
 
     onNew: () => T;
+
+    onDelete: (data: T | null) => void;
 }
 
 interface Column<T> {
@@ -42,14 +44,11 @@ export function AiTable<T extends object>({
                                               columns,
                                               onSave,
                                               onNew,
+                                              onDelete,
                                           }: DataTableProps<T>) {
     const [editDialogOpen, setEditDialogOpen] = React.useState(false);
     const [editedData, setEditedData] = React.useState<T | null>(null);
-    const handleEditClick = (row: T) => {
-        setEditedData(row);
-        setEditDialogOpen(true);
-    };
-
+    const [deleteData, setDeleteData] = React.useState<T | null>(null);
     const handleSaveClick = () => {
         console.log(editedData);
         if (editedData) {
@@ -76,8 +75,42 @@ export function AiTable<T extends object>({
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
+    const handleEditClick = (row: T) => {
+        setEditedData(row);
+        setEditDialogOpen(true);
+    };
+
+    interface Props {
+        open: boolean;
+        handleClose: () => void;
+        handleConfirm: () => void;
+    }
+
+    const ConfirmDialog: React.FC<Props> = ({open, handleClose, handleConfirm}) => {
+        return (
+            <Dialog fullWidth={true} fullScreen={fullScreen} open={open} onClose={handleClose}>
+                <DialogTitle>Delete Item</DialogTitle>
+                <DialogContent>Confermi l'eliminazione?</DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleConfirm} variant="contained" color="error">
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    };
+
     return (
         <React.Fragment>
+            <ConfirmDialog open={deleteData != null}
+                           handleConfirm={() => {
+                               onDelete(deleteData);
+                               setDeleteData(null);
+                           }}
+                           handleClose={() => {
+                               setDeleteData(null);
+                           }}/>
             <TableContainer component={Paper}>
                 <Table style={{tableLayout: "fixed"}}>
                     <TableHead>
@@ -107,6 +140,9 @@ export function AiTable<T extends object>({
                                 <TableCell colSpan={1} sx={{textAlign: "right"}}>
                                     <IconButton onClick={() => handleEditClick(row)}>
                                         <Edit/>
+                                    </IconButton>
+                                    <IconButton onClick={() => setDeleteData(row)}>
+                                        <Delete/>
                                     </IconButton>
                                 </TableCell>
                             </TableRow>

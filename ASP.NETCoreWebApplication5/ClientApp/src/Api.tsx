@@ -31,6 +31,10 @@ class Api {
         return await Api.postData('/api/db/saveadmin', data);
     }
 
+    static async deleteadmin(data: object) {
+        return await Api.postData('/api/db/deleteadmin', data);
+    }
+
     static async langAll() {
         return await Api.getData('/api/db/all');
     }
