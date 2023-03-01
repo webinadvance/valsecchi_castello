@@ -14,6 +14,23 @@ class Api {
         }
     }
 
+    static async postData(endpoint: string, data: object): Promise<any> {
+        try {
+            const response = await axios.post(endpoint, data, {withCredentials: true});
+            return response.data;
+        } catch (error: any) {
+            if (axios.isAxiosError(error)) {
+                return null;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    static async saveadmin(data: object) {
+        return await Api.postData('/api/db/saveadmin', data);
+    }
+
     static async langAll() {
         return await Api.getData('/api/db/all');
     }

@@ -40,6 +40,10 @@ export function Home() {
                         {t("welcome1")}
                     </article>
 
+                    <article>
+                        {t("welcome10")}
+                    </article>
+
                 </section>
 
                 <Services/>

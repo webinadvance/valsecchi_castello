@@ -29,10 +29,11 @@ const Admin = React.memo(function () {
 
     const [data2, setData2] = React.useState(initialData);
 
-    const handleSave = (person: Lang) => {
+    const handleSave = async (obj: Lang) => {
         setData2((prevData) =>
-            prevData.map((p) => (p.key === person.key ? person : p))
+            prevData.map((p) => (p.key === obj.key ? obj : p))
         );
+        await Api.saveadmin(obj);
     };
 
     return (

@@ -50,7 +50,6 @@ export function AiTable<T extends object>({
 
     const handleSaveClick = () => {
         if (editedData) {
-            console.log(editedData);
             onSave(editedData);
             setEditDialogOpen(false);
             setEditedData(null);

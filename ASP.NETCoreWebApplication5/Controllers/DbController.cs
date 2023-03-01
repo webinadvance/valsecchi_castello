@@ -61,4 +61,13 @@ public class DbController : ControllerBase
             await System.IO.File.WriteAllTextAsync(rootDirectory, json);
         }
     }
+
+    [HttpPost]
+    [Route("saveadmin")]
+    public async Task saveadmin([FromBody] lang newData)
+    {
+        var oldData = await _dbContext.lang.SingleAsync(x => x.key == newData.key);
+        _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
+        await _dbContext.SaveChangesAsync();
+    }
 }
