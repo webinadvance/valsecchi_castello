@@ -1,28 +1,33 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Route, Routes, useMatch} from 'react-router-dom';
-import './custom.css';
-import Footer from "./components/Footer";
-import {routes} from "./Globals";
 import {useCookies} from 'react-cookie';
-import i18n from "i18next";
-import {Header} from "./components/Header";
+import {useDispatch, useSelector} from 'react-redux';
+import i18n from 'i18next';
 import {makeStyles} from '@mui/styles';
 import {Fab, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Admin from "./components/Admin";
-import Loader from "./components/Loader";
-import Api from "./Api";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "./Store";
-import {user} from "./dataSlice";
-import Home from "./components/Home";
+import {Theme} from '@mui/material/styles';
+
+import './custom.css';
+
+import {routes} from './Globals';
+import Api from './Api';
+import {RootState} from './Store';
+import {user} from './dataSlice';
+
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Admin from './components/Admin';
+import Home from './components/Home';
+import Loader from './components/Loader';
 
 export default function App() {
-
     const [cookies, setCookie] = useCookies(['preferredLanguage']);
-    const [preferredLanguage] = useState<string>(cookies.preferredLanguage || 'en');
+    const [preferredLanguage, setPreferredLanguage] = useState(
+        cookies.preferredLanguage || 'en'
+    );
 
-    const useStyles = makeStyles((theme: any) => ({
+    const useStyles = makeStyles((theme: Theme) => ({
         root: {
             position: 'fixed',
             bottom: theme.spacing(2),
@@ -36,64 +41,48 @@ export default function App() {
             },
         },
     }));
-
-    useEffect(() => {
-        setCookie('preferredLanguage', preferredLanguage, {path: '/'});
-        i18n.changeLanguage(preferredLanguage);
-        /*       (async () => {
-                   await i18n.reloadResources();
-               })();*/
-    }, [preferredLanguage, setCookie]);
-
     const classes = useStyles();
+
     const [showButton, setShowButton] = useState(false);
     const handleClick = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
     };
-
     const handleScroll = () => {
-        if (window.scrollY > 1) {
-            setShowButton(true);
-        } else {
-            setShowButton(false);
-        }
+        setShowButton(window.scrollY > 1);
     };
 
-    const dispatch = useDispatch();
-    const d_user = useSelector((state: RootState) => state.data.user);
-
     useEffect(() => {
+        setCookie('preferredLanguage', preferredLanguage, {path: '/'});
+        i18n.changeLanguage(preferredLanguage);
+    }, [preferredLanguage, setCookie]);
 
-        (async () => {
+    const dispatch = useDispatch();
+    const userState = useSelector((state: RootState) => state.data.user);
+    useEffect(() => {
+        const getUser = async () => {
             const res = await Api.user();
             dispatch(user(res));
-        })();
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+        getUser();
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [dispatch]);
 
-    const match = useMatch("/admin");
+    const isMatch = useMatch('/admin');
+    const header = !isMatch && <Header/>;
+    const footer = !isMatch && <Footer/>;
 
     return (
-        <Fragment>
-
-            {!match && <Header/>}
-
+        <>
+            {header}
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                {routes.map((x, i) => {
-                    return (
-                        <Route key={i} path={x.key} element={x.element}/>
-                    )
-                })}
-                <Route path={"/admin"} element={<Admin/>}/>
+                {routes.map(({key, element}, i) => (
+                    <Route key={i} path={key} element={element}/>
+                ))}
+                <Route path="/admin" element={<Admin/>}/>
             </Routes>
-
-            {!match && <Footer/>}
-
+            {footer}
             <Zoom in={showButton}>
                 <div onClick={handleClick} role="presentation" className={classes.root}>
                     <Fab className={classes.button} size="small">
@@ -101,12 +90,9 @@ export default function App() {
                     </Fab>
                 </div>
             </Zoom>
-
             <Loader/>
-
-        </Fragment>
-
+        </>
     );
 }
 
-App.displayName = App.name
+App.displayName = App.name;
