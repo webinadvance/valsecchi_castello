@@ -49,12 +49,14 @@ export function AiTable<T extends object>({
     const [editDialogOpen, setEditDialogOpen] = React.useState(false);
     const [editedData, setEditedData] = React.useState<T | null>(null);
     const [deleteData, setDeleteData] = React.useState<T | null>(null);
-    const handleSaveClick = () => {
-        console.log(editedData);
+    const handleSaveClick = async () => {
         if (editedData) {
-            onSave(editedData);
-            setEditDialogOpen(false);
-            setEditedData(null);
+            try {
+                await onSave(editedData);
+                setEditDialogOpen(false);
+                setEditedData(null);
+            } catch (e) {
+            }
         }
     };
 
@@ -104,8 +106,8 @@ export function AiTable<T extends object>({
     return (
         <React.Fragment>
             <ConfirmDialog open={deleteData != null}
-                           handleConfirm={() => {
-                               onDelete(deleteData);
+                           handleConfirm={async () => {
+                               await onDelete(deleteData);
                                setDeleteData(null);
                            }}
                            handleClose={() => {

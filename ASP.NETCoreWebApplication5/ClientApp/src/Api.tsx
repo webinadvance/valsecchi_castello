@@ -16,14 +16,26 @@ class Api {
 
     static async postData(endpoint: string, data: object): Promise<any> {
         try {
-            const response = await axios.post(endpoint, data, {withCredentials: true});
-            return response.data;
-        } catch (error: any) {
-            if (axios.isAxiosError(error)) {
-                return null;
-            } else {
+            try {
+                const response = await axios.post(endpoint, data, {withCredentials: true});
+                return response.data;
+            } catch (error: any) {
+                if (error.response) {
+                    console.error(error.response.data);
+                    alert(JSON.stringify(error.response.data.errors));
+                    throw (error);
+                } else if (error.request) {
+                    console.error(error.request);
+                    throw (error);
+                } else {
+                    console.error('Error', error.message);
+                    throw (error);
+                }
                 return null;
             }
+        } catch (e) {
+            console.log(e);
+            throw (e);
         }
     }
 
@@ -35,8 +47,8 @@ class Api {
         return await Api.postData('/api/db/deleteadmin', data);
     }
 
-    static async langAll() {
-        return await Api.getData('/api/db/all');
+    static async langall() {
+        return await Api.getData('/api/db/langall');
     }
 
     static async user() {

@@ -7,7 +7,7 @@ public partial class lang
 {
     public string key { get; set; } = null!;
 
-    public string? it { get; set; }
+    public string it { get; set; } = null!;
 
-    public string? en { get; set; }
+    public string en { get; set; } = null!;
 }

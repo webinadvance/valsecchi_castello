@@ -20,10 +20,12 @@ public class DbController : ControllerBase
     }
 
     [HttpGet]
-    [Route("all")]
-    public async Task<List<lang>> Get()
+    [Route("langall")]
+    public async Task<List<lang>> langall()
     {
-        return await _dbContext.lang.ToListAsync();
+        return await _dbContext.lang
+            .OrderBy(x => x.key)
+            .ToListAsync();
     }
 
     [HttpGet]

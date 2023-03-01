@@ -7,7 +7,7 @@ import {AiTable} from "./AiEdit";
 const Admin = React.memo(function () {
     const loadData = async () => {
         try {
-            const response = await Api.langAll();
+            const response = await Api.langall();
             const json = response;
             setData2(json);
         } catch (error) {
@@ -35,7 +35,7 @@ const Admin = React.memo(function () {
         <AiTable<Lang>
             data={data2}
             onNew={() => {
-                return {key: "t_"} as Lang
+                return {key: ""} as Lang
             }}
             onDelete={async (row) => {
                 await Api.deleteadmin(row as Lang);
