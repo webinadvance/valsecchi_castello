@@ -129,7 +129,8 @@ export function AiTable<T extends object>({
                                         handleFieldChange(col.key, e.target.value)
                                     }
                                     fullWidth
-                                    margin="normal"></TextField>
+                                    margin="normal">
+                                </TextField>
                             </div>
                         ))}
                 </DialogContent>
