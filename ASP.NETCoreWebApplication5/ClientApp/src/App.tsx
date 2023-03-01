@@ -1,7 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Route, Routes, useMatch} from 'react-router-dom';
 import './custom.css';
-import {Home} from "./components/Home";
 import Footer from "./components/Footer";
 import {routes} from "./Globals";
 import {useCookies} from 'react-cookie';
@@ -16,6 +15,7 @@ import Api from "./Api";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./Store";
 import {user} from "./dataSlice";
+import Home from "./components/Home";
 
 export default function App() {
 
