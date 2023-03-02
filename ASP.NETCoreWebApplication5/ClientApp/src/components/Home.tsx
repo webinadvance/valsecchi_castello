@@ -14,7 +14,7 @@ const Home = () => {
             <div className="text-center m-auto">
                 <section>
                     <div id="welcome" className="ch1 uppercase mt-6 text-center m-auto pt-8">
-                        "the most luxurious villa on lake como"
+                        «{t("home1")}»
                     </div>
                     <div className="divider"/>
                     <article>

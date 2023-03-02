@@ -86,5 +86,6 @@ public class DbController : ControllerBase
         else
             _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
         await _dbContext.SaveChangesAsync();
+        await synclocales();
     }
 }
