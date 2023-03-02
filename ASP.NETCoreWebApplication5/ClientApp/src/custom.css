@@ -178,4 +178,13 @@ section {
   background-color: #e0e0e0;
   cursor: pointer;
 }
+#navbarmenu {
+  display: flex;
+  align-self: flex-end;
+}
+@media only screen and (max-width: 1024px) {
+  #navbarmenu {
+    display: none;
+  }
+}
 /*# sourceMappingURL=custom.css.map */

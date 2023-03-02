@@ -7,6 +7,8 @@
 @h-text-align: center;
 @h-text-transform: uppercase;
 
+@mobile: ~"only screen and (max-width: 1024px)";
+
 body {
   font-family: @font-family;
 }
@@ -216,6 +218,16 @@ section {
       background-color: #e0e0e0;
       cursor: pointer;
     }
+  }
+
+}
+
+#navbarmenu {
+  display: flex;
+  align-self: flex-end;
+
+  @media @mobile {
+    display: none;
   }
 
 }

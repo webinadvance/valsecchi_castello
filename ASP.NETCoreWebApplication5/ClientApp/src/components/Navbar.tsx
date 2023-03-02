@@ -72,7 +72,7 @@ function Navbar() {
                                 alt="Workflow"
                             />
                         </div>
-                        <div className="bg-black/[0] hidden lg:block align-self-end">
+                        <div className="bg-black/[0] hidden lg:block" id={"navbarmenu"}>
                             <div className="flex items-baseline">
                                 {routes.map((x, i) => {
                                     return (<a key={i} href={x.key}
