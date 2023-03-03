@@ -13,8 +13,7 @@ const Header = () => {
         console.log(location);
         const matchingRoute = routes.find((route) => route.key.startsWith(location.pathname));
         switch (true) {
-            case location.pathname.startsWith('/home'):
-            case location.pathname === '/':
+            case matchingRoute?.type == "video":
                 return <video
                     className="videobg"
                     autoPlay
@@ -24,14 +23,14 @@ const Header = () => {
                     preload="metadata"
                 >
                     <source
-                        src="https://s3.amazonaws.com/uploads.serenohotels.com/app/uploads/2016/08/09220547/Villa-Pliniana-Descriptivo-v3_low.mp4"
+                        src={matchingRoute?.media}
                         type="video/mp4"
                     />
                 </video>;
-            case location.pathname.startsWith('/gallery'):
+            case matchingRoute?.type == "img":
                 return <Box
                     sx={{
-                        backgroundImage: `url(${matchingRoute?.backgroundImage})`,
+                        backgroundImage: `url(${matchingRoute?.media})`,
                         position: 'relative',
                         zIndex: 2,
                         transition: '1s opacity',
