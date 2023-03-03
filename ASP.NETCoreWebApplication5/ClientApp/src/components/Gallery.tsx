@@ -30,7 +30,7 @@ interface Props {
     images: string[];
 }
 
-export default function PhotoGallery(props: Props) {
+const PhotoGallery = (props: Props) => {
     const [open, setOpen] = React.useState(false);
     const [selectedImage, setSelectedImage] = React.useState('');
     const isMobile = useMediaQuery('(max-width:600px)');
@@ -79,4 +79,5 @@ export default function PhotoGallery(props: Props) {
             </Dialog>
         </Box>
     );
-}
+};
+export default PhotoGallery
