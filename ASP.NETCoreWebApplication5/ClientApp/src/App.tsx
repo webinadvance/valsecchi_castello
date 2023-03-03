@@ -57,6 +57,12 @@ const App: FC<IProps> = memo(() => {
     }, []);
 
     useEffect(() => {
+        const loadRoutes = async () => {
+            const response = await fetch('/data/routes.json');
+            const data = await response.json();
+            console.log(data);
+        };
+        loadRoutes();
         setCookie('preferredLanguage', language, {path: '/'});
         i18n.changeLanguage(language);
     }, [language, setCookie]);
