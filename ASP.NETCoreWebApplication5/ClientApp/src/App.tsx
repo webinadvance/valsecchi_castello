@@ -5,13 +5,10 @@ import {createStyles, makeStyles} from '@mui/styles';
 import {Fab, Theme, Zoom} from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {Route, Routes, useMatch} from 'react-router-dom';
-import useAsyncEffect from 'use-async-effect';
 import i18n from 'i18next';
 
 import './custom.css';
-
-import Api from './Api';
-import {routes, user} from './dataSlice';
+import {routes} from './dataSlice';
 import {RootState} from "./Store";
 
 const Admin = lazy(() => import('./components/Admin'));
@@ -56,34 +53,41 @@ const App: FC<IProps> = memo(() => {
         setShowScrollButton(window.scrollY > 1);
     }, []);
 
-    useAsyncEffect(
-        async () => {
+    useEffect(() => {
+        (async () => {
             const response = await fetch('./data/routes.json');
             const data = await response.json();
+            console.log(data);
             dispatch(routes(data));
-        },
-        []
-    );
+        })();
+    }, []);
 
     useEffect(() => {
         setCookie('preferredLanguage', language, {path: '/'});
         i18n.changeLanguage(language);
     }, [language, setCookie]);
 
-    useAsyncEffect(
-        async () => {
-            const response = await Api.user();
-            dispatch(user(response));
-            window.addEventListener('scroll', handleScroll);
-            return () => window.removeEventListener('scroll', handleScroll);
-        },
-        [dispatch]
-    );
+    /* useAsyncEffect(
+         async () => {
+             const response = await Api.user();
+             dispatch(user(response));
+             window.addEventListener('scroll', handleScroll);
+             return () => window.removeEventListener('scroll', handleScroll);
+         },
+         [dispatch]
+     );*/
 
     const header = useMemo(() => !isAdminPage && <Header/>, [isAdminPage]);
     const footer = useMemo(() => !isAdminPage && <Footer/>, [isAdminPage]);
 
-    const Home = lazy(() => import('./components/Home'));
+    const componentCache: any = {};
+
+    function getLazyComponent(name: any) {
+        if (!componentCache[name]) {
+            componentCache[name] = lazy(() => import(`./components/${name}`));
+        }
+        return componentCache[name];
+    }
 
     return (
         <>
@@ -93,8 +97,8 @@ const App: FC<IProps> = memo(() => {
                     {state.routes.map((route: any, index: any) => (
                         <Route
                             key={index}
-                            path={route.key}
-                            element={<Home/>}
+                            path={`/${route.element}`}
+                            element={React.createElement(getLazyComponent(route.element))}
                         />
                     ))}
                     <Route path="/admin" element={<Admin/>}/>
