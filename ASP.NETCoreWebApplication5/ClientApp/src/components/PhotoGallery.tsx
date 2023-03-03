@@ -26,6 +26,32 @@ const CloseButton = styled(IconButton)({
     right: 0,
 });
 
+const Overline = styled(Box)({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    opacity: 0,
+    transition: 'opacity 0.2s ease-in-out',
+    '&:hover': {
+        opacity: 1,
+    },
+    '& span': {
+        fontSize: '1.2rem',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1rem',
+        textAlign: 'center',
+    },
+});
+
+
 interface Props {
     images: string[];
 }
@@ -33,7 +59,7 @@ interface Props {
 const PhotoGallery = (props: Props) => {
     const [open, setOpen] = React.useState(false);
     const [selectedImage, setSelectedImage] = React.useState('');
-    const isMobile = useMediaQuery('(max-width:600px)');
+    const isMobile = useMediaQuery('(max-width:1024px)');
 
     const handleClickOpen = (image: string) => {
         setSelectedImage(image);
@@ -54,14 +80,28 @@ const PhotoGallery = (props: Props) => {
                             sx={{
                                 width: '100%',
                                 height: 0,
-                                paddingBottom: '100%',
-                                background: `url(${image}) no-repeat center center`,
+                                paddingBottom: '70%',
+                                position: 'relative',
                                 cursor: 'pointer',
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
                             }}
                             onClick={() => handleClickOpen(image)}
-                        />
+                        >
+                            <img
+                                src={image}
+                                alt=""
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                }}
+                            />
+                            <Overline>
+                                <span>{"click here to full size image"}</span>
+                            </Overline>
+                        </Box>
                     </ImageListItem>
                 ))}
             </ImageList>
@@ -80,4 +120,5 @@ const PhotoGallery = (props: Props) => {
         </Box>
     );
 };
-export default PhotoGallery
+
+export default PhotoGallery;
