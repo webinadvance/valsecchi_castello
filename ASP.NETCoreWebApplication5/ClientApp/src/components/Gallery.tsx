@@ -1,65 +1,82 @@
-﻿import React, {useState} from "react";
+﻿import * as React from 'react';
+import {styled} from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import Dialog from '@mui/material/Dialog';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
-interface Image {
-    src: string;
+const PreviewContainer = styled(Box)({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    '& img': {
+        objectFit: 'contain',
+        maxHeight: '100%',
+        maxWidth: '100%',
+    },
+});
+
+const CloseButton = styled(IconButton)({
+    position: 'absolute',
+    top: 0,
+    right: 0,
+});
+
+interface Props {
+    images: string[];
 }
 
-interface ImageModalProps {
-    image: Image;
-    onClose: () => void;
-}
+export default function PhotoGallery(props: Props) {
+    const [open, setOpen] = React.useState(false);
+    const [selectedImage, setSelectedImage] = React.useState('');
+    const isMobile = useMediaQuery('(max-width:600px)');
 
-const ImageModal: React.FC<ImageModalProps> = ({image, onClose}) => {
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div
-                className="absolute inset-0 bg-gray-900 opacity-50 cursor-pointer"
-                onClick={onClose}
-            ></div>
-            <div className="relative">
-                <img src={image.src}/>
-                <button
-                    className="absolute top-0 right-0 m-4 p-2 text-white bg-gray-900 rounded-full cursor-pointer"
-                    onClick={onClose}
-                >
-                    X
-                </button>
-            </div>
-        </div>
-    );
-};
-
-interface GalleryProps {
-    images: Image[];
-}
-
-export const Gallery: React.FC<GalleryProps> = ({images}) => {
-    const [selectedImage, setSelectedImage] = useState<Image | null>(null);
-
-    const handleImageClick = (image: Image) => {
+    const handleClickOpen = (image: string) => {
         setSelectedImage(image);
+        setOpen(true);
     };
 
-    const handleModalClose = () => {
-        setSelectedImage(null);
+    const handleClose = () => {
+        setSelectedImage('');
+        setOpen(false);
     };
 
     return (
-        <div className={"max-w-4xl text-center m-auto"}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {images.map((image, i) => (
-                    <div key={i}>
-                        <div
-                            className="relative overflow-hidden bg-no-repeat bg-center bg-cover cursor-pointer w-full transition-transform duration-300 transform hover:scale-110"
-                            style={{backgroundImage: `url(${image.src})`, height: "0", paddingBottom: "100%"}}
-                            onClick={() => handleImageClick(image)}
+        <Box>
+            <ImageList variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
+                {props.images.map((image) => (
+                    <ImageListItem key={image}>
+                        <Box
+                            sx={{
+                                width: '100%',
+                                height: 0,
+                                paddingBottom: '100%',
+                                background: `url(${image}) no-repeat center center`,
+                                cursor: 'pointer',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}
+                            onClick={() => handleClickOpen(image)}
                         />
-                    </div>
+                    </ImageListItem>
                 ))}
-            </div>
-            {selectedImage && (
-                <ImageModal image={selectedImage} onClose={handleModalClose}/>
-            )}
-        </div>
+            </ImageList>
+            <Dialog fullScreen open={open} onClose={handleClose}>
+                <PreviewContainer>
+                    {selectedImage && (
+                        <>
+                            <CloseButton onClick={handleClose}>
+                                <CloseIcon/>
+                            </CloseButton>
+                            <img src={selectedImage} alt="Selected"/>
+                        </>
+                    )}
+                </PreviewContainer>
+            </Dialog>
+        </Box>
     );
-};
+}

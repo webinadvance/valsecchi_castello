@@ -1,5 +1,4 @@
 ﻿import React from "react";
-import {Gallery} from "./Gallery";
 
 export const Facilities = () => {
     return (
@@ -22,15 +21,15 @@ export const Facilities = () => {
                     with comfortable locker rooms.
                 </article>
 
-                <Gallery
+                {/*               <Gallery
                     images={[
                         {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                         {src: "https://picsum.photos/1024/500?random=" + Math.random() + ""},
                         {src: "https://picsum.photos/2024/860?random=" + Math.random() + ""},
-                    ]}/>
-                
+                    ]}/>*/}
+
                 <br/>
-                
+
                 <h2>
                     the rooms
                 </h2>
@@ -46,14 +45,14 @@ export const Facilities = () => {
                     with comfortable locker rooms.
                 </article>
 
-                <div className={"mb-6"}>
+                {/*  <div className={"mb-6"}>
                     <Gallery
                         images={[
                             {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                             {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                             {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                         ]}/>
-                </div>
+                </div>*/}
             </section>
         </>
     );

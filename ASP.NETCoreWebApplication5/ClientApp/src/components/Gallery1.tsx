@@ -1,40 +1,29 @@
 ﻿import React from "react";
-import {Gallery} from "./Gallery";
+import PhotoGallery from "./Gallery";
 
 export const Gallery1 = () => {
+
+    const images = [
+        "https://picsum.photos/1024/860?random=" + Math.random() + "",
+        "https://picsum.photos/1024/2000?random=" + Math.random() + "",
+        "https://picsum.photos/2000/860?random=" + Math.random() + "",
+        "https://picsum.photos/1024/860?random=" + Math.random() + "",
+        "https://picsum.photos/1024/860?random=" + Math.random() + "",
+        "https://picsum.photos/1024/400?random=" + Math.random() + "",
+    ];
+
     return (
         <>
             <h2 className={""}>
                 the villa
             </h2>
-            
-            <Gallery
-                images={[
-                    {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                    {src: "https://picsum.photos/1024/500?random=" + Math.random() + ""},
-                    {src: "https://picsum.photos/2024/860?random=" + Math.random() + ""},
-                    {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                    {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                    {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                    {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                ]}/>
-            
+
+            <PhotoGallery images={images}/>;
+
             <h2 className={""}>
                 the rooms
             </h2>
 
-            <div className={"mb-6"}>
-                <Gallery
-                    images={[
-                        {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                        {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                        {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                        {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                        {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                        {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                        {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
-                    ]}/>
-            </div>
         </>
     );
 }
