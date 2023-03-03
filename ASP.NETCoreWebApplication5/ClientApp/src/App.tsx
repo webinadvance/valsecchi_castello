@@ -1,5 +1,5 @@
-import {FC, lazy, memo, Suspense, useCallback, useEffect, useMemo, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {FC, lazy, memo, Suspense, useCallback, useEffect, useMemo, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {useCookies} from 'react-cookie';
 import {createStyles, makeStyles} from '@mui/styles';
 import {Fab, Theme, Zoom} from '@mui/material';
@@ -11,13 +11,12 @@ import i18n from 'i18next';
 import './custom.css';
 
 import Api from './Api';
-import {routes} from './Globals';
-import {user} from './dataSlice';
+import {routes, user} from './dataSlice';
+import {RootState} from "./Store";
 
 const Admin = lazy(() => import('./components/Admin'));
 const Footer = lazy(() => import('./components/Footer'));
 const Header = lazy(() => import('./components/Header'));
-const Home = lazy(() => import('./components/Home'));
 const Loader = lazy(() => import('./components/Loader'));
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -47,6 +46,7 @@ const App: FC<IProps> = memo(() => {
     const dispatch = useDispatch();
     const isAdminPage = useMatch('/admin');
     const classes = useStyles();
+    const state = useSelector((state: RootState) => state.data);
 
     const scrollToTop = useCallback(() => {
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -56,13 +56,16 @@ const App: FC<IProps> = memo(() => {
         setShowScrollButton(window.scrollY > 1);
     }, []);
 
-    useEffect(() => {
-        const loadRoutes = async () => {
-            const response = await fetch('/data/routes.json');
+    useAsyncEffect(
+        async () => {
+            const response = await fetch('./data/routes.json');
             const data = await response.json();
-            console.log(data);
-        };
-        loadRoutes();
+            dispatch(routes(data));
+        },
+        []
+    );
+
+    useEffect(() => {
         setCookie('preferredLanguage', language, {path: '/'});
         i18n.changeLanguage(language);
     }, [language, setCookie]);
@@ -80,14 +83,19 @@ const App: FC<IProps> = memo(() => {
     const header = useMemo(() => !isAdminPage && <Header/>, [isAdminPage]);
     const footer = useMemo(() => !isAdminPage && <Footer/>, [isAdminPage]);
 
+    const Home = lazy(() => import('./components/Home'));
+
     return (
         <>
             <Suspense fallback={<div>Loading...</div>}>
                 {header}
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    {routes.map(({key, element}, index) => (
-                        <Route key={index} path={key} element={element}/>
+                    {state.routes.map((route: any, index: any) => (
+                        <Route
+                            key={index}
+                            path={route.key}
+                            element={<Home/>}
+                        />
                     ))}
                     <Route path="/admin" element={<Admin/>}/>
                 </Routes>

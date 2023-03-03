@@ -1,15 +1,16 @@
 ﻿import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faChevronRight} from '@fortawesome/free-solid-svg-icons'
-import {routes} from "../Globals";
 import {makeStyles} from '@mui/styles';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {RootState} from "../Store";
+import {ListItem} from "@mui/material";
 
 function Navbar() {
 
@@ -57,6 +58,7 @@ function Navbar() {
     const classes = useStyles();
     const {t} = useTranslation();
     const navigate = useNavigate();
+    const state = useSelector((state: RootState) => state.data);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -74,7 +76,7 @@ function Navbar() {
                         </div>
                         <div className="bg-black/[0] hidden lg:block" id={"navbarmenu"}>
                             <div className="flex items-baseline">
-                                {routes.map((x, i) => {
+                                {state.routes.map((x: any, i: any) => {
                                     return (<a key={i} href={x.key}
                                                className="hover:border-b-white border-b-2 border-transparent hover:text-white px-3 py-2 text-sm font-bold text-white">
                                         {t(x.title)}
@@ -99,7 +101,7 @@ function Navbar() {
                     </div>
                     <div className={classes.list} role="presentation">
                         <List>
-                            {routes.map((x, i) => {
+                            {state.routes.map((x: any, i: any) => {
                                 return (<ListItem className={""} key={i} button onClick={() => {
                                 }}>
                                     <ListItemIcon>
@@ -119,7 +121,7 @@ function Navbar() {
                 </Drawer>
             </nav>
         </div>
-    );
+    )
 }
 
 export default Navbar;

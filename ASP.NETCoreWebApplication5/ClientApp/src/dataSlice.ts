@@ -3,14 +3,15 @@
 interface CounterState {
     value: number;
     loading: boolean,
-
     user: any,
+    routes: any,
 }
 
 const initialState: CounterState = {
     value: 0,
     loading: false,
-    user: null
+    user: null,
+    routes: []
 };
 
 const dataSlice = createSlice({
@@ -32,9 +33,12 @@ const dataSlice = createSlice({
         user(state, action: { payload: any }) {
             state.user = action.payload;
         },
+        routes(state, action: { payload: any }) {
+            state.routes = action.payload;
+        },
     },
 });
 
-export const {increment, decrement, incrementByAmount, loading, user} = dataSlice.actions;
+export const {increment, decrement, incrementByAmount, loading, user, routes} = dataSlice.actions;
 
 export default dataSlice.reducer;

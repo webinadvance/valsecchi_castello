@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFacebookF, faInstagram, faTwitter} from '@fortawesome/free-brands-svg-icons';
-import {routes} from "../Globals";
 import LanguageSwitcher from "./LanguageSwitcher";
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from "../Store";
@@ -9,8 +8,8 @@ import {increment} from "../dataSlice";
 
 const Footer = () => {
 
-    const count = useSelector((state: RootState) => state.data.value);
     const dispatch = useDispatch();
+    const state = useSelector((state: RootState) => state.data);
 
     return (
         <div className="text-center bg-gray-900 text-gray-300 pt-10">
@@ -29,7 +28,7 @@ const Footer = () => {
                     <div className="px-4 w-full md:w-1/3">
                         <h3 className="text-lg font-medium mb-4">Menu</h3>
                         <ul className="mb-2">
-                            {routes.map((x, i) => {
+                            {state.routes.map((x: any, i: any) => {
                                 return (
                                     <li key={i} className="mb-1 text-uppercase text-decoration-none"><a
                                         href={x.key}>{x.title}</a></li>

@@ -1,10 +1,6 @@
 import React from "react";
-import {Gallery1} from "./components/Gallery1";
-import {Facilities} from "./components/Facilities";
-import PlayGround from "./components/PlayGround";
-import Home from "./components/Home";
 
-export const routes = [
+/*export const routes = [
     {
         key: "/home",
         title: "n_home",
@@ -33,7 +29,7 @@ export const routes = [
         type: "img",
         backgroundImage: "https://picsum.photos/2000/2000"
     }
-]
+]*/
 
 export const isLocalhost = Boolean(
     window.location.hostname === "localhost" ||

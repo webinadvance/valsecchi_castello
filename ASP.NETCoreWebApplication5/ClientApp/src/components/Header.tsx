@@ -4,14 +4,15 @@ import {faArrowDown} from '@fortawesome/free-solid-svg-icons';
 import Navbar from './Navbar';
 import React from "react";
 import Box from "@mui/material/Box";
-import {routes} from "../Globals";
+import {useSelector} from "react-redux";
+import {RootState} from "../Store";
 
 const Header = () => {
     const location = useLocation();
+    const state = useSelector((state: RootState) => state.data);
 
     function getComponent(location: any) {
-        console.log(location);
-        const matchingRoute = routes.find((route) => route.key.startsWith(location.pathname));
+        const matchingRoute = state.routes.find((route: any) => route.key.startsWith(location.pathname));
         switch (true) {
             case matchingRoute?.type == "video":
                 return <video
