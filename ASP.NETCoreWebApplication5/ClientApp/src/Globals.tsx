@@ -5,9 +5,24 @@ import PlayGround from "./components/PlayGround";
 
 export const routes = [
     {key: "", title: "home"},
-    {key: "gallery", title: "n_gallery", element: <Gallery1/>},
-    {key: "playground", title: "n_playground", element: <PlayGround/>},
-    {key: "facilities", title: "n_facilities", element: <Facilities/>}
+    {
+        key: "/gallery",
+        title: "n_gallery",
+        element: <Gallery1/>,
+        backgroundImage: "https://picsum.photos/2000/2000"
+    },
+    {
+        key: "/playground",
+        title: "n_playground",
+        element: <PlayGround/>,
+        backgroundImage: "https://picsum.photos/2000/2000"
+    },
+    {
+        key: "/facilities",
+        title: "n_facilities",
+        element: <Facilities/>,
+        backgroundImage: "https://picsum.photos/2000/2000"
+    }
 ]
 
 export const isLocalhost = Boolean(

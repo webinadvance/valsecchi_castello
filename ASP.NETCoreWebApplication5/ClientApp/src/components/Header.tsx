@@ -4,11 +4,14 @@ import {faArrowDown} from '@fortawesome/free-solid-svg-icons';
 import Navbar from './Navbar';
 import React from "react";
 import Box from "@mui/material/Box";
+import {routes} from "../Globals";
 
 const Header = () => {
     const location = useLocation();
 
     function getComponent(location: any) {
+        console.log(location);
+        const matchingRoute = routes.find((route) => route.key.startsWith(location.pathname));
         switch (true) {
             case location.pathname.startsWith('/home'):
             case location.pathname === '/':
@@ -28,7 +31,7 @@ const Header = () => {
             case location.pathname.startsWith('/gallery'):
                 return <Box
                     sx={{
-                        backgroundImage: "url('https://picsum.photos/2000/2000')",
+                        backgroundImage: `url(${matchingRoute?.backgroundImage})`,
                         position: 'relative',
                         zIndex: 2,
                         transition: '1s opacity',
