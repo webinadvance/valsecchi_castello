@@ -14,7 +14,7 @@ const Header = () => {
 
             {location.pathname.startsWith('/home') || location.pathname === '/' ? (
                 <video
-                    id="videobg"
+                    className="videobg"
                     autoPlay
                     loop
                     muted
@@ -29,7 +29,7 @@ const Header = () => {
             ) : location.pathname.startsWith('/gallery') ? (
                 <div
                     style={{backgroundImage: "url('https://picsum.photos/2000/2000')"}}
-                    className="headerbg bg-center bg-cover bg-no-repea h-100 w-100"
+                    className="videobg headerbg bg-center bg-cover bg-no-repea h-100 w-100"
                 />
             ) : null}
 
