@@ -8,8 +8,11 @@ import {Route, Routes, useMatch} from 'react-router-dom';
 import i18n from 'i18next';
 
 import './custom.css';
-import {routes} from './dataSlice';
+import {routes, user} from './dataSlice';
 import {RootState} from "./Store";
+import Api from "./Api";
+import useAsyncEffect from "use-async-effect";
+import loadable from "@loadable/component";
 
 const Admin = lazy(() => import('./components/Admin'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -57,7 +60,6 @@ const App: FC<IProps> = memo(() => {
         (async () => {
             const response = await fetch('./data/routes.json');
             const data = await response.json();
-            console.log(data);
             dispatch(routes(data));
         })();
     }, []);
@@ -67,27 +69,23 @@ const App: FC<IProps> = memo(() => {
         i18n.changeLanguage(language);
     }, [language, setCookie]);
 
-    /* useAsyncEffect(
-         async () => {
-             const response = await Api.user();
-             dispatch(user(response));
-             window.addEventListener('scroll', handleScroll);
-             return () => window.removeEventListener('scroll', handleScroll);
-         },
-         [dispatch]
-     );*/
+    useAsyncEffect(
+        async () => {
+            const response = await Api.user();
+            dispatch(user(response));
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener('scroll', handleScroll);
+        },
+        [dispatch]
+    );
 
     const header = useMemo(() => !isAdminPage && <Header/>, [isAdminPage]);
     const footer = useMemo(() => !isAdminPage && <Footer/>, [isAdminPage]);
 
-    const componentCache: any = {};
-
-    function getLazyComponent(name: any) {
-        if (!componentCache[name]) {
-            componentCache[name] = lazy(() => import(`./components/${name}`));
-        }
-        return componentCache[name];
-    }
+    const LoadablePage = loadable((props: any) => import(`./components/${props.page}`), {
+        fallback: <div>Page is Loading...</div>,
+        cacheKey: (props) => props.page
+    });
 
     return (
         <>
@@ -95,11 +93,7 @@ const App: FC<IProps> = memo(() => {
                 {header}
                 <Routes>
                     {state.routes.map((route: any, index: any) => (
-                        <Route
-                            key={index}
-                            path={`/${route.element}`}
-                            element={React.createElement(getLazyComponent(route.element))}
-                        />
+                        <Route key={index} path={route.key} element={<LoadablePage page={route.element}/>}/>
                     ))}
                     <Route path="/admin" element={<Admin/>}/>
                 </Routes>

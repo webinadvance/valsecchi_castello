@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import PhotoGallery from "./PhotoGallery";
 
-const GalleryAaa: React.FC = () => {
+const Gallery1: React.FC = () => {
 
     const images = [
         "https://picsum.photos/1024/860?random=" + Math.random() + "",
@@ -27,4 +27,4 @@ const GalleryAaa: React.FC = () => {
         </>
     );
 }
-export default GalleryAaa;
+export default Gallery1;

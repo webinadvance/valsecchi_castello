@@ -9,7 +9,7 @@
   {
     "key": "/gallery",
     "title": "n_gallery",
-    "element": "GalleryAaa",
+    "element": "Gallery1",
     "type": "img",
     "media": "https://picsum.photos/2000/2000"
   },
