@@ -187,16 +187,4 @@ section {
     display: none;
   }
 }
-.imagegallery {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.2s ease-out;
-}
-.imagegallery:hover {
-  transform: scale(1.1);
-}
 /*# sourceMappingURL=custom.css.map */

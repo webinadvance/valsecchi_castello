@@ -2,18 +2,17 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowDown} from '@fortawesome/free-solid-svg-icons';
 import Navbar from './Navbar';
+import React from "react";
+import Box from "@mui/material/Box";
 
 const Header = () => {
     const location = useLocation();
 
-    return (
-        <div id="headerarea" className="relative">
-            <div className="absolute z-10 uppercase w-full p-4 lg:p-10">
-                <Navbar/>
-            </div>
-
-            {location.pathname.startsWith('/home') || location.pathname === '/' ? (
-                <video
+    function getComponent(location: any) {
+        switch (true) {
+            case location.pathname.startsWith('/home'):
+            case location.pathname === '/':
+                return <video
                     className="videobg"
                     autoPlay
                     loop
@@ -25,13 +24,46 @@ const Header = () => {
                         src="https://s3.amazonaws.com/uploads.serenohotels.com/app/uploads/2016/08/09220547/Villa-Pliniana-Descriptivo-v3_low.mp4"
                         type="video/mp4"
                     />
-                </video>
-            ) : location.pathname.startsWith('/gallery') ? (
-                <div
-                    style={{backgroundImage: "url('https://picsum.photos/2000/2000')"}}
-                    className="videobg headerbg bg-center bg-cover bg-no-repea h-100 w-100"
-                />
-            ) : null}
+                </video>;
+            case location.pathname.startsWith('/gallery'):
+                return <Box
+                    sx={{
+                        backgroundImage: "url('https://picsum.photos/2000/2000')",
+                        position: 'relative',
+                        zIndex: 2,
+                        transition: '1s opacity',
+                        objectFit: 'cover',
+                        width: '100%',
+                        height: '100%',
+                        top: 0,
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat'
+                    }}
+                >
+                    <div
+                        style={{
+                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0
+                        }}
+                    />
+                </Box>;
+            default:
+                return null;
+        }
+    }
+
+    return (
+        <div id="headerarea" className="relative">
+            <div className="absolute z-10 uppercase w-full p-4 lg:p-10">
+                <Navbar/>
+            </div>
+
+            {getComponent(location)}
 
             <a href="#welcome">
                 <FontAwesomeIcon
@@ -43,6 +75,6 @@ const Header = () => {
             </a>
         </div>
     );
-};
+}
 
 export default Header;
