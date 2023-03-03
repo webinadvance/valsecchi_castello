@@ -15,6 +15,7 @@ import useAsyncEffect from "use-async-effect";
 import loadable from "@loadable/component";
 
 const Admin = lazy(() => import('./components/Admin'));
+const Home = lazy(() => import('./components/Home'));
 const Footer = lazy(() => import('./components/Footer'));
 const Header = lazy(() => import('./components/Header'));
 const Loader = lazy(() => import('./components/Loader'));
@@ -92,6 +93,7 @@ const App: FC<IProps> = memo(() => {
             <Suspense fallback={<div>Loading...</div>}>
                 {header}
                 <Routes>
+                    <Route path="/" element={<Home/>}/>
                     {state.routes.map((route: any, index: any) => (
                         <Route key={index} path={route.key} element={<LoadablePage page={route.element}/>}/>
                     ))}
