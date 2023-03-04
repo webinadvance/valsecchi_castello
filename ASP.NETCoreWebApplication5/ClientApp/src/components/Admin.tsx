@@ -33,7 +33,10 @@ const initialData: Lang[] = [];
 const Admin = React.memo(function () {
     const [data, setData] = useState(initialData);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [selectedMenuItem, setSelectedMenuItem] = useState<"translations" | "routing">("translations");
+    const [selectedMenuItem, setSelectedMenuItem] = useState<"translations" | "routing">(() => {
+        const savedValue = localStorage.getItem("selectedMenuItem");
+        return (savedValue as "translations" | "routing") || "translations";
+    });
 
     const classes = useStyles();
     const handleDrawerOpen = () => {
@@ -46,6 +49,7 @@ const Admin = React.memo(function () {
 
     const handleMenuItemClick = (menuItem: "translations" | "routing") => {
         setSelectedMenuItem(menuItem);
+        localStorage.setItem("selectedMenuItem", menuItem);
         handleDrawerClose();
     };
 
