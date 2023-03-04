@@ -1,17 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Api from "../Api";
-import {
-    AppBar,
-    Drawer,
-    IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    Theme,
-    Toolbar,
-    Typography,
-    useMediaQuery,
-} from "@mui/material";
+import {AppBar, Drawer, IconButton, List, ListItem, ListItemText, Theme, Toolbar, Typography,} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import {AiTable} from "./AiEdit";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -46,7 +35,7 @@ const Admin = React.memo(function () {
         try {
             const response = await Api.langall();
             const json = response;
-            setData2(json);
+            setData(json);
         } catch (error) {
             console.error(error);
         }
@@ -58,20 +47,22 @@ const Admin = React.memo(function () {
         })();
     }, []);
 
-    const [data2, setData2] = React.useState(initialData);
-    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+    const [data, setData] = useState(initialData);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [showTranslations, setShowTranslations] = useState(false);
 
     const classes = useStyles();
-    const isSmallScreen = useMediaQuery((theme: Theme) =>
-        theme.breakpoints.down("sm")
-    );
-
     const handleDrawerOpen = () => {
         setIsDrawerOpen(true);
     };
 
     const handleDrawerClose = () => {
         setIsDrawerOpen(false);
+    };
+
+    const handleTranslationsClick = () => {
+        setShowTranslations(true);
+        handleDrawerClose();
     };
 
     return (
@@ -97,48 +88,38 @@ const Admin = React.memo(function () {
                 onClose={handleDrawerClose}
             >
                 <List className={classes.list}>
-                    <ListItem onClick={handleDrawerClose}>
-                        <ListItemText primary="Login"/>
+                    <ListItem onClick={handleTranslationsClick}>
+                        <ListItemText primary="Translations"/>
                     </ListItem>
                     <ListItem onClick={handleDrawerClose}>
-                        <ListItemText primary="Login1"/>
-                    </ListItem>
-                    <ListItem onClick={handleDrawerClose}>
-                        <ListItemText primary="Login2"/>
-                    </ListItem>
-                    <ListItem onClick={handleDrawerClose}>
-                        <ListItemText primary="Login3"/>
-                    </ListItem>
-                    <ListItem onClick={handleDrawerClose}>
-                        <ListItemText primary="Login4"/>
-                    </ListItem>
-                    <ListItem onClick={handleDrawerClose}>
-                        <ListItemText primary="Login5"/>
+                        <ListItemText primary="Routing"/>
                     </ListItem>
                 </List>
             </Drawer>
-            <AiTable<Lang>
-                data={data2}
-                onNew={() => {
-                    return {key: ""} as Lang;
-                }}
-                onDelete={async (row: any) => {
-                    await Api.deleteadminlang(row as Lang);
-                    await loadData();
-                }}
-                columns={[
-                    {key: "key", label: "key", colspan: 1, readonly: false},
-                    {key: "en", label: "en", colspan: 2},
-                    {key: "it", label: "it", colspan: 2},
-                ]}
-                onSave={async (obj: Lang) => {
-                    setData2((prevData) =>
-                        prevData.map((p) => (p.key === obj.key ? obj : p))
-                    );
-                    await Api.saveadminlang(obj);
-                    await loadData();
-                }}
-            />
+            {showTranslations && (
+                <AiTable<Lang>
+                    data={data}
+                    onNew={() => {
+                        return {key: ""} as Lang;
+                    }}
+                    onDelete={async (row: any) => {
+                        await Api.deleteadminlang(row as Lang);
+                        await loadData();
+                    }}
+                    columns={[
+                        {key: "key", label: "key", colspan: 1, readonly: false},
+                        {key: "en", label: "en", colspan: 2},
+                        {key: "it", label: "it", colspan: 2},
+                    ]}
+                    onSave={async (obj: Lang) => {
+                        setData((prevData) =>
+                            prevData.map((p) => (p.key === obj.key ? obj : p))
+                        );
+                        await Api.saveadminlang(obj);
+                        await loadData();
+                    }}
+                />
+            )}
         </>
     );
 });
