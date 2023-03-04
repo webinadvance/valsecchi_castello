@@ -112,27 +112,28 @@ const AdminLang = React.memo(function () {
             <Toolbar/>
             <Drawer open={isDrawerOpen} onClose={handleDrawerClose}>
                 <List className={classes.list}>
-                    <ListItem button onClick={handleDrawerClose}>
+                    <ListItem onClick={handleDrawerClose}>
                         <ListItemText primary="Login"/>
                     </ListItem>
-                    <ListItem button onClick={handleDrawerClose}>
+                    <ListItem onClick={handleDrawerClose}>
                         <ListItemText primary="Login1"/>
                     </ListItem>
-                    <ListItem button onClick={handleDrawerClose}>
+                    <ListItem onClick={handleDrawerClose}>
                         <ListItemText primary="Login2"/>
                     </ListItem>
-                    <ListItem button onClick={handleDrawerClose}>
+                    <ListItem onClick={handleDrawerClose}>
                         <ListItemText primary="Login3"/>
                     </ListItem>
-                    <ListItem button onClick={handleDrawerClose}>
+                    <ListItem onClick={handleDrawerClose}>
                         <ListItemText primary="Login4"/>
                     </ListItem>
-                    <ListItem button onClick={handleDrawerClose}>
+                    <ListItem onClick={handleDrawerClose}>
                         <ListItemText primary="Login5"/>
                     </ListItem>
                 </List>
             </Drawer>
-            <AiTable<Lang>
+            <AiTable
+                <Lang>
                 data={data2}
                 onNew={() => {
                     return {key: ""} as Lang;
