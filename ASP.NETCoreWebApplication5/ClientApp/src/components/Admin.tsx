@@ -50,6 +50,7 @@ const Admin = React.memo(function () {
     const [data, setData] = useState(initialData);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [showTranslations, setShowTranslations] = useState(false);
+    const [showRouting, setShowRouting] = useState(false);
 
     const classes = useStyles();
     const handleDrawerOpen = () => {
@@ -60,8 +61,15 @@ const Admin = React.memo(function () {
         setIsDrawerOpen(false);
     };
 
+    const handleRoutingClick = () => {
+        setShowRouting(true);
+        setShowTranslations(false)
+        handleDrawerClose();
+    };
+
     const handleTranslationsClick = () => {
         setShowTranslations(true);
+        setShowRouting(false);
         handleDrawerClose();
     };
 
@@ -91,7 +99,7 @@ const Admin = React.memo(function () {
                     <ListItem onClick={handleTranslationsClick}>
                         <ListItemText primary="Translations"/>
                     </ListItem>
-                    <ListItem onClick={handleDrawerClose}>
+                    <ListItem onClick={handleRoutingClick}>
                         <ListItemText primary="Routing"/>
                     </ListItem>
                 </List>
@@ -119,6 +127,11 @@ const Admin = React.memo(function () {
                         await loadData();
                     }}
                 />
+            )}
+            {showRouting && (
+                <div>
+                    ROUTING
+                </div>
             )}
         </>
     );
