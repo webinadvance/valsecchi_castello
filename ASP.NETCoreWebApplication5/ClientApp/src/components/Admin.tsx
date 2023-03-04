@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import Api from "../Api";
 import {
     AppBar,
-    Button,
     Drawer,
     IconButton,
     List,
@@ -16,7 +15,6 @@ import {
 import {createStyles, makeStyles} from "@mui/styles";
 import {AiTable} from "./AiEdit";
 import MenuIcon from "@mui/icons-material/Menu";
-import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,14 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
         toolbar: {
             display: "flex",
             justifyContent: "space-between",
-            [theme.breakpoints.down("sm")]: {
-                flexDirection: "column",
-                alignItems: "center",
-            },
-        },
-        toolbarSmall: {
-            display: "flex",
-            flexDirection: "column",
             alignItems: "center",
         },
         list: {
@@ -87,33 +77,17 @@ const Admin = React.memo(function () {
     return (
         <>
             <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar
-                    className={clsx(classes.toolbar, {
-                        [classes.toolbarSmall]: isSmallScreen,
-                    })}
-                >
+                <Toolbar className={classes.toolbar}>
                     <Typography variant="h6" noWrap>
-                        Admin
+                        My App
                     </Typography>
                     <IconButton
-                        edge="end"
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
-                        sx={{mr: 2}}
                     >
                         <MenuIcon/>
                     </IconButton>
-                    {isSmallScreen ? null : (
-                        <>
-                            <Button color="inherit">Login</Button>
-                            <Button color="inherit">Login1</Button>
-                            <Button color="inherit">Login2</Button>
-                            <Button color="inherit">Login3</Button>
-                            <Button color="inherit">Login4</Button>
-                            <Button color="inherit">Login5</Button>
-                        </>
-                    )}
                 </Toolbar>
             </AppBar>
             <Toolbar/>
@@ -143,8 +117,7 @@ const Admin = React.memo(function () {
                     </ListItem>
                 </List>
             </Drawer>
-            <AiTable
-                <Lang>
+            <AiTable<Lang>
                 data={data2}
                 onNew={() => {
                     return {key: ""} as Lang;
