@@ -31,26 +31,9 @@ interface Lang {
 const initialData: Lang[] = [];
 
 const Admin = React.memo(function () {
-    const loadData = async () => {
-        try {
-            const response = await Api.langall();
-            const json = response;
-            setData(json);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        (async () => {
-            await loadData();
-        })();
-    }, []);
-
     const [data, setData] = useState(initialData);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [showTranslations, setShowTranslations] = useState(false);
-    const [showRouting, setShowRouting] = useState(false);
+    const [selectedMenuItem, setSelectedMenuItem] = useState<"translations" | "routing">("translations");
 
     const classes = useStyles();
     const handleDrawerOpen = () => {
@@ -61,17 +44,25 @@ const Admin = React.memo(function () {
         setIsDrawerOpen(false);
     };
 
-    const handleRoutingClick = () => {
-        setShowRouting(true);
-        setShowTranslations(false)
+    const handleMenuItemClick = (menuItem: "translations" | "routing") => {
+        setSelectedMenuItem(menuItem);
         handleDrawerClose();
     };
 
-    const handleTranslationsClick = () => {
-        setShowTranslations(true);
-        setShowRouting(false);
-        handleDrawerClose();
-    };
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const response = await Api.langall();
+                const json = response;
+                setData(json);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        (async () => {
+            await loadData();
+        })();
+    }, []);
 
     return (
         <>
@@ -80,31 +71,31 @@ const Admin = React.memo(function () {
                     <Typography variant="h6" noWrap>
                         My App
                     </Typography>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                    >
+                    <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen}>
                         <MenuIcon/>
                     </IconButton>
                 </Toolbar>
             </AppBar>
             <Toolbar/>
-            <Drawer
-                anchor="right"
-                open={isDrawerOpen}
-                onClose={handleDrawerClose}
-            >
+            <Drawer anchor="right" open={isDrawerOpen} onClose={handleDrawerClose}>
                 <List className={classes.list}>
-                    <ListItem onClick={handleTranslationsClick}>
+                    <ListItem
+                        button
+                        selected={selectedMenuItem === "translations"}
+                        onClick={() => handleMenuItemClick("translations")}
+                    >
                         <ListItemText primary="Translations"/>
                     </ListItem>
-                    <ListItem onClick={handleRoutingClick}>
+                    <ListItem
+                        button
+                        selected={selectedMenuItem === "routing"}
+                        onClick={() => handleMenuItemClick("routing")}
+                    >
                         <ListItemText primary="Routing"/>
                     </ListItem>
                 </List>
             </Drawer>
-            {showTranslations && (
+            {selectedMenuItem === "translations" && (
                 <AiTable<Lang>
                     data={data}
                     onNew={() => {
@@ -112,7 +103,8 @@ const Admin = React.memo(function () {
                     }}
                     onDelete={async (row: any) => {
                         await Api.deleteadminlang(row as Lang);
-                        await loadData();
+                        const newData = data.filter((p) => p.key !== row.key);
+                        setData(newData);
                     }}
                     columns={[
                         {key: "key", label: "key", colspan: 1, readonly: false},
@@ -120,19 +112,19 @@ const Admin = React.memo(function () {
                         {key: "it", label: "it", colspan: 2},
                     ]}
                     onSave={async (obj: Lang) => {
-                        setData((prevData) =>
-                            prevData.map((p) => (p.key === obj.key ? obj : p))
-                        );
+                        const existingObj = data.find((p) => p.key === obj.key);
+                        if (existingObj) {
+                            const newData = data.map((p) => (p.key === obj.key ? obj : p));
+                            setData(newData);
+                        } else {
+                            const newData = [...data, obj];
+                            setData(newData);
+                        }
                         await Api.saveadminlang(obj);
-                        await loadData();
                     }}
                 />
             )}
-            {showRouting && (
-                <div>
-                    ROUTING
-                </div>
-            )}
+            {selectedMenuItem === "routing" && <div>ROUTING</div>}
         </>
     );
 });
