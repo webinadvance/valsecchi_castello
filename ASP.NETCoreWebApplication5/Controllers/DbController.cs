@@ -65,8 +65,8 @@ public class DbController : ControllerBase
     }
 
     [HttpPost]
-    [Route("deleteadmin")]
-    public async Task deleteadmin([FromBody] lang dataToDelete)
+    [Route("deleteadminlang")]
+    public async Task deleteadminlang([FromBody] lang dataToDelete)
     {
         var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == dataToDelete.key);
         if (oldData != null)
@@ -77,8 +77,8 @@ public class DbController : ControllerBase
     }
 
     [HttpPost]
-    [Route("saveadmin")]
-    public async Task saveadmin([FromBody] lang newData)
+    [Route("saveadminlang")]
+    public async Task saveadminlang([FromBody] lang newData)
     {
         var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == newData.key);
         if (oldData == null)

@@ -113,7 +113,7 @@ export function AiTable<T extends object>({
                            handleClose={() => {
                                setDeleteData(null);
                            }}/>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} id={"admin"}>
                 <Table style={{tableLayout: "fixed"}}>
                     <TableHead>
                         <TableRow>

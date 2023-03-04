@@ -170,6 +170,7 @@ section {
 }
 #admin .MuiTableCell-head {
   font-weight: 900;
+  text-transform: uppercase;
 }
 #admin .MuiTableRow-root:nth-of-type(odd) {
   background-color: #f5f5f5;

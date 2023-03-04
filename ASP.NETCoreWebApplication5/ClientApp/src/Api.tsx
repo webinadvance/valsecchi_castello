@@ -39,12 +39,12 @@ class Api {
         }
     }
 
-    static async saveadmin(data: object) {
-        return await Api.postData('/api/db/saveadmin', data);
+    static async saveadminlang(data: object) {
+        return await Api.postData('/api/db/saveadminlang', data);
     }
 
-    static async deleteadmin(data: object) {
-        return await Api.postData('/api/db/deleteadmin', data);
+    static async deleteadminlang(data: object) {
+        return await Api.postData('/api/db/deleteadminlang', data);
     }
 
     static async langall() {
