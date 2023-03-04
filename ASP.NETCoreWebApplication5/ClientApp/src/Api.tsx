@@ -15,6 +15,8 @@ class Api {
     }
 
     static async postData(endpoint: string, data: object): Promise<any> {
+        const response = await axios.post(endpoint, data, {withCredentials: true});
+        return false;
         try {
             try {
                 const response = await axios.post(endpoint, data, {withCredentials: true});
