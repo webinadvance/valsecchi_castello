@@ -1,6 +1,17 @@
 import React, {useEffect} from "react";
 import Api from "../Api";
-import {AppBar, Button, Menu, MenuItem, Theme, Toolbar, Typography, useMediaQuery,} from "@mui/material";
+import {
+    AppBar,
+    Button,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+    Theme,
+    Toolbar,
+    Typography,
+    useMediaQuery,
+} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import clsx from "clsx";
 import {AiTable} from "./AiEdit";
@@ -22,6 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+        },
+        list: {
+            width: 250,
+            backgroundColor: theme.palette.background.paper,
         },
     })
 );
@@ -52,19 +67,19 @@ const AdminLang = React.memo(function () {
     }, []);
 
     const [data2, setData2] = React.useState(initialData);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
     const classes = useStyles();
     const isSmallScreen = useMediaQuery((theme: Theme) =>
         theme.breakpoints.down("sm")
     );
 
-    const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
+    const handleDrawerOpen = () => {
+        setIsDrawerOpen(true);
     };
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
+    const handleDrawerClose = () => {
+        setIsDrawerOpen(false);
     };
 
     return (
@@ -79,24 +94,9 @@ const AdminLang = React.memo(function () {
                         My App
                     </Typography>
                     {isSmallScreen ? (
-                        <>
-                            <Button color="inherit" onClick={handleMenuOpen}>
-                                Menu
-                            </Button>
-                            <Menu
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={Boolean(anchorEl)}
-                                onClose={handleMenuClose}
-                            >
-                                <MenuItem onClick={handleMenuClose}>Login</MenuItem>
-                                <MenuItem onClick={handleMenuClose}>Login1</MenuItem>
-                                <MenuItem onClick={handleMenuClose}>Login2</MenuItem>
-                                <MenuItem onClick={handleMenuClose}>Login3</MenuItem>
-                                <MenuItem onClick={handleMenuClose}>Login4</MenuItem>
-                                <MenuItem onClick={handleMenuClose}>Login5</MenuItem>
-                            </Menu>
-                        </>
+                        <Button color="inherit" onClick={handleDrawerOpen}>
+                            Menu
+                        </Button>
                     ) : (
                         <>
                             <Button color="inherit">Login</Button>
@@ -110,6 +110,28 @@ const AdminLang = React.memo(function () {
                 </Toolbar>
             </AppBar>
             <Toolbar/>
+            <Drawer open={isDrawerOpen} onClose={handleDrawerClose}>
+                <List className={classes.list}>
+                    <ListItem button onClick={handleDrawerClose}>
+                        <ListItemText primary="Login"/>
+                    </ListItem>
+                    <ListItem button onClick={handleDrawerClose}>
+                        <ListItemText primary="Login1"/>
+                    </ListItem>
+                    <ListItem button onClick={handleDrawerClose}>
+                        <ListItemText primary="Login2"/>
+                    </ListItem>
+                    <ListItem button onClick={handleDrawerClose}>
+                        <ListItemText primary="Login3"/>
+                    </ListItem>
+                    <ListItem button onClick={handleDrawerClose}>
+                        <ListItemText primary="Login4"/>
+                    </ListItem>
+                    <ListItem button onClick={handleDrawerClose}>
+                        <ListItemText primary="Login5"/>
+                    </ListItem>
+                </List>
+            </Drawer>
             <AiTable<Lang>
                 data={data2}
                 onNew={() => {
@@ -119,11 +141,11 @@ const AdminLang = React.memo(function () {
                     await Api.deleteadminlang(row as Lang);
                     await loadData();
                 }}
-                columns={[{key: "key", label: "key", colspan: 1, readonly: false}, {
-                    key: "en",
-                    label: "en",
-                    colspan: 2
-                }, {key: "it", label: "it", colspan: 2},]}
+                columns={[
+                    {key: "key", label: "key", colspan: 1, readonly: false},
+                    {key: "en", label: "en", colspan: 2},
+                    {key: "it", label: "it", colspan: 2},
+                ]}
                 onSave={async (obj: Lang) => {
                     setData2((prevData) =>
                         prevData.map((p) => (p.key === obj.key ? obj : p))
