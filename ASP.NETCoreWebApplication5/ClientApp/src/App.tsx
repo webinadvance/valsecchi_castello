@@ -15,7 +15,7 @@ import useAsyncEffect from "use-async-effect";
 import loadable from "@loadable/component";
 
 
-const Admin = lazy(() => import('./components/AdminLang'));
+const Admin = lazy(() => import('./components/Admin'));
 const Home = lazy(() => import('./components/Home'));
 const Footer = lazy(() => import('./components/Footer'));
 const Header = lazy(() => import('./components/Header'));
@@ -44,7 +44,7 @@ const App: FC<IProps> = memo(() => {
     const [language, setLanguage] = useState<string>(cookie.preferredLanguage ?? 'en');
     const [showScrollButton, setShowScrollButton] = useState<boolean>(false);
     const dispatch = useDispatch();
-    const isAdminPage = useMatch('/adminlang');
+    const isAdminPage = useMatch('/admin');
     const classes = useStyles();
     const state = useSelector((state: RootState) => state.data);
 
@@ -96,7 +96,7 @@ const App: FC<IProps> = memo(() => {
                     {state.routes.map((route: any, index: any) => (
                         <Route key={index} path={route.key} element={<LoadablePage page={route.element}/>}/>
                     ))}
-                    <Route path="/adminlang" element={<Admin/>}/>
+                    <Route path="/admin" element={<Admin/>}/>
                 </Routes>
                 {footer}
                 <Zoom in={showScrollButton}>

@@ -4,6 +4,7 @@ import {
     AppBar,
     Button,
     Drawer,
+    IconButton,
     List,
     ListItem,
     ListItemText,
@@ -13,8 +14,9 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
-import clsx from "clsx";
 import {AiTable} from "./AiEdit";
+import MenuIcon from "@mui/icons-material/Menu";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -49,7 +51,7 @@ interface Lang {
 
 const initialData: Lang[] = [];
 
-const AdminLang = React.memo(function () {
+const Admin = React.memo(function () {
     const loadData = async () => {
         try {
             const response = await Api.langall();
@@ -91,13 +93,18 @@ const AdminLang = React.memo(function () {
                     })}
                 >
                     <Typography variant="h6" noWrap>
-                        My App
+                        Admin
                     </Typography>
-                    {isSmallScreen ? (
-                        <Button color="inherit" onClick={handleDrawerOpen}>
-                            Menu
-                        </Button>
-                    ) : (
+                    <IconButton
+                        edge="end"
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        sx={{mr: 2}}
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                    {isSmallScreen ? null : (
                         <>
                             <Button color="inherit">Login</Button>
                             <Button color="inherit">Login1</Button>
@@ -110,7 +117,11 @@ const AdminLang = React.memo(function () {
                 </Toolbar>
             </AppBar>
             <Toolbar/>
-            <Drawer open={isDrawerOpen} onClose={handleDrawerClose}>
+            <Drawer
+                anchor="right"
+                open={isDrawerOpen}
+                onClose={handleDrawerClose}
+            >
                 <List className={classes.list}>
                     <ListItem onClick={handleDrawerClose}>
                         <ListItemText primary="Login"/>
@@ -159,4 +170,4 @@ const AdminLang = React.memo(function () {
     );
 });
 
-export default AdminLang;
+export default Admin;
