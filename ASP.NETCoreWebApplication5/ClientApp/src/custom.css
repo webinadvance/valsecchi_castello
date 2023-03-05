@@ -188,4 +188,16 @@ section {
     display: none;
   }
 }
+.slide-in-section-in-view {
+  position: relative;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.slide-in-section-not-in-view {
+  position: relative;
+  opacity: 0;
+  transform: translateX(-500px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
 /*# sourceMappingURL=custom.css.map */
