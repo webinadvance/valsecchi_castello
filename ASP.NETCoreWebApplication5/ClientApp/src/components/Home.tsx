@@ -1,4 +1,4 @@
-import {Fragment, useEffect} from 'react';
+import {Fragment} from 'react';
 import {useTranslation} from 'react-i18next';
 import Services from './Services';
 import {useInView} from 'react-intersection-observer';
@@ -11,9 +11,11 @@ const Home = () => {
         triggerOnce: true,
     });
 
-    useEffect(() => {
-        console.log(`inView changed to ${inView}`);
-    }, [inView]);
+    const [refServices, inViewServices] = useInView({
+        threshold: 0.5,
+        triggerOnce: true,
+
+    });
 
     const welcomeMessages = [...Array(100)].filter(
         (_, i) => t(`welcome${i + 1}`) !== `welcome${i + 1}`
@@ -28,6 +30,14 @@ const Home = () => {
         },
     });
 
+    const slideInServices = useSpring({
+        opacity: inViewServices ? 1 : 0,
+        transform: inViewServices ? 'translateX(0)' : 'translateX(-100px)',
+        config: {
+            duration: 800,
+            easing: t => -0.5 * (Math.cos(Math.PI * t) - 1),
+        },
+    });
 
     return (
         <>
@@ -46,7 +56,9 @@ const Home = () => {
                         ))}
                     </article>
                 </animated.section>
-                <Services/>
+                <animated.section ref={refServices} style={slideInServices}>
+                    <Services/>
+                </animated.section>
             </div>
         </>
     );
