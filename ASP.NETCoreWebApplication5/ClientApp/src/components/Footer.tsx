@@ -5,11 +5,13 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from "../Store";
 import {increment} from "../dataSlice";
+import {useNavigate} from "react-router-dom";
 
 const Footer = () => {
 
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state.data);
+    const navigate = useNavigate();
 
     return (
         <div className="text-center bg-gray-900 text-gray-300 pt-10">
@@ -30,8 +32,14 @@ const Footer = () => {
                         <ul className="mb-2">
                             {state.routes.map((x: any, i: any) => {
                                 return (
-                                    <li key={i} className="mb-1 text-uppercase text-decoration-none"><a
-                                        href={x.key}>{x.title}</a></li>
+                                    <li key={i} className="mb-1 text-uppercase text-decoration-none">
+                                        <button onClick={() => {
+                                            navigate(x.key);
+                                            window.scrollTo(0, 0);
+                                        }}>
+                                            {x.title}
+                                        </button>
+                                    </li>
                                 )
                             })}
                         </ul>
