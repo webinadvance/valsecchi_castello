@@ -5,12 +5,7 @@ import Box from "@mui/material/Box";
 import {useSelector} from "react-redux";
 import {RootState} from "../Store";
 import ScrollToWelcome from "./ScrollToWelcome";
-
-interface Route {
-    key: string;
-    type: "video" | "img";
-    media: string;
-}
+import {Route} from "../dataSlice";
 
 const Header: React.FC = () => {
     const location = useLocation();
