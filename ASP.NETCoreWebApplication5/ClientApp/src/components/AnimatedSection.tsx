@@ -1,5 +1,4 @@
-﻿import {useInView} from "react-intersection-observer";
-import {animated, useSpring} from "react-spring";
+﻿import {animated, useInView} from '@react-spring/web'
 import {ReactNode, useEffect} from "react";
 import {useMediaQuery} from "@mui/material";
 
@@ -8,19 +7,31 @@ export interface AnimatedSectionProps {
 }
 
 export const AnimatedSection = ({children}: AnimatedSectionProps) => {
-    const [ref, inView] = useInView({
-        threshold: 0.2,
-        triggerOnce: true
-    });
+    // @ts-ignore
+    const [ref, inView] = useInView(
+        // @ts-ignore
+        () => ({
+            from: {
+                opacity: 0,
+                y: 100,
+            },
+            to: {
+                opacity: 1,
+                y: 0,
+            },
+            once: true,
+            threshold: 0.2,
+        })
+    )
     const isMobile = useMediaQuery('(max-width:1024px)');
-    const slideIn = useSpring({
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateX(0)' : 'translateX(-100px)',
-        config: {
-            duration: 800,
-            easing: t => -0.5 * (Math.cos(Math.PI * t) - 1),
-        },
-    });
+    /*    const slideIn = useSpring({
+            /!*        opacity: inView ? 1 : 0,
+                    transform: inView ? 'translateX(0)' : 'translateX(-100px)',*!/
+            config: {
+                duration: 800,
+                easing: t => -0.5 * (Math.cos(Math.PI * t) - 1),
+            },
+        });*/
 
     useEffect(() => {
         if (inView) {
@@ -33,7 +44,7 @@ export const AnimatedSection = ({children}: AnimatedSectionProps) => {
     }
 
     return (
-        <animated.section ref={ref} style={slideIn}>
+        <animated.section ref={ref} style={inView}>
             {children}
         </animated.section>
     );
