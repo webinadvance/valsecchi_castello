@@ -7,9 +7,7 @@ export interface AnimatedSectionProps {
 }
 
 export const AnimatedSection = ({children}: AnimatedSectionProps) => {
-    // @ts-ignore
     const [ref, inView] = useInView(
-        // @ts-ignore
         () => ({
             from: {
                 opacity: 0,
@@ -24,14 +22,6 @@ export const AnimatedSection = ({children}: AnimatedSectionProps) => {
         })
     )
     const isMobile = useMediaQuery('(max-width:1024px)');
-    /*    const slideIn = useSpring({
-            /!*        opacity: inView ? 1 : 0,
-                    transform: inView ? 'translateX(0)' : 'translateX(-100px)',*!/
-            config: {
-                duration: 800,
-                easing: t => -0.5 * (Math.cos(Math.PI * t) - 1),
-            },
-        });*/
 
     useEffect(() => {
         if (inView) {
