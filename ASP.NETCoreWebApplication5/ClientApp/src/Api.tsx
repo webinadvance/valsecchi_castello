@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 class Api {
     static async getData(endpoint: string, params?: object): Promise<any> {
@@ -13,10 +13,9 @@ class Api {
             }
         }
     }
-
+    
     static async postData(endpoint: string, data: object): Promise<any> {
-        const response = await axios.post(endpoint, data, {withCredentials: true});
-        return false;
+        await axios.post(endpoint, data, {withCredentials: true});
         try {
             try {
                 const response = await axios.post(endpoint, data, {withCredentials: true});

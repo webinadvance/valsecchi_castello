@@ -21,6 +21,8 @@ export const AnimatedSection = ({children}: AnimatedSectionProps) => {
             threshold: 0.2,
         })
     )
+    
+    
     const isMobile = useMediaQuery('(max-width:1024px)');
 
     useEffect(() => {

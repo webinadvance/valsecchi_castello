@@ -64,6 +64,7 @@ const App: FC<IProps> = memo(() => {
         })();
     }, []);
 
+    
     useEffect(() => {
         setCookie('preferredLanguage', language, {path: '/'});
         i18n.changeLanguage(language);
