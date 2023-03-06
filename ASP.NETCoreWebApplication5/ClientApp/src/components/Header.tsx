@@ -1,17 +1,16 @@
 ﻿import {useLocation} from 'react-router-dom';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faArrowDown} from '@fortawesome/free-solid-svg-icons';
 import Navbar from './Navbar';
 import React from "react";
 import Box from "@mui/material/Box";
 import {useSelector} from "react-redux";
 import {RootState} from "../Store";
+import ScrollToWelcome from "./ScrollToWelcome";
 
 const Header = () => {
     const location = useLocation();
     const state = useSelector((state: RootState) => state.data);
 
-    function getComponent(location: any) {
+    function getBackground(location: any) {
         const matchingRoute = state.routes.find((route: any) => route.key.startsWith(location.pathname));
         switch (true) {
             case matchingRoute?.type == "video":
@@ -60,22 +59,17 @@ const Header = () => {
         }
     }
 
+
     return (
         <div id="headerarea" className="relative">
             <div className="absolute z-10 uppercase w-full p-4 lg:p-10">
                 <Navbar/>
             </div>
 
-            {getComponent(location)}
+            {getBackground(location)}
 
-            <div>
-                <FontAwesomeIcon
-                    icon={faArrowDown}
-                    className="cursor-pointer opacity-75 absolute bottom-0 mb-4 -translate-x-1/2 left-1/2 z-10"
-                    color="white"
-                    size="2x"
-                />
-            </div>
+            <ScrollToWelcome/>
+
         </div>
     );
 }

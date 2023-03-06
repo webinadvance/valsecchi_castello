@@ -11,12 +11,9 @@ const Home = () => {
     );
 
     return (
-        <div className="text-center m-auto">
+        <div className="text-center m-auto" id={"welcome"}>
             <AnimatedSection>
-                <div
-                    id="welcome"
-                    className="ch1 uppercase mt-6 text-center m-auto pt-8"
-                >
+                <div className="ch1 uppercase mt-6 text-center m-auto pt-8">
                     «{t('home1')}»
                 </div>
                 <div className="divider"/>
