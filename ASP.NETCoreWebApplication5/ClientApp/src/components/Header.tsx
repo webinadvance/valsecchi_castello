@@ -5,14 +5,14 @@ import Box from "@mui/material/Box";
 import {useSelector} from "react-redux";
 import {RootState} from "../Store";
 import ScrollToWelcome from "./ScrollToWelcome";
-import {Route} from "../dataSlice";
+import {IRoute} from "../dataSlice";
 
 const Header: React.FC = () => {
     const location = useLocation();
     const state = useSelector((state: RootState) => state.data);
 
     function getBackground(location: { pathname: string }): JSX.Element | null {
-        const matchingRoute = state.routes.find((route: Route) => route.key.startsWith(location.pathname));
+        const matchingRoute = state.routes.find((route: IRoute) => route.key.startsWith(location.pathname));
         switch (true) {
             case matchingRoute?.type === "video":
                 return (

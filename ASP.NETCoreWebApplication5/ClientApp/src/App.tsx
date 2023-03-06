@@ -8,7 +8,7 @@ import {Route, Routes, useMatch} from 'react-router-dom';
 import i18n from 'i18next';
 
 import './custom.css';
-import {routes, user} from './dataSlice';
+import {IRoute, routes, user} from './dataSlice';
 import {RootState} from "./Store";
 import Api from "./Api";
 import useAsyncEffect from "use-async-effect";
@@ -93,7 +93,7 @@ const App: FC<IProps> = memo(() => {
                 {header}
                 <Routes>
                     <Route path="/" element={<Home/>}/>
-                    {state.routes.map((route: any, index: any) => (
+                    {state.routes.map((route: IRoute, index: any) => (
                         <Route key={index} path={route.key} element={<LoadablePage page={route.element}/>}/>
                     ))}
                     <Route path="/admin" element={<Admin/>}/>

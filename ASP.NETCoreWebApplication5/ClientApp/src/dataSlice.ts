@@ -7,7 +7,8 @@ interface CounterState {
     routes: any,
 }
 
-export interface Route {
+export interface IRoute {
+    element: any;
     key: string;
     type: "video" | "img";
     media: string;
@@ -17,7 +18,7 @@ const initialState: CounterState = {
     value: 0,
     loading: false,
     user: null,
-    routes: [] as Route[]
+    routes: [] as IRoute[]
 };
 
 const dataSlice = createSlice({
