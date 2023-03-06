@@ -38,7 +38,7 @@ public class DbController : ControllerBase
     {
         var res = await _dbContext.lang.ToListAsync();
         var dictionary =
-            res.ToList().ToDictionary(c => c.key, c => c.GetType().GetProperty(lang).GetValue(c).ToString());
+            res.ToList().ToDictionary(c => c.key, c => c.GetType().GetProperty(lang)!.GetValue(c).ToString());
         return dictionary;
     }
 

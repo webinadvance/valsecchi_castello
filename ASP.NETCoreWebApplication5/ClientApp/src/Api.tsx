@@ -47,7 +47,7 @@ class Api {
     static async user(): Promise<any> {
         return await Api.getData('/api/user');
     }
-    
+
 }
 
 export default Api;
