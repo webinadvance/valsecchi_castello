@@ -68,14 +68,14 @@ const Header = () => {
 
             {getComponent(location)}
 
-            <a href="#welcome">
+            <div>
                 <FontAwesomeIcon
                     icon={faArrowDown}
                     className="cursor-pointer opacity-75 absolute bottom-0 mb-4 -translate-x-1/2 left-1/2 z-10"
                     color="white"
                     size="2x"
                 />
-            </a>
+            </div>
         </div>
     );
 }

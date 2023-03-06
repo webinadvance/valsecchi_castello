@@ -35,7 +35,10 @@ const Footer = () => {
                                     <li key={i} className="mb-1 text-uppercase text-decoration-none">
                                         <button onClick={() => {
                                             navigate(x.key);
-                                            window.scrollTo(0, 0);
+                                            window.scrollTo({
+                                                top: 0,
+                                                behavior: 'smooth'
+                                            });
                                         }}>
                                             {x.title}
                                         </button>
