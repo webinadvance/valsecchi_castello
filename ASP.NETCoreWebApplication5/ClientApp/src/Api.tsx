@@ -13,7 +13,7 @@ class Api {
             }
         }
     }
-    
+
     static async postData(endpoint: string, data: object): Promise<void> {
         try {
             await axios.post(endpoint, data, {withCredentials: true});
@@ -47,10 +47,7 @@ class Api {
     static async user(): Promise<any> {
         return await Api.getData('/api/user');
     }
-
-    static async userparam(aaa: string): Promise<any> {
-        return await Api.getData('/api/userparam', {aaa});
-    }
+    
 }
 
 export default Api;

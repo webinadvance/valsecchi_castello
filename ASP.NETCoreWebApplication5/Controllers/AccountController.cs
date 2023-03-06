@@ -34,13 +34,6 @@ public class PublicController : ControllerBase
         };
     }
 
-    [HttpGet("userparam")]
-    [Authorize]
-    public async Task<object> userparam([FromQuery] string aaa)
-    {
-        return aaa;
-    }
-
     [HttpGet("login")]
     public async Task<IActionResult> login([FromQuery] string? url)
     {
