@@ -1,16 +1,16 @@
-﻿import React from "react";
+import React from 'react'
 
 export const Facilities = () => {
-    return (
-        <>
-            <section>
-                <h1 className={"pt-4"}>Facilities and Amenities</h1>
+  return (
+		<>
+			<section>
+				<h1 className={'pt-4'}>Facilities and Amenities</h1>
 
-                <h2>
+				<h2>
                     the villa
-                </h2>
+				</h2>
 
-                <article>
+				<article>
                     The strong connection between the water and Villa Pliniana has been enhanced during renovation works
                     of
                     2015 by adding a spa. The new spa is located on a terrace above the garden and entirely occupies a
@@ -19,22 +19,22 @@ export const Facilities = () => {
                     meters depth. The Wellness center of Villa Pliniana also offers sauna, steam bath and emotional
                     showers
                     with comfortable locker rooms.
-                </article>
+				</article>
 
-                {/*               <Gallery
+				{/*               <Gallery
                     images={[
                         {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                         {src: "https://picsum.photos/1024/500?random=" + Math.random() + ""},
                         {src: "https://picsum.photos/2024/860?random=" + Math.random() + ""},
-                    ]}/>*/}
+                    ]}/> */}
 
-                <br/>
+				<br/>
 
-                <h2>
+				<h2>
                     the rooms
-                </h2>
+				</h2>
 
-                <article>
+				<article>
                     The strong connection between the water and Villa Pliniana has been enhanced during renovation works
                     of
                     2015 by adding a spa. The new spa is located on a terrace above the garden and entirely occupies a
@@ -43,17 +43,17 @@ export const Facilities = () => {
                     meters depth. The Wellness center of Villa Pliniana also offers sauna, steam bath and emotional
                     showers
                     with comfortable locker rooms.
-                </article>
+				</article>
 
-                {/*  <div className={"mb-6"}>
+				{/*  <div className={"mb-6"}>
                     <Gallery
                         images={[
                             {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                             {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                             {src: "https://picsum.photos/1024/860?random=" + Math.random() + ""},
                         ]}/>
-                </div>*/}
-            </section>
-        </>
-    );
+                </div> */}
+			</section>
+		</>
+  );
 }

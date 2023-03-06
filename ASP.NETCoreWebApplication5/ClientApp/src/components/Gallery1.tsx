@@ -1,30 +1,29 @@
-﻿import React from "react";
-import PhotoGallery from "./PhotoGallery";
+import React from 'react'
+import PhotoGallery from './PhotoGallery'
 
 const Gallery1: React.FC = () => {
+	const images = [
+    "https://picsum.photos/1024/860?random=" + Math.random() + '',
+    "https://picsum.photos/1024/2000?random=" + Math.random() + '',
+    "https://picsum.photos/2000/860?random=" + Math.random() + '',
+    "https://picsum.photos/1024/860?random=" + Math.random() + '',
+    "https://picsum.photos/1024/860?random=" + Math.random() + '',
+    "https://picsum.photos/1024/400?random=" + Math.random() + ''
+	];
 
-    const images = [
-        "https://picsum.photos/1024/860?random=" + Math.random() + "",
-        "https://picsum.photos/1024/2000?random=" + Math.random() + "",
-        "https://picsum.photos/2000/860?random=" + Math.random() + "",
-        "https://picsum.photos/1024/860?random=" + Math.random() + "",
-        "https://picsum.photos/1024/860?random=" + Math.random() + "",
-        "https://picsum.photos/1024/400?random=" + Math.random() + "",
-    ];
-
-    return (
-        <>
-            <h2 className={""}>
+  return (
+		<>
+			<h2 className={''}>
                 the villa
-            </h2>
+			</h2>
 
-            <PhotoGallery images={images}/>;
+			<PhotoGallery images={images}/>;
 
-            <h2 className={""}>
+			<h2 className={''}>
                 the rooms
-            </h2>
+			</h2>
 
-        </>
-    );
+		</>
+  );
 }
-export default Gallery1;
+export default Gallery1

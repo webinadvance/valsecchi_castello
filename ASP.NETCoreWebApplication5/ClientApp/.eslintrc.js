@@ -1,3 +1,4 @@
+/*
 module.exports = {
     env: {
         browser: true,
@@ -23,5 +24,11 @@ module.exports = {
     rules: {
         '@typescript-eslint/no-extraneous-class': 'off',
         "indent": [2, "tab"]
+    },
+    settings: {
+        react: {
+            version: "detect"
+        }
     }
 }
+*/

@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-export function Layout(props: any) {
-    return (
-        <div>
-            <div>
-                {props.children}
-            </div>
-        </div>
-    );
+export function Layout (props: any) {
+  return (
+		<div>
+			<div>
+				{props.children}
+			</div>
+		</div>
+  );
 }
 
 Layout.displayName = Layout.name

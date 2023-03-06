@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 class Api {
     static async getData(endpoint: string, params?: object): Promise<any> {
@@ -14,52 +14,43 @@ class Api {
         }
     }
     
-    static async postData(endpoint: string, data: object): Promise<any> {
-        await axios.post(endpoint, data, {withCredentials: true});
+    static async postData(endpoint: string, data: object): Promise<void> {
         try {
-            try {
-                const response = await axios.post(endpoint, data, {withCredentials: true});
-                return response.data;
-            } catch (error: any) {
-                if (error.response) {
-                    console.error(error.response.data);
-                    alert(JSON.stringify(error.response.data.errors));
-                    throw (error);
-                } else if (error.request) {
-                    console.error(error.request);
-                    throw (error);
-                } else {
-                    console.error('Error', error.message);
-                    throw (error);
-                }
-                return null;
+            await axios.post(endpoint, data, {withCredentials: true});
+        } catch (error: any) {
+            if (error.response) {
+                console.error(error.response.data);
+                alert(JSON.stringify(error.response.data.errors));
+                throw error;
+            } else if (error.request) {
+                console.error(error.request);
+                throw error;
+            } else {
+                console.error('Error', error.message);
+                throw error;
             }
-        } catch (e) {
-            console.log(e);
-            throw (e);
         }
     }
 
-    static async saveadminlang(data: object) {
+    static async saveadminlang(data: object): Promise<any> {
         return await Api.postData('/api/db/saveadminlang', data);
     }
 
-    static async deleteadminlang(data: object) {
+    static async deleteadminlang(data: object): Promise<any> {
         return await Api.postData('/api/db/deleteadminlang', data);
     }
 
-    static async langall() {
+    static async langall(): Promise<any> {
         return await Api.getData('/api/db/langall');
     }
 
-    static async user() {
+    static async user(): Promise<any> {
         return await Api.getData('/api/user');
     }
 
-    static async userparam(aaa: string) {
-        return await Api.getData('/api/userparam', {aaa: aaa});
+    static async userparam(aaa: string): Promise<any> {
+        return await Api.getData('/api/userparam', {aaa});
     }
-
 }
 
 export default Api;

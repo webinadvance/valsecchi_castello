@@ -1,13 +1,13 @@
-﻿import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
-import counterReducer from './dataSlice';
+import counterReducer from './dataSlice'
 
 const rootReducer = combineReducers({
-    data: counterReducer,
-});
+  data: counterReducer
+})
 
 export const store = configureStore({
-    reducer: rootReducer,
-});
+  reducer: rootReducer
+})
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>
