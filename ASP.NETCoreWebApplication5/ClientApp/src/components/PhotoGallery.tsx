@@ -77,7 +77,7 @@ const PhotoGallery = (props: Props) => {
         }}>
             <ImageList sx={{
                 overflow: "hidden"
-            }} variant="masonry" cols={isMobile ? 1 : 2} gap={8}>
+            }} variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
                 {props.images.map((image) => (
                     <ImageListItem key={image.src}>
                         <Box
