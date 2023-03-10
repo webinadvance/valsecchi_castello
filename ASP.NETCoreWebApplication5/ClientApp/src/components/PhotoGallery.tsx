@@ -72,8 +72,12 @@ const PhotoGallery = (props: Props) => {
     };
 
     return (
-        <Box>
-            <ImageList variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
+        <Box sx={{
+            overflow: "hidden"
+        }}>
+            <ImageList sx={{
+                overflow: "hidden"
+            }} variant="masonry" cols={isMobile ? 1 : 2} gap={8}>
                 {props.images.map((image) => (
                     <ImageListItem key={image.src}>
                         <Box
@@ -82,7 +86,8 @@ const PhotoGallery = (props: Props) => {
                                 height: 0,
                                 paddingBottom: '70%',
                                 position: 'relative',
-                                cursor: 'pointer'
+                                cursor: 'pointer',
+                                overflow: "none"
                             }}
                             onClick={() => {
                                 handleClickOpen(image.src)

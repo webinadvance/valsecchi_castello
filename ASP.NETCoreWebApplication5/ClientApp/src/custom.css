@@ -185,12 +185,12 @@ article em {
     cursor: pointer;
 }
 
-section {
+/*section {
     padding-left: 1rem;
     padding-right: 1rem;
-    max-width: 56rem;
+    max-width: 70vw;
     margin: 0 auto;
-}
+}*/
 
 #admin .MuiTableCell-head {
     font-weight: 900;
