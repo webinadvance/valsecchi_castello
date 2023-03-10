@@ -230,6 +230,3 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-/ClientApp/public/assets/selezione/
-/ClientApp/public/assets/varie/
-/ClientApp/public/assets/
