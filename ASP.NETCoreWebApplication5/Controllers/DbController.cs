@@ -73,6 +73,7 @@ public class DbController : ControllerBase
         {
             _dbContext.lang.Remove(oldData);
             await _dbContext.SaveChangesAsync();
+            await synclocales();
         }
     }
 
