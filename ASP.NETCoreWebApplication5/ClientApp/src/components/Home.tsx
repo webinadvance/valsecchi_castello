@@ -26,7 +26,7 @@ const Home = () => {
                 <article>
                     {welcomeMessages.map((_, i, arr) => (
                         <Fragment key={i}>
-                            <div>{t(`welcome${i + 1}`)}</div>
+                            <Box sx={{textAlign: isMobile ? "center" : "left"}}>{t(`welcome${i + 1}`)}</Box>
                             {i !== arr.length - 1 && <div className="divider"/>}
                         </Fragment>
                     ))}
