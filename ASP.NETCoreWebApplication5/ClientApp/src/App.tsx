@@ -1,9 +1,6 @@
 import React, {type FC, lazy, memo, Suspense, useCallback, useEffect, useMemo, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useCookies} from 'react-cookie'
-import {makeStyles} from '@mui/styles'
-import {Fab, type Theme, Zoom} from '@mui/material'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import {Route, Routes, useMatch} from 'react-router-dom'
 import i18n from 'i18next'
 
@@ -13,27 +10,13 @@ import {type RootState} from './Store'
 import Api from './Api'
 import useAsyncEffect from 'use-async-effect'
 import loadable from '@loadable/component'
+import ScrollTop from "./components/ScrollTop";
 
 const Admin = lazy(async () => await import('./components/Admin'))
 const Home = lazy(async () => await import('./components/Home'))
 const Footer = lazy(async () => await import('./components/Footer'))
 const Header = lazy(async () => await import('./components/Header'))
 const Loader = lazy(async () => await import('./components/Loader'))
-
-const useStyles = makeStyles((theme: Theme) => ({
-    scrollButton: {
-        position: 'fixed',
-        bottom: theme.spacing(2),
-        right: theme.spacing(2)
-    },
-    fabButton: {
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
-        '&:hover': {
-            backgroundColor: theme.palette.primary.dark
-        },
-    },
-}))
 
 interface IProps {
 }
@@ -44,16 +27,12 @@ const App: FC<IProps> = memo(() => {
     const [showScrollButton, setShowScrollButton] = useState<boolean>(false)
     const dispatch = useDispatch()
     const isAdminPage = useMatch('/admin')
-    const classes = useStyles()
     const state = useSelector((state: RootState) => state.data)
 
     const scrollToTop = useCallback(() => {
         window.scrollTo({top: 0, behavior: 'smooth'})
     }, [])
 
-    const handleScroll = useCallback(() => {
-        setShowScrollButton(window.scrollY > 1)
-    }, [])
 
     useEffect(() => {
         (async () => {
@@ -72,10 +51,6 @@ const App: FC<IProps> = memo(() => {
         async () => {
             const response = await Api.user()
             dispatch(user(response))
-            window.addEventListener('scroll', handleScroll)
-            return () => {
-                window.removeEventListener('scroll', handleScroll)
-            }
         },
         [dispatch]
     );
@@ -91,6 +66,7 @@ const App: FC<IProps> = memo(() => {
     return (
         <>
             <Suspense fallback={<div>Loading...</div>}>
+                <div id={"back-to-top-anchor"}></div>
                 {header}
                 <Routes>
                     <Route path="/" element={<Home/>}/>
@@ -100,13 +76,7 @@ const App: FC<IProps> = memo(() => {
                     <Route path="/admin" element={<Admin/>}/>
                 </Routes>
                 {footer}
-                <Zoom in={showScrollButton}>
-                    <div onClick={scrollToTop} role="presentation" className={classes.scrollButton}>
-                        <Fab className={classes.fabButton} size="small">
-                            <KeyboardArrowUpIcon/>
-                        </Fab>
-                    </div>
-                </Zoom>
+                <ScrollTop/>
                 <Loader/>
             </Suspense>
         </>

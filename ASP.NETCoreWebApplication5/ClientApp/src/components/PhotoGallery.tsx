@@ -8,6 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import {useTranslation} from "react-i18next";
+import {LazyLoadImage} from 'react-lazy-load-image-component';
 
 const PreviewContainer = styled(Box)({
     display: 'flex',
@@ -91,10 +92,10 @@ const PhotoGallery = (props: Props) => {
                                 handleClickOpen(image.src)
                             }}
                         >
-                            <img
+                            <LazyLoadImage
                                 src={"/assets" + image.src + `?${Math.random()}`}
+                                height={"100%"}
                                 alt=""
-                                loading="lazy"
                                 style={{
                                     position: 'absolute',
                                     top: 0,
