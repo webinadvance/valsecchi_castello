@@ -93,7 +93,7 @@ const PhotoGallery = (props: Props) => {
                             }}
                         >
                             <LazyLoadImage
-                                src={"/assets" + image.src + `?${Math.random()}`}
+                                src={"/assets" + image.src.replace('.jpg', '_low.jpg') + `?${Math.random()}`}
                                 height={"100%"}
                                 style={{
                                     position: 'absolute',
