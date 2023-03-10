@@ -1,6 +1,6 @@
 ﻿[
   {
-    "title": "nostra_selezione",
+    "title": "t_our_selection",
     "data": [
       {
         "src": "/selezione/papale_galleria_1.jpg",
@@ -57,7 +57,7 @@
     ]
   },
   {
-    "title": "varie",
+    "title": "t_various",
     "data": [
       {
         "src": "/varie/1-2.jpg",
