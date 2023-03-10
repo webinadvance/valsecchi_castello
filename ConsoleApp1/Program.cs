@@ -22,20 +22,31 @@ internal class Program
                 continue;
 
             // Open the original image
-            using (var image = Image.FromFile(file))
+            using (var originalImage = Image.FromFile(file))
             {
-                // Create a new filename for the low quality image
-                var newFilename = Path.GetFileNameWithoutExtension(file) + "_low.jpg";
-                var newPath = Path.Combine(Path.GetDirectoryName(file), newFilename);
+                // Calculate the new height and width while maintaining the aspect ratio
+                var originalWidth = originalImage.Width;
+                var originalHeight = originalImage.Height;
+                var ratio = originalWidth / (double) originalHeight;
+                var newWidth = Math.Min(originalWidth, 500);
+                var newHeight = (int) Math.Round(newWidth / ratio);
 
-                // Set the JPEG quality to 20 (you can adjust this if you want)
-                var qualityParam = new EncoderParameter(Encoder.Quality, 20L);
-                var encoderParams = new EncoderParameters(1);
-                encoderParams.Param[0] = qualityParam;
+                // Create a new Bitmap with the new size
+                using (var resizedImage = new Bitmap(originalImage, newWidth, newHeight))
+                {
+                    // Set the JPEG quality to 20 (you can adjust this if you want)
+                    var qualityParam = new EncoderParameter(Encoder.Quality, 100L);
+                    var encoderParams = new EncoderParameters(1);
+                    encoderParams.Param[0] = qualityParam;
 
-                // Save the low quality image with the _low suffix
-                var jpegCodec = GetEncoderInfo("image/jpeg");
-                image.Save(newPath, jpegCodec, encoderParams);
+                    // Create a new filename for the low quality image
+                    var newFilename = Path.GetFileNameWithoutExtension(file) + "_low.jpg";
+                    var newPath = Path.Combine(Path.GetDirectoryName(file), newFilename);
+
+                    // Save the resized and lower quality image with the _low suffix
+                    var jpegCodec = GetEncoderInfo("image/jpeg");
+                    resizedImage.Save(newPath, jpegCodec, encoderParams);
+                }
             }
         }
 
