@@ -1,220 +1,197 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
+}
 body {
-    font-family: "Raleway", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-
 a {
-    color: #0366d6;
+  color: #0366d6;
 }
-
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
-
 code {
-    color: #e01a76;
+  color: #e01a76;
 }
-
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
 }
-
 #headerarea {
-    height: 55vh;
-    width: 100%;
-    background: #524d4d !important;
-    overflow: hidden;
+  height: 55vh;
+  width: 100%;
+  background: #524d4d !important;
+  overflow: hidden;
 }
-
 @screen lg {
-    #headerarea {
-        height: 100vh;
-    }
+  #headerarea {
+    height: 100vh;
+  }
 }
 .videobg {
-    position: absolute;
-    z-index: 2;
-    background: #000;
-    transition: 1s opacity;
-    object-fit: cover;
-    -o-object-fit: cover;
-    width: 100%;
-    height: 100%;
-    top: 0;
+  position: absolute;
+  z-index: 2;
+  background: #000;
+  transition: 1s opacity;
+  object-fit: cover;
+  -o-object-fit: cover;
+  width: 100%;
+  height: 100%;
+  top: 0;
 }
-
 .hover-border-bottom a:hover span {
-    transform: scaleY(2);
+  transform: scaleY(2);
 }
-
 .divider {
-    text-align: center;
-    width: 70%;
-    margin: 40px auto;
-    height: 4px;
-    background: url("https://www.serenohotels.com/app/themes/_serenohotels/images/divider.png") no-repeat top center;
+  text-align: center;
+  width: 70%;
+  margin: 40px auto;
+  height: 4px;
+  background: url("https://www.serenohotels.com/app/themes/_serenohotels/images/divider.png") no-repeat top center;
 }
-
 .ch1 {
-    font-family: "Raleway", sans-serif;
-    font-size: 45px;
-    font-weight: 500;
-    color: #604a3f;
-    letter-spacing: -1px;
-    line-height: 1.2;
+  font-family: "Raleway", sans-serif;
+  font-size: 45px;
+  font-weight: 500;
+  color: #604a3f;
+  letter-spacing: -1px;
+  line-height: 1.2;
 }
-
 .cp1 {
-    font-family: "Raleway", sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.7;
-    color: #222;
-    text-align: left;
-    width: 100%;
-    margin: 0 auto 20px;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #222;
+  text-align: left;
+  width: 100%;
+  margin: 0 auto 20px;
 }
-
 h1,
 h2 {
-    font-family: "Raleway", sans-serif;
-    text-align: center;
-    text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  text-transform: uppercase;
 }
-
 h2 {
-    font-size: 22px;
-    color: #333;
-    letter-spacing: 4px;
-    line-height: 1.3;
-    padding: 0 20px;
-    width: auto;
-    background: white;
-    display: block;
-    margin: 40px auto;
-    font-weight: 300;
+  font-size: 22px;
+  color: #333;
+  letter-spacing: 4px;
+  line-height: 1.3;
+  padding: 0 20px;
+  width: auto;
+  background: white;
+  display: block;
+  margin: 40px auto;
+  font-weight: 300;
 }
-
 h1 {
-    -webkit-text-size-adjust: none;
-    box-sizing: inherit;
-    -webkit-font-smoothing: antialiased;
-    clear: both;
-    font-size: 45px;
-    font-weight: bold;
-    letter-spacing: -1px;
-    line-height: normal;
-    padding-top: 0;
-    padding-bottom: 0;
-    text-transform: none;
-    color: #604a3f;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: auto;
+  -webkit-text-size-adjust: none;
+  box-sizing: inherit;
+  -webkit-font-smoothing: antialiased;
+  clear: both;
+  font-size: 45px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-transform: none;
+  color: #604a3f;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: auto;
 }
-
 @media only screen and (min-width: 800px) {
-    h2:before,
-    h2:after {
-        width: 30px;
-        display: inline-block;
-        padding: 0 10px;
-        margin-right: 20px;
-        text-indent: -9999px;
-        content: "&nbsp;";
-        background: url(https://www.serenohotels.com/app/themes/_serenohotels/images/heading-bg.png) repeat-x 50% 50%;
-        opacity: 0.3;
-    }
-
-    h2:after {
-        margin-right: 0;
-        margin-left: 20px;
-    }
+  h2:before,
+  h2:after {
+    width: 30px;
+    display: inline-block;
+    padding: 0 10px;
+    margin-right: 20px;
+    text-indent: -9999px;
+    content: "&nbsp;";
+    background: url(https://www.serenohotels.com/app/themes/_serenohotels/images/heading-bg.png) repeat-x 50% 50%;
+    opacity: 0.3;
+  }
+  h2:after {
+    margin-right: 0;
+    margin-left: 20px;
+  }
 }
-
 article {
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #222;
+  text-align: left;
+  width: 100%;
+  margin: 0 auto 20px;
+}
+article strong {
+  font-weight: 700;
+}
+article em {
+  font-style: italic;
+}
+@media only screen and (min-width: 900px) {
+  article {
     font-family: "Raleway", sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     line-height: 1.7;
     color: #222;
-    text-align: center;
+    text-align: justify;
     width: 100%;
     margin: 0 auto 20px;
+  }
 }
-
-article strong {
-    font-weight: 700;
-}
-
-article em {
-    font-style: italic;
-}
-
-@media only screen and (min-width: 900px) {
-    article {
-        font-family: "Raleway", sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 1.7;
-        color: #222;
-        text-align: justify;
-        width: 100%;
-        margin: 0 auto 20px;
-    }
-}
-
 .tableContainer {
-    margin: 20px;
+  margin: 20px;
 }
-
 .table {
-    width: 100%;
+  width: 100%;
 }
-
 .row:hover {
-    background-color: #f5f5f5;
-    cursor: pointer;
+  background-color: #f5f5f5;
+  cursor: pointer;
 }
-
-/*section {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    max-width: 70vw;
-    margin: 0 auto;
-}*/
-
+section {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
 #admin .MuiTableCell-head {
-    font-weight: 900;
-    text-transform: uppercase;
+  font-weight: 900;
+  text-transform: uppercase;
 }
-
 #admin .MuiTableRow-root:nth-of-type(odd) {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
-
 #admin .MuiTableRow-root:hover {
-    background-color: #e0e0e0;
-    cursor: pointer;
+  background-color: #e0e0e0;
+  cursor: pointer;
 }
-
 #navbarmenu {
-    display: flex;
-    align-self: flex-end;
+  display: flex;
+  align-self: flex-end;
 }
-
 @media only screen and (max-width: 1024px) {
-    #navbarmenu {
-        display: none;
-    }
+  #navbarmenu {
+    display: none;
+  }
 }
-
 /*# sourceMappingURL=custom.css.map */

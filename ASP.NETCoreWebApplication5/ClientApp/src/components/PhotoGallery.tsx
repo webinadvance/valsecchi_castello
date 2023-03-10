@@ -92,7 +92,7 @@ const PhotoGallery = (props: Props) => {
                             }}
                         >
                             <img
-                                src={"/assets" + image.src}
+                                src={"/assets" + image.src + `?${Math.random()}`}
                                 alt=""
                                 loading="lazy"
                                 style={{

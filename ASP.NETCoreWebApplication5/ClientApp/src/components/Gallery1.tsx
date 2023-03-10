@@ -15,7 +15,7 @@ const Gallery1: React.FC = () => {
     }, []);
 
     return (
-        <div className={"mb-4"}>
+        <div className={"mb-4"} id={"welcome"}>
             {data && data.map((_: any, i: any) => (
                 <Fragment key={i}>
                     <h2>{_.title}</h2>
