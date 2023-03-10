@@ -51,6 +51,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="ClientApp\public\assets\" />
       <Folder Include="ClientApp\public\assets\varie\" />
       <Folder Include="ClientApp\public\locales" />
     </ItemGroup>
