@@ -53,7 +53,7 @@ const Overline = styled(Box)({
 })
 
 interface Props {
-    images: string[]
+    images: any[]
 }
 
 const PhotoGallery = (props: Props) => {
@@ -75,7 +75,7 @@ const PhotoGallery = (props: Props) => {
         <Box>
             <ImageList variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
                 {props.images.map((image) => (
-                    <ImageListItem key={image}>
+                    <ImageListItem key={image.src}>
                         <Box
                             sx={{
                                 width: '100%',
@@ -85,11 +85,11 @@ const PhotoGallery = (props: Props) => {
                                 cursor: 'pointer'
                             }}
                             onClick={() => {
-                                handleClickOpen(image)
+                                handleClickOpen(image.src)
                             }}
                         >
                             <img
-                                src={image}
+                                src={"/assets" + image.src}
                                 alt=""
                                 style={{
                                     position: 'absolute',
@@ -114,7 +114,7 @@ const PhotoGallery = (props: Props) => {
                             <CloseButton onClick={handleClose}>
                                 <CloseIcon/>
                             </CloseButton>
-                            <img src={selectedImage} alt="Selected"/>
+                            <img src={"/assets" + selectedImage} alt="Selected"/>
                         </>
                     )}
                 </PreviewContainer>
