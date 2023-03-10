@@ -32,14 +32,18 @@
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
         <None Remove="ClientApp_ORIGINAL\**" />
         <Content Remove="ClientApp_ORIGINAL\**" />
+        <Content Remove="ClientApp\public\assets\**" />
+        <None Remove="ClientApp\public\assets\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="ClientApp_ORIGINAL\**" />
+      <Compile Remove="ClientApp\public\assets\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="ClientApp_ORIGINAL\**" />
+      <EmbeddedResource Remove="ClientApp\public\assets\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -51,8 +55,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClientApp\public\assets\" />
-      <Folder Include="ClientApp\public\assets\varie\" />
       <Folder Include="ClientApp\public\locales" />
     </ItemGroup>
 
