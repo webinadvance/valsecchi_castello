@@ -1,7 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
 import PhotoGallery from "./PhotoGallery";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Box from "@mui/material/Box";
 
 const Gallery1: React.FC = () => {
     const [data, setData] = useState<any>([]);
@@ -16,14 +15,14 @@ const Gallery1: React.FC = () => {
     }, []);
 
     return (
-        <Box sx={{maxWidth: isMobile ? "99vw" : "60vw", margin: "0 auto"}}>
+        <div className={"mb-4"}>
             {data && data.map((_: any, i: any) => (
                 <Fragment key={i}>
                     <h2>{_.title}</h2>
                     <PhotoGallery images={_.data}/>
                 </Fragment>
             ))}
-        </Box>
+        </div>
     );
 };
 export default Gallery1;

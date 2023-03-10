@@ -21,10 +21,10 @@ const Footer = () => {
                     {/* Contacts */}
                     <div className="px-4 w-full md:w-1/3">
                         <h3 className="text-lg font-medium mb-4">Contacts</h3>
-                        <p className="mb-2">123 Main Street</p>
-                        <p className="mb-2">New York, NY 10001</p>
-                        <p className="mb-2">(555) 555-5555</p>
-                        <p>email@example.com</p>
+                        <p className="mb-2">Via Rodari 2</p>
+                        <p className="mb-2">22100 Como</p>
+                        <p className="mb-2">+39 333 811 8964</p>
+                        <p>odescalchi@lakecomodmc.it</p>
                     </div>
 
                     {/* Menu */}
@@ -73,7 +73,7 @@ const Footer = () => {
 
                 {/* Copyright */}
                 <div className="bg-gray-800 bg-opacity-50 mt-10 py-4 text-sm text-center">
-                    <p>&copy; 2023 My Website. All Rights Reserved.</p>
+                    <p>&copy; 2023 LakeComo. All Rights Reserved.</p>
                 </div>
 
             </div>

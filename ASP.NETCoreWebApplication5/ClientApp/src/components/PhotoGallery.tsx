@@ -72,12 +72,10 @@ const PhotoGallery = (props: Props) => {
     };
 
     return (
-        <Box sx={{
-            overflow: "hidden"
-        }}>
+        <Box sx={{maxWidth: isMobile ? "99vw" : "60vw", margin: "0 auto"}}>
             <ImageList sx={{
                 overflow: "hidden"
-            }} variant="masonry" cols={isMobile ? 1 : 3} gap={8}>
+            }} variant="quilted" cols={isMobile ? 1 : 3} gap={8}>
                 {props.images.map((image) => (
                     <ImageListItem key={image.src}>
                         <Box
@@ -96,6 +94,7 @@ const PhotoGallery = (props: Props) => {
                             <img
                                 src={"/assets" + image.src}
                                 alt=""
+                                loading="lazy"
                                 style={{
                                     position: 'absolute',
                                     top: 0,
