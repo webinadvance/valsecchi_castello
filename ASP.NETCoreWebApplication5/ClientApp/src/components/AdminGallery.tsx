@@ -86,7 +86,6 @@ const AdminGallery = () => {
                         setImageToDelete(null);
                     }}>Cancel</Button>
                     <Button onClick={async () => {
-                        //await axios.post("/api/db/deleteimage", null, {params: {imageToDelete}, withCredentials: true});
                         await Api2.deleteImage(imageToDelete ?? "");
                         setImageToDelete(null);
                     }}>Delete</Button>

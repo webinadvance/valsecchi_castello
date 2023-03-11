@@ -83,10 +83,9 @@ public class DbController : ControllerBase
     {
         var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == newData.key);
         if (oldData == null)
-            if (oldData == null)
-                _dbContext.lang.Add(newData);
-            else
-                _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
+            _dbContext.lang.Add(newData);
+        else
+            _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
         await _dbContext.SaveChangesAsync();
         await synclocales();
     }
