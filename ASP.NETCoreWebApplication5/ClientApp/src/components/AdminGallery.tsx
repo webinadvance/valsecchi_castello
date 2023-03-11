@@ -15,32 +15,37 @@ import Api from "../Api";
 const AdminGallery = () => {
     const [images, setImages] = useState([
         {
-            title: "Image 2",
-            src: "https://example.com/image2.jpg",
+            "title": "selezione",
+            "data":
+                [
+                    {
+                        title: "Image 2",
+                        src: "https://example.com/image2.jpg",
+                    },
+                    {
+                        title: "Image 3",
+                        src: "https://example.com/image3.jpg",
+                    }
+                ]
         },
         {
-            title: "Image 3",
-            src: "https://example.com/image3.jpg",
-        },
+            "title": "selezione2",
+            "data":
+                [
+                    {
+                        title: "Image 22",
+                        src: "https://example.com/image22.jpg",
+                    },
+                    {
+                        title: "Image 32",
+                        src: "https://example.com/image32.jpg",
+                    }
+                ]
+        }
     ]);
+
     const [newImageName, setNewImageName] = useState("");
     const [selectedFile, setSelectedFile] = useState<any>(null);
-
-    const handleAddImage = () => {
-        const newId = images.length + 1;
-        const newImage = {
-            title: newImageName,
-            src: selectedFile ? URL.createObjectURL(selectedFile) : "",
-        };
-        setImages([...images, newImage]);
-        setNewImageName("");
-        setSelectedFile(null);
-    };
-
-    const handleDeleteImage = (src: any) => {
-        const filteredImages = images.filter((image) => image.src !== src);
-        setImages(filteredImages);
-    };
 
     const handleFileChange = (e: any) => {
         setSelectedFile(e.target.files[0]);
@@ -68,21 +73,28 @@ const AdminGallery = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {images.map((image, index) => (
-                        <TableRow key={image.src}>
-                            <TableCell>{index + 1}</TableCell>
-                            <TableCell>{image.title}</TableCell>
-                            <TableCell>{image.src}</TableCell>
-                            <TableCell>
-                                <Button
-                                    variant="contained"
-                                    color="error"
-                                    onClick={() => handleDeleteImage(image.src)}
-                                >
-                                    Delete
-                                </Button>
-                            </TableCell>
-                        </TableRow>
+                    {images.map((selezione, index) => (
+                        <React.Fragment key={index}>
+                            <TableRow>
+                                <TableCell colSpan={4}>{selezione.title}</TableCell>
+                            </TableRow>
+                            {selezione.data.map((image, index2) => (
+                                <TableRow key={`${index}-${index2}`}>
+                                    <TableCell>{index2 + 1}</TableCell>
+                                    <TableCell>{image.title}</TableCell>
+                                    <TableCell>{image.src}</TableCell>
+                                    <TableCell>
+                                        <Button
+                                            variant="contained"
+                                            color="error"
+                                            /*      onClick={() => handleDeleteImage(image.src)}*/
+                                        >
+                                            Delete
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </React.Fragment>
                     ))}
                     <TableRow>
                         <TableCell></TableCell>
@@ -97,9 +109,6 @@ const AdminGallery = () => {
                             <input type="file" onChange={handleFileChange}/>
                         </TableCell>
                         <TableCell>
-                            <Button variant="contained" color="primary" onClick={handleAddImage}>
-                                Add
-                            </Button>
                             <Button variant="contained" color="primary" onClick={handleFileUpload}>
                                 Upload
                             </Button>
