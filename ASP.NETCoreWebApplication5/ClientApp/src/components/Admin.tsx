@@ -4,6 +4,7 @@ import {AppBar, Drawer, IconButton, List, ListItem, ListItemText, type Theme, To
 import {createStyles, makeStyles} from "@mui/styles";
 import {AiTable} from "./AiEdit";
 import MenuIcon from "@mui/icons-material/Menu";
+import AdminGallery from "./AdminGallery";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -142,7 +143,7 @@ const Admin = React.memo(function () {
                 />
             )}
             {selectedMenuItem === "routing" && <div>ROUTING</div>}
-            {selectedMenuItem === "gallery" && <div>GALLERY</div>}
+            {selectedMenuItem === "gallery" && <AdminGallery/>}
         </>
     );
 });
