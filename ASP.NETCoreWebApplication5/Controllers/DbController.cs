@@ -48,7 +48,7 @@ public class DbController : ControllerBase
     {
         var res = await _dbContext.lang.ToListAsync();
 
-        foreach (var s in new[] {"it", "en"})
+        foreach (var s in new[] { "it", "en" })
         {
             var dictionary =
                 res.ToList().ToDictionary(c => c.key, c => c.GetType().GetProperty(s).GetValue(c).ToString());
@@ -82,6 +82,7 @@ public class DbController : ControllerBase
     public async Task saveadminlang([FromBody] lang newData)
     {
         var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == newData.key);
+        if (oldData == null)
         if (oldData == null)
             _dbContext.lang.Add(newData);
         else
