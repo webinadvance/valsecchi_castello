@@ -8,8 +8,9 @@ import {
     TableRow,
     Paper,
     TextField,
-    Button
+    Button,
 } from "@mui/material";
+import Api from "../Api";
 
 const AdminGallery = () => {
     const [images, setImages] = useState([
@@ -30,23 +31,37 @@ const AdminGallery = () => {
         },
     ]);
     const [newImageName, setNewImageName] = useState("");
-    const [newImageUrl, setNewImageUrl] = useState("");
+    const [selectedFile, setSelectedFile] = useState<any>(null);
 
     const handleAddImage = () => {
         const newId = images.length + 1;
         const newImage = {
             id: newId,
             name: newImageName,
-            url: newImageUrl,
+            url: selectedFile ? URL.createObjectURL(selectedFile) : "",
         };
         setImages([...images, newImage]);
         setNewImageName("");
-        setNewImageUrl("");
+        setSelectedFile(null);
     };
 
     const handleDeleteImage = (id: any) => {
         const filteredImages = images.filter((image) => image.id !== id);
         setImages(filteredImages);
+    };
+
+    const handleFileChange = (e: any) => {
+        setSelectedFile(e.target.files[0]);
+    };
+
+    const handleFileUpload = async () => {
+        const formData = new FormData();
+        formData.append("image", selectedFile);
+        try {
+            await Api.uploadimage(formData);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -67,7 +82,11 @@ const AdminGallery = () => {
                             <TableCell>{image.name}</TableCell>
                             <TableCell>{image.url}</TableCell>
                             <TableCell>
-                                <Button variant="contained" color="error" onClick={() => handleDeleteImage(image.id)}>
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    onClick={() => handleDeleteImage(image.id)}
+                                >
                                     Delete
                                 </Button>
                             </TableCell>
@@ -76,16 +95,21 @@ const AdminGallery = () => {
                     <TableRow>
                         <TableCell></TableCell>
                         <TableCell>
-                            <TextField label="Name" value={newImageName}
-                                       onChange={(e) => setNewImageName(e.target.value)}/>
+                            <TextField
+                                label="Name"
+                                value={newImageName}
+                                onChange={(e) => setNewImageName(e.target.value)}
+                            />
                         </TableCell>
                         <TableCell>
-                            <TextField label="URL" value={newImageUrl}
-                                       onChange={(e) => setNewImageUrl(e.target.value)}/>
+                            <input type="file" onChange={handleFileChange}/>
                         </TableCell>
                         <TableCell>
                             <Button variant="contained" color="primary" onClick={handleAddImage}>
                                 Add
+                            </Button>
+                            <Button variant="contained" color="primary" onClick={handleFileUpload}>
+                                Upload
                             </Button>
                         </TableCell>
                     </TableRow>

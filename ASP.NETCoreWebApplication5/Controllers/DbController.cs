@@ -83,11 +83,38 @@ public class DbController : ControllerBase
     {
         var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == newData.key);
         if (oldData == null)
-        if (oldData == null)
-            _dbContext.lang.Add(newData);
-        else
-            _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
+            if (oldData == null)
+                _dbContext.lang.Add(newData);
+            else
+                _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
         await _dbContext.SaveChangesAsync();
         await synclocales();
+    }
+
+    [HttpPost]
+    [Route("uploadimage")]
+    public async Task<IActionResult> uploadimage()
+    {
+        var form = await Request.ReadFormAsync();
+        var file = form.Files.FirstOrDefault();
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest("No file uploaded");
+        }
+
+        var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+        if (!Directory.Exists(uploadsPath))
+        {
+            Directory.CreateDirectory(uploadsPath);
+        }
+
+        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+        var filePath = Path.Combine(uploadsPath, fileName);
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        return Ok(new { fileName });
     }
 }
