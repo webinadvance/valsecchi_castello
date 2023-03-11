@@ -92,6 +92,25 @@ public class DbController : ControllerBase
     }
 
     [HttpPost]
+    [Route("deleteimage")]
+    public async Task<IActionResult> deleteimage(string imageToDelete)
+    {
+#if DEBUG
+        var imagePath = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\assets\\" + imageToDelete;
+#else
+        var imagePath = _webHostEnvironment.ContentRootPath + "\\wwwroot\\assets\\" + imagesrc;
+#endif
+
+        if (System.IO.File.Exists(imagePath))
+        {
+            System.IO.File.Delete(imagePath);
+        }
+
+        ImageLib.Sync(_webHostEnvironment);
+        return Ok();
+    }
+
+    [HttpPost]
     [Route("uploadimage")]
     public async Task<IActionResult> uploadimage(string parentTitle)
     {

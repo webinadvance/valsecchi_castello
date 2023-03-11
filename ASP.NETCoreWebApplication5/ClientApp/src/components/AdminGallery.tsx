@@ -9,7 +9,7 @@ import {
     TableRow,
     Paper,
     TextField,
-    Button,
+    Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from "@mui/material";
 import Api from "../Api";
 
@@ -67,63 +67,88 @@ const AdminGallery = () => {
         fetchData();
     }, []);
 
+    const [imageToDelete, setImageToDelete] = useState(null);
+
     return (
-        <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>URL</TableCell>
-                        <TableCell>Action</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {images && images.map((selezione: any, index: any) => (
-                        <React.Fragment key={index}>
-                            <TableRow>
-                                <TableCell colSpan={4}>{selezione.title}</TableCell>
-                            </TableRow>
-                            {selezione.data.map((image: any, index2: any) => (
-                                <TableRow key={`${index}-${index2}`}>
-                                    <TableCell>{index2 + 1}</TableCell>
-                                    <TableCell>{image.title}</TableCell>
-                                    <TableCell>{image.src}</TableCell>
+        <>
+            <Dialog open={imageToDelete != null} onClose={() => {
+                setImageToDelete(null);
+            }}>
+                <DialogTitle>Delete Image?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Are you sure you want to delete this image?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => {
+                        setImageToDelete(null);
+                    }}>Cancel</Button>
+                    <Button onClick={async () => {
+                        await axios.post("/api/db/deleteimage", null, {params: {imageToDelete}, withCredentials: true});
+                        setImageToDelete(null);
+                    }}>Delete</Button>
+                </DialogActions>
+            </Dialog>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>URL</TableCell>
+                            <TableCell>Action</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {images && images.map((selezione: any, index: any) => (
+                            <React.Fragment key={index}>
+                                <TableRow>
+                                    <TableCell colSpan={4}>{selezione.title}</TableCell>
+                                </TableRow>
+                                {selezione.data.map((image: any, index2: any) => (
+                                    <TableRow key={`${index}-${index2}`}>
+                                        <TableCell>{index2 + 1}</TableCell>
+                                        <TableCell>{image.title}</TableCell>
+                                        <TableCell>{image.src}</TableCell>
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                color="error"
+                                                onClick={() => {
+                                                    setImageToDelete(image.src);
+                                                }}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                <TableRow>
+                                    <TableCell></TableCell>
                                     <TableCell>
-                                        <Button
-                                            variant="contained"
-                                            color="error"
-                                            /*      onClick={() => handleDeleteImage(image.src)}*/
-                                        >
-                                            Delete
+                                        <TextField
+                                            label="Name"
+                                            value={newImageName}
+                                            onChange={(e) => setNewImageName(e.target.value)}
+                                        />
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="file" onChange={handleFileChange}/>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button variant="contained" color="primary"
+                                                onClick={() => handleFileUpload(selezione.title)}>
+                                            Upload
                                         </Button>
                                     </TableCell>
                                 </TableRow>
-                            ))}
-                            <TableRow>
-                                <TableCell></TableCell>
-                                <TableCell>
-                                    <TextField
-                                        label="Name"
-                                        value={newImageName}
-                                        onChange={(e) => setNewImageName(e.target.value)}
-                                    />
-                                </TableCell>
-                                <TableCell>
-                                    <input type="file" onChange={handleFileChange}/>
-                                </TableCell>
-                                <TableCell>
-                                    <Button variant="contained" color="primary"
-                                            onClick={() => handleFileUpload(selezione.title)}>
-                                        Upload
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        </React.Fragment>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                            </React.Fragment>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
     );
 };
 
