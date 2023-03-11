@@ -12,6 +12,7 @@ import {
     Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from "@mui/material";
 import Api from "../Api";
+import {Api2} from "../Api2";
 
 const AdminGallery = () => {
     const [images, setImages] = useState<any>();
@@ -85,7 +86,8 @@ const AdminGallery = () => {
                         setImageToDelete(null);
                     }}>Cancel</Button>
                     <Button onClick={async () => {
-                        await axios.post("/api/db/deleteimage", null, {params: {imageToDelete}, withCredentials: true});
+                        //await axios.post("/api/db/deleteimage", null, {params: {imageToDelete}, withCredentials: true});
+                        await Api2.deleteImage(imageToDelete ?? "");
                         setImageToDelete(null);
                     }}>Delete</Button>
                 </DialogActions>
