@@ -174,7 +174,6 @@ code {
   background: url("https://www.serenohotels.com/app/themes/_serenohotels/images/divider.png") no-repeat top center;
 }
 .ch1 {
-  font-family: 'Raleway', sans-serif;
   font-size: 45px;
   font-weight: 500;
   color: #604a3f;
@@ -182,7 +181,6 @@ code {
   line-height: 1.2;
 }
 .cp1 {
-  font-family: 'Raleway', sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.7;
@@ -193,7 +191,6 @@ code {
 }
 h1,
 h2 {
-  font-family: 'Raleway', sans-serif;
   text-align: center;
   text-transform: uppercase;
 }
