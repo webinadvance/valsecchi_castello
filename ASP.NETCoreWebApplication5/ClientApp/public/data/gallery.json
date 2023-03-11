@@ -1,1 +1,128 @@
-[{"title":"pipo","data":[{"src":"/pipo/1-17.jpg","title":"1-17.jpg"},{"src":"/pipo/1-19.jpg","title":"1-19.jpg"},{"src":"/pipo/1-2.jpg","title":"1-2.jpg"},{"src":"/pipo/1-20.jpg","title":"1-20.jpg"},{"src":"/pipo/1-35.jpg","title":"1-35.jpg"},{"src":"/pipo/1-7.jpg","title":"1-7.jpg"},{"src":"/pipo/1-8.jpg","title":"1-8.jpg"},{"src":"/pipo/corte interna.jpg","title":"corte interna.jpg"},{"src":"/pipo/duomo.jpg","title":"duomo.jpg"},{"src":"/pipo/esterno.jpg","title":"esterno.jpg"},{"src":"/pipo/facciata giorno.jpg","title":"facciata giorno.jpg"},{"src":"/pipo/facciata rodari 2.jpg","title":"facciata rodari 2.jpg"},{"src":"/pipo/facciata rodari.jpg","title":"facciata rodari.jpg"},{"src":"/pipo/target -31.jpg","title":"target -31.jpg"}]},{"title":"selezione","data":[{"src":"/selezione/papale_galleria_1.jpg","title":"papale_galleria_1.jpg"},{"src":"/selezione/papale_galleria_10.jpg","title":"papale_galleria_10.jpg"},{"src":"/selezione/papale_galleria_11.jpg","title":"papale_galleria_11.jpg"},{"src":"/selezione/papale_galleria_12.jpg","title":"papale_galleria_12.jpg"},{"src":"/selezione/papale_galleria_13.jpg","title":"papale_galleria_13.jpg"},{"src":"/selezione/papale_galleria_2.jpg","title":"papale_galleria_2.jpg"},{"src":"/selezione/papale_galleria_3.jpg","title":"papale_galleria_3.jpg"},{"src":"/selezione/papale_galleria_4.jpg","title":"papale_galleria_4.jpg"},{"src":"/selezione/papale_galleria_5.jpg","title":"papale_galleria_5.jpg"},{"src":"/selezione/papale_galleria_6.jpg","title":"papale_galleria_6.jpg"},{"src":"/selezione/papale_galleria_7.jpg","title":"papale_galleria_7.jpg"},{"src":"/selezione/papale_galleria_8.jpg","title":"papale_galleria_8.jpg"},{"src":"/selezione/papale_galleria_9.jpg","title":"papale_galleria_9.jpg"},{"src":"/selezione/residenza papale sito 1.jpg","title":"residenza papale sito 1.jpg"},{"src":"/selezione/residenza papale sito 2.jpg","title":"residenza papale sito 2.jpg"}]},{"title":"varie","data":[{"src":"/varie/1-17.jpg","title":"1-17.jpg"},{"src":"/varie/1-19.jpg","title":"1-19.jpg"},{"src":"/varie/1-2.jpg","title":"1-2.jpg"},{"src":"/varie/1-20.jpg","title":"1-20.jpg"},{"src":"/varie/1-35.jpg","title":"1-35.jpg"},{"src":"/varie/1-7.jpg","title":"1-7.jpg"},{"src":"/varie/1-8.jpg","title":"1-8.jpg"},{"src":"/varie/corte interna.jpg","title":"corte interna.jpg"},{"src":"/varie/duomo.jpg","title":"duomo.jpg"},{"src":"/varie/esterno.jpg","title":"esterno.jpg"},{"src":"/varie/facciata giorno.jpg","title":"facciata giorno.jpg"},{"src":"/varie/facciata rodari 2.jpg","title":"facciata rodari 2.jpg"},{"src":"/varie/facciata rodari.jpg","title":"facciata rodari.jpg"},{"src":"/varie/target -31.jpg","title":"target -31.jpg"}]}]
+[
+  {
+    "title": "selezione",
+    "data": [
+      {
+        "src": "/selezione/papale_galleria_1.jpg",
+        "title": "papale_galleria_1"
+      },
+      {
+        "src": "/selezione/papale_galleria_10.jpg",
+        "title": "papale_galleria_10"
+      },
+      {
+        "src": "/selezione/papale_galleria_11.jpg",
+        "title": "papale_galleria_11"
+      },
+      {
+        "src": "/selezione/papale_galleria_12.jpg",
+        "title": "papale_galleria_12"
+      },
+      {
+        "src": "/selezione/papale_galleria_13.jpg",
+        "title": "papale_galleria_13"
+      },
+      {
+        "src": "/selezione/papale_galleria_2.jpg",
+        "title": "papale_galleria_2"
+      },
+      {
+        "src": "/selezione/papale_galleria_3.jpg",
+        "title": "papale_galleria_3"
+      },
+      {
+        "src": "/selezione/papale_galleria_4.jpg",
+        "title": "papale_galleria_4"
+      },
+      {
+        "src": "/selezione/papale_galleria_5.jpg",
+        "title": "papale_galleria_5"
+      },
+      {
+        "src": "/selezione/papale_galleria_6.jpg",
+        "title": "papale_galleria_6"
+      },
+      {
+        "src": "/selezione/papale_galleria_7.jpg",
+        "title": "papale_galleria_7"
+      },
+      {
+        "src": "/selezione/papale_galleria_8.jpg",
+        "title": "papale_galleria_8"
+      },
+      {
+        "src": "/selezione/papale_galleria_9.jpg",
+        "title": "papale_galleria_9"
+      },
+      {
+        "src": "/selezione/residenza papale sito 1.jpg",
+        "title": "residenza papale sito 1"
+      },
+      {
+        "src": "/selezione/residenza papale sito 2.jpg",
+        "title": "residenza papale sito 2"
+      }
+    ]
+  },
+  {
+    "title": "varie",
+    "data": [
+      {
+        "src": "/varie/1-17.jpg",
+        "title": "1-17"
+      },
+      {
+        "src": "/varie/1-19.jpg",
+        "title": "1-19"
+      },
+      {
+        "src": "/varie/1-2.jpg",
+        "title": "1-2"
+      },
+      {
+        "src": "/varie/1-20.jpg",
+        "title": "1-20"
+      },
+      {
+        "src": "/varie/1-35.jpg",
+        "title": "1-35"
+      },
+      {
+        "src": "/varie/1-7.jpg",
+        "title": "1-7"
+      },
+      {
+        "src": "/varie/1-8.jpg",
+        "title": "1-8"
+      },
+      {
+        "src": "/varie/corte interna.jpg",
+        "title": "corte interna"
+      },
+      {
+        "src": "/varie/duomo.jpg",
+        "title": "duomo"
+      },
+      {
+        "src": "/varie/esterno.jpg",
+        "title": "esterno"
+      },
+      {
+        "src": "/varie/facciata giorno.jpg",
+        "title": "facciata giorno"
+      },
+      {
+        "src": "/varie/facciata rodari 2.jpg",
+        "title": "facciata rodari 2"
+      },
+      {
+        "src": "/varie/facciata rodari.jpg",
+        "title": "facciata rodari"
+      },
+      {
+        "src": "/varie/target -31.jpg",
+        "title": "target -31"
+      }
+    ]
+  }
+]

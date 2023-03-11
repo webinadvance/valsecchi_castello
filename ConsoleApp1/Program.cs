@@ -27,14 +27,15 @@ namespace ImageConverter
                 foreach (var file in System.IO.Directory.GetFiles(subdirectory, "*.jpg")
                              .Where(path => !path.EndsWith("_low.jpg")))
                 {
-                    var fileName = Path.GetFileName(file);
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
 
                     directoryData.Add(new
                     {
-                        src = $"/{directoryName}/{fileName}",
-                        title = fileName
+                        src = $"/{directoryName}/{fileNameWithoutExtension}.jpg",
+                        title = fileNameWithoutExtension
                     });
                 }
+
 
                 directories.Add(new
                 {
