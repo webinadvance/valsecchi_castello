@@ -55,6 +55,7 @@
     "workbox-streams": "^6.5.4"
   },
   "devDependencies": {
+    "@fontsource/roboto": "^4.5.8",
     "@loadable/component": "^5.15.3",
     "@types/js-cookie": "^3.0.3",
     "@types/loadable__component": "^5.13.4",
