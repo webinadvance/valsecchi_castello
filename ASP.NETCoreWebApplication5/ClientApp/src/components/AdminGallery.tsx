@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 import {
     Table,
     TableBody,
@@ -13,45 +14,16 @@ import {
 import Api from "../Api";
 
 const AdminGallery = () => {
-    const [images, setImages] = useState([
-        {
-            "title": "selezione",
-            "data":
-                [
-                    {
-                        title: "Image 2",
-                        src: "https://example.com/image2.jpg",
-                    },
-                    {
-                        title: "Image 3",
-                        src: "https://example.com/image3.jpg",
-                    }
-                ]
-        },
-        {
-            "title": "selezione2",
-            "data":
-                [
-                    {
-                        title: "Image 22",
-                        src: "https://example.com/image22.jpg",
-                    },
-                    {
-                        title: "Image 32",
-                        src: "https://example.com/image32.jpg",
-                    }
-                ]
-        }
-    ]);
+    const [images, setImages] = useState<any>();
 
     const [newImageName, setNewImageName] = useState("");
-    const [selectedFile, setSelectedFile] = useState<any>(null);
+    const [selectedFile, setSelectedFile] = useState<any>();
 
     const handleFileChange = (e: any) => {
         setSelectedFile(e.target.files[0]);
     };
 
-    const handleFileUpload = async (parentTitle: string) => {
+    const handleFileUpload = async (parentTitle: any) => {
         console.log(parentTitle);
         return;
         const formData = new FormData();
@@ -59,22 +31,25 @@ const AdminGallery = () => {
         try {
             await Api.uploadimage(formData);
             // Add the uploaded image to the corresponding data array
-            setImages(images.map((selezione) => {
-                if (selezione.title === parentTitle) {
-                    return {
-                        ...selezione,
-                        data: [
-                            ...selezione.data,
-                            {
-                                title: newImageName,
-                                src: "https://example.com/newimage.jpg", // Replace with actual URL of uploaded image
-                            }
-                        ]
-                    };
-                } else {
-                    return selezione;
-                }
-            }));
+            setImages((prevImages: any) => {
+                return prevImages.map((selezione: any) => {
+                    if (selezione.title === parentTitle) {
+                        return {
+                            ...selezione,
+                            data: [
+                                ...selezione.data,
+                                {
+                                    title: newImageName,
+                                    src: "https://example.com/newimage.jpg",
+                                }
+                            ]
+                        };
+                    } else {
+                        return selezione;
+                    }
+                });
+            });
+
             // Clear the input fields
             setNewImageName("");
             setSelectedFile(null);
@@ -82,6 +57,18 @@ const AdminGallery = () => {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("./data/gallery.json");
+                setImages(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <TableContainer component={Paper}>
@@ -95,12 +82,12 @@ const AdminGallery = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {images.map((selezione, index) => (
+                    {images && images.map((selezione: any, index: any) => (
                         <React.Fragment key={index}>
                             <TableRow>
                                 <TableCell colSpan={4}>{selezione.title}</TableCell>
                             </TableRow>
-                            {selezione.data.map((image, index2) => (
+                            {selezione.data.map((image: any, index2: any) => (
                                 <TableRow key={`${index}-${index2}`}>
                                     <TableCell>{index2 + 1}</TableCell>
                                     <TableCell>{image.title}</TableCell>
