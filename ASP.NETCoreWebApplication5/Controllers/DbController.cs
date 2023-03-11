@@ -128,6 +128,7 @@ public class DbController : ControllerBase
             await file.CopyToAsync(stream);
         }
 
+        ImageLib.Sync(_webHostEnvironment);
         return Ok(new { fileName });
     }
 }

@@ -27,9 +27,7 @@ const AdminGallery = () => {
         const formData = new FormData();
         formData.append("image", selectedFile);
         try {
-            //await Api.uploadimage(formData);
             await axios.post("/api/db/uploadimage", formData, {params: {parentTitle}, withCredentials: true});
-            // Add the uploaded image to the corresponding data array
             setImages((prevImages: any) => {
                 return prevImages.map((selezione: any) => {
                     if (selezione.title === parentTitle) {
