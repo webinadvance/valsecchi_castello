@@ -122,7 +122,7 @@ public class DbController : ControllerBase
             : fileNameWithoutExtension;
         var newFileName = $"{truncatedFileName}_{timeStamp}{extension}";
 
-        var filePath = Path.Combine(uploadsPath, fileName);
+        var filePath = Path.Combine(uploadsPath, newFileName);
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             await file.CopyToAsync(stream);

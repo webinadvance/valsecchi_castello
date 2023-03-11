@@ -58,12 +58,14 @@ public static class ImageLib
         var byteArray = Encoding.ASCII.GetBytes(json);
         var stream = new MemoryStream(byteArray);
 
-        var filePath =
-            Path.Combine(
-                @"C:\Users\webin\RiderProjects\valsecchi_castello\ASP.NETCoreWebApplication5\ClientApp\public\data",
-                "gallery.json");
+#if DEBUG
+        var filePath = webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\data\\gallery.json";
+#else
+        var filePath = webHostEnvironment.ContentRootPath + "\\wwwroot\\data\\gallery.json";
+#endif
+
         System.IO.File.WriteAllText(filePath, json);
-    }
+     }
 
 
     private static void CreateLowRes()
