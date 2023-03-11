@@ -38,7 +38,7 @@ public class PublicController : ControllerBase
     public async Task<IActionResult> login([FromQuery] string? url)
     {
         var authenticationProperties = new AuthenticationProperties
-            {RedirectUri = "/api/response?url=" + url};
+            { RedirectUri = "/api/response?url=" + url };
         return Challenge(authenticationProperties, GoogleDefaults.AuthenticationScheme);
     }
 
