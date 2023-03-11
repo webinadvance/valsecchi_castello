@@ -102,13 +102,26 @@ public class DbController : ControllerBase
             return BadRequest("No file uploaded");
         }
 
-        var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+#if DEBUG
+        var uploadsPath = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\assets\\" + parentTitle;
+#else
+        var uploadsPath = _webHostEnvironment.ContentRootPath + "\\wwwroot\\" + parentTitle;
+#endif
+
         if (!Directory.Exists(uploadsPath))
         {
             Directory.CreateDirectory(uploadsPath);
         }
 
-        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+        var fileName = file.FileName;
+        var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+        var extension = Path.GetExtension(fileName);
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+        var truncatedFileName = fileNameWithoutExtension.Length > 20
+            ? fileNameWithoutExtension.Substring(0, 20)
+            : fileNameWithoutExtension;
+        var newFileName = $"{truncatedFileName}_{timeStamp}{extension}";
+
         var filePath = Path.Combine(uploadsPath, fileName);
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
