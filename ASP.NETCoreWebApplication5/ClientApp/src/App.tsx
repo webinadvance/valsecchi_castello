@@ -11,6 +11,7 @@ import Api from './Api'
 import useAsyncEffect from 'use-async-effect'
 import loadable from '@loadable/component'
 import ScrollTop from "./components/ScrollTop";
+import CookieConsentBanner from "./components/CookieConsentBanner ";
 
 const Admin = lazy(async () => await import('./components/Admin'))
 const Home = lazy(async () => await import('./components/Home'))
@@ -78,6 +79,7 @@ const App: FC<IProps> = memo(() => {
                 {footer}
                 <ScrollTop/>
                 <Loader/>
+                <CookieConsentBanner/>
             </Suspense>
         </>
     );
