@@ -31,6 +31,7 @@ const CookieConsentBanner = () => {
 
     useEffect(() => {
         const cookieConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
+        console.log(COOKIE_CONSENT_KEY);
         if (cookieConsent) {
             const parsedConsent = JSON.parse(cookieConsent);
             setAllowFunctionalCookies(parsedConsent.functional);
@@ -66,14 +67,17 @@ const CookieConsentBanner = () => {
         setAllowMarketingCookies(!allowMarketingCookies);
     };
 
-    useEffect(() => {
-        const allowed = ALLOWED_COOKIES.every(
-            (cookieType) => (cookieType === 'functional' && allowFunctionalCookies) ||
-                (cookieType === 'analytics' && allowAnalyticsCookies) ||
-                (cookieType === 'marketing' && allowMarketingCookies),
-        );
-        setIsOpen(!allowed);
-    }, [allowFunctionalCookies, allowAnalyticsCookies, allowMarketingCookies]);
+    /*    useEffect(() => {
+            const allowed = ALLOWED_COOKIES.every(
+                (cookieType) => (cookieType === 'functional' && allowFunctionalCookies) ||
+                    (cookieType === 'analytics' && allowAnalyticsCookies) ||
+                    (cookieType === 'marketing' && allowMarketingCookies),
+            );
+            const cookieConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
+            console.log(COOKIE_CONSENT_KEY);
+            if (!cookieConsent)
+                setIsOpen(!allowed);
+        }, [allowFunctionalCookies, allowAnalyticsCookies, allowMarketingCookies]);*/
 
     return (
         <Drawer
