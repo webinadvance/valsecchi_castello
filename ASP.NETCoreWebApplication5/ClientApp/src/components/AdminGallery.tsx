@@ -15,19 +15,12 @@ import Api from "../Api";
 const AdminGallery = () => {
     const [images, setImages] = useState([
         {
-            id: 1,
-            name: "Image 1",
-            url: "https://example.com/image1.jpg",
+            title: "Image 2",
+            src: "https://example.com/image2.jpg",
         },
         {
-            id: 2,
-            name: "Image 2",
-            url: "https://example.com/image2.jpg",
-        },
-        {
-            id: 3,
-            name: "Image 3",
-            url: "https://example.com/image3.jpg",
+            title: "Image 3",
+            src: "https://example.com/image3.jpg",
         },
     ]);
     const [newImageName, setNewImageName] = useState("");
@@ -36,17 +29,16 @@ const AdminGallery = () => {
     const handleAddImage = () => {
         const newId = images.length + 1;
         const newImage = {
-            id: newId,
-            name: newImageName,
-            url: selectedFile ? URL.createObjectURL(selectedFile) : "",
+            title: newImageName,
+            src: selectedFile ? URL.createObjectURL(selectedFile) : "",
         };
         setImages([...images, newImage]);
         setNewImageName("");
         setSelectedFile(null);
     };
 
-    const handleDeleteImage = (id: any) => {
-        const filteredImages = images.filter((image) => image.id !== id);
+    const handleDeleteImage = (src: any) => {
+        const filteredImages = images.filter((image) => image.src !== src);
         setImages(filteredImages);
     };
 
@@ -76,16 +68,16 @@ const AdminGallery = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {images.map((image) => (
-                        <TableRow key={image.id}>
-                            <TableCell>{image.id}</TableCell>
-                            <TableCell>{image.name}</TableCell>
-                            <TableCell>{image.url}</TableCell>
+                    {images.map((image, index) => (
+                        <TableRow key={image.src}>
+                            <TableCell>{index + 1}</TableCell>
+                            <TableCell>{image.title}</TableCell>
+                            <TableCell>{image.src}</TableCell>
                             <TableCell>
                                 <Button
                                     variant="contained"
                                     color="error"
-                                    onClick={() => handleDeleteImage(image.id)}
+                                    onClick={() => handleDeleteImage(image.src)}
                                 >
                                     Delete
                                 </Button>
