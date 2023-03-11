@@ -51,11 +51,33 @@ const AdminGallery = () => {
         setSelectedFile(e.target.files[0]);
     };
 
-    const handleFileUpload = async () => {
+    const handleFileUpload = async (parentTitle: string) => {
+        console.log(parentTitle);
+        return;
         const formData = new FormData();
         formData.append("image", selectedFile);
         try {
             await Api.uploadimage(formData);
+            // Add the uploaded image to the corresponding data array
+            setImages(images.map((selezione) => {
+                if (selezione.title === parentTitle) {
+                    return {
+                        ...selezione,
+                        data: [
+                            ...selezione.data,
+                            {
+                                title: newImageName,
+                                src: "https://example.com/newimage.jpg", // Replace with actual URL of uploaded image
+                            }
+                        ]
+                    };
+                } else {
+                    return selezione;
+                }
+            }));
+            // Clear the input fields
+            setNewImageName("");
+            setSelectedFile(null);
         } catch (error) {
             console.error(error);
         }
@@ -94,26 +116,27 @@ const AdminGallery = () => {
                                     </TableCell>
                                 </TableRow>
                             ))}
+                            <TableRow>
+                                <TableCell></TableCell>
+                                <TableCell>
+                                    <TextField
+                                        label="Name"
+                                        value={newImageName}
+                                        onChange={(e) => setNewImageName(e.target.value)}
+                                    />
+                                </TableCell>
+                                <TableCell>
+                                    <input type="file" onChange={handleFileChange}/>
+                                </TableCell>
+                                <TableCell>
+                                    <Button variant="contained" color="primary"
+                                            onClick={() => handleFileUpload(selezione.title)}>
+                                        Upload
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
                         </React.Fragment>
                     ))}
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell>
-                            <TextField
-                                label="Name"
-                                value={newImageName}
-                                onChange={(e) => setNewImageName(e.target.value)}
-                            />
-                        </TableCell>
-                        <TableCell>
-                            <input type="file" onChange={handleFileChange}/>
-                        </TableCell>
-                        <TableCell>
-                            <Button variant="contained" color="primary" onClick={handleFileUpload}>
-                                Upload
-                            </Button>
-                        </TableCell>
-                    </TableRow>
                 </TableBody>
             </Table>
         </TableContainer>
