@@ -93,7 +93,7 @@ public class DbController : ControllerBase
 
     [HttpPost]
     [Route("uploadimage")]
-    public async Task<IActionResult> uploadimage()
+    public async Task<IActionResult> uploadimage(string parentTitle)
     {
         var form = await Request.ReadFormAsync();
         var file = form.Files.FirstOrDefault();
