@@ -75,7 +75,7 @@ const AdminGallery = () => {
     const [imageToDelete, setImageToDelete] = useState(null);
 
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
     return (
         <>
@@ -112,8 +112,8 @@ const AdminGallery = () => {
                         {images && images.map((selezione: any, index: any) => (
                             <React.Fragment key={index}>
                                 <TableRow
-                                    style={{backgroundColor: theme.palette.primary.main, textTransform: "uppercase"}}>
-                                    <TableCell style={{fontWeight: "bold", color: "#fff"}} colSpan={isMobile ? 3 : 4}>
+                                    style={{backgroundColor: theme.palette.secondary.main, textTransform: "uppercase"}}>
+                                    <TableCell style={{fontWeight: "bold"}} colSpan={isMobile ? 3 : 4}>
                                         {selezione.title}
                                     </TableCell>
                                 </TableRow>
@@ -149,8 +149,6 @@ const AdminGallery = () => {
                                                 onClick={() => handleFileUpload(selezione.title)}>
                                             Upload
                                         </Button>
-                                    </TableCell>
-                                    <TableCell>
                                     </TableCell>
                                 </TableRow>
                             </React.Fragment>
