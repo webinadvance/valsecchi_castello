@@ -34,14 +34,26 @@
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
         <None Remove="ClientApp_ORIGINAL\**" />
         <Content Remove="ClientApp_ORIGINAL\**" />
+        <Content Remove="ClientApp\public\assets\**" />
+        <None Remove="ClientApp\public\assets\**" />
+        <Content Remove="ClientApp\public\data\**" />
+        <None Remove="ClientApp\public\data\**" />
+        <Content Remove="ClientApp\public\locales\**" />
+        <None Remove="ClientApp\public\locales\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="ClientApp_ORIGINAL\**" />
+      <Compile Remove="ClientApp\public\assets\**" />
+      <Compile Remove="ClientApp\public\data\**" />
+      <Compile Remove="ClientApp\public\locales\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="ClientApp_ORIGINAL\**" />
+      <EmbeddedResource Remove="ClientApp\public\assets\**" />
+      <EmbeddedResource Remove="ClientApp\public\data\**" />
+      <EmbeddedResource Remove="ClientApp\public\locales\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -50,10 +62,8 @@
       <_ContentIncludedByDefault Remove="ClientApp_ORIGINAL\public\manifest.json" />
       <_ContentIncludedByDefault Remove="ClientApp\public\locales\en.json" />
       <_ContentIncludedByDefault Remove="ClientApp\public\locales\it.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="ClientApp\public\locales" />
+      <_ContentIncludedByDefault Remove="ClientApp\public\data\gallery.json" />
+      <_ContentIncludedByDefault Remove="ClientApp\public\data\routes.json" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

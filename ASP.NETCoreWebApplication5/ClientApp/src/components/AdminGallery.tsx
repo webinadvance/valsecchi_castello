@@ -33,28 +33,7 @@ const AdminGallery = () => {
         formData.append("image", selectedFile);
         try {
             await axios.post("/api/db/uploadimage", formData, {params: {parentTitle}, withCredentials: true});
-            setImages((prevImages: any) => {
-                return prevImages.map((selezione: any) => {
-                    if (selezione.title === parentTitle) {
-                        return {
-                            ...selezione,
-                            data: [
-                                ...selezione.data,
-                                {
-                                    title: newImageName,
-                                    src: "https://example.com/newimage.jpg",
-                                }
-                            ]
-                        };
-                    } else {
-                        return selezione;
-                    }
-                });
-            });
-
-            // Clear the input fields
-            setNewImageName("");
-            setSelectedFile(null);
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }
@@ -63,7 +42,7 @@ const AdminGallery = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("./data/gallery.json");
+                const response = await axios.get(`./data/gallery.json?${Date.now()}`);
                 setImages(response.data);
             } catch (error) {
                 console.error(error);
@@ -94,7 +73,7 @@ const AdminGallery = () => {
                     }}>Cancel</Button>
                     <Button onClick={async () => {
                         await Api2.deleteImage(imageToDelete ?? "");
-                        setImageToDelete(null);
+                        window.location.reload();
                     }}>Delete</Button>
                 </DialogActions>
             </Dialog>
@@ -129,7 +108,9 @@ const AdminGallery = () => {
                                     <TableCell>
                                         <input type="file" onChange={handleFileChange}/>
                                         <Button variant="contained" color="primary"
-                                                onClick={() => handleFileUpload(selezione.title)}>
+                                                onClick={async () => {
+                                                    return await handleFileUpload(selezione.title);
+                                                }}>
                                             Upload
                                         </Button>
                                     </TableCell>
