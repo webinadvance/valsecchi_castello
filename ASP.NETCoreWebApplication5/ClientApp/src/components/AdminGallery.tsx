@@ -111,7 +111,10 @@ const AdminGallery = () => {
                                     <TableRow key={`${index}-${index2}`}>
                                         <TableCell>{index2 + 1}</TableCell>
                                         <TableCell>{image.title}</TableCell>
-                                        <TableCell>{image.src}</TableCell>
+                                        <TableCell>
+                                            <img src={"./assets" + image.src} alt={image.title}
+                                                 style={{maxWidth: "100px"}}/>
+                                        </TableCell>
                                         <TableCell>
                                             <Button
                                                 variant="contained"
