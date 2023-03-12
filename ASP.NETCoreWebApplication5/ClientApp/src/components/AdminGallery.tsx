@@ -119,7 +119,7 @@ const AdminGallery = () => {
                                         borderTopColor: (theme) => theme.palette.secondary.main,
                                     }} style={{fontWeight: "bold"}}
                                                colSpan={isMobile ? 3 : 4}>
-                                        {rootTitle.title}
+                                        <TextField fullWidth value={rootTitle.title}/>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
