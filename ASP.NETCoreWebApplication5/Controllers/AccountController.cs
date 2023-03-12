@@ -17,9 +17,10 @@ public class PublicController : ControllerBase
     }
 
     [HttpGet("user")]
-    [Authorize]
+    /*[Authorize]*/
     public async Task<object> user()
     {
+        return null;
         string email = null;
         string name = null;
 

@@ -31,7 +31,6 @@ const CookieConsentBanner = () => {
 
     useEffect(() => {
         const cookieConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
-        console.log(COOKIE_CONSENT_KEY);
         if (cookieConsent) {
             const parsedConsent = JSON.parse(cookieConsent);
             setAllowFunctionalCookies(parsedConsent.functional);

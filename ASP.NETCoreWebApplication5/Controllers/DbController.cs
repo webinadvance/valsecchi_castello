@@ -82,7 +82,7 @@ namespace ASP.NETCoreWebApplication5.Controllers
         [HttpPost("deleteimage")]
         public async Task<IActionResult> DeleteImage(string imageToDelete)
         {
-            var imagePath = Path.Combine(GetPath(), "assets",
+            /*var imagePath = Path.Combine(GetPath(), "assets",
                 imageToDelete.Trim('/').Replace("/", "\\"));
 
             if (System.IO.File.Exists(imagePath))
@@ -90,7 +90,7 @@ namespace ASP.NETCoreWebApplication5.Controllers
                 System.IO.File.Delete(imagePath);
             }
 
-            ImageLib.Sync(_webHostEnvironment);
+            ImageLib.Sync(_webHostEnvironment);*/
 
             return Ok();
         }

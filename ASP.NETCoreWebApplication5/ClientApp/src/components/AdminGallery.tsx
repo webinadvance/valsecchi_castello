@@ -122,6 +122,19 @@ const AdminGallery = () => {
                                         {selezione.title}
                                     </TableCell>
                                 </TableRow>
+                                <TableRow>
+                                    {!isMobile && <TableCell></TableCell>}
+                                    <TableCell>
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="file" onChange={handleFileChange}/>
+                                        <Button variant="contained" color="primary"
+                                                onClick={() => handleFileUpload(selezione.title)}>
+                                            Upload
+                                        </Button>
+                                    </TableCell>
+                                    {!isMobile && <TableCell></TableCell>}
+                                </TableRow>
                                 {selezione.data.map((image: any, index2: any) => (
                                     <TableRow key={`${index}-${index2}`}>
                                         {!isMobile && <TableCell>{index2 + 1}</TableCell>}
@@ -144,19 +157,6 @@ const AdminGallery = () => {
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                                <TableRow>
-                                    {!isMobile && <TableCell></TableCell>}
-                                    <TableCell>
-                                    </TableCell>
-                                    <TableCell>
-                                        <input type="file" onChange={handleFileChange}/>
-                                        <Button variant="contained" color="primary"
-                                                onClick={() => handleFileUpload(selezione.title)}>
-                                            Upload
-                                        </Button>
-                                    </TableCell>
-                                    {!isMobile && <TableCell></TableCell>}
-                                </TableRow>
                             </React.Fragment>
                         ))}
                     </TableBody>
