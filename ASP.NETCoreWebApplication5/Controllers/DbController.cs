@@ -1,178 +1,139 @@
-﻿using System.Text.Json;
+﻿using System.IO;
 using ASP.NETCoreWebApplication5.Models;
-using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
-namespace ASP.NETCoreWebApplication5.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class DbController : ControllerBase
+namespace ASP.NETCoreWebApplication5.Controllers
 {
-    private readonly palazzoContext _dbContext;
-    private readonly ILogger<DbController> _logger;
-    private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly string _localesPath;
-
-    public DbController(IWebHostEnvironment hostingEnvironment, palazzoContext dbContext)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class DbController : ControllerBase
     {
-        _webHostEnvironment = hostingEnvironment;
-        _dbContext = dbContext;
-        _localesPath = GetLocalesPath();
-    }
+        private readonly palazzoContext _dbContext;
+        private readonly ILogger<DbController> _logger;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly string _localesPath;
 
-    [HttpGet]
-    [Route("langall")]
-    public async Task<dynamic> langall()
-    {
-        var result = GetLangList();
-        return result;
-    }
+        public DbController(IWebHostEnvironment hostingEnvironment, palazzoContext dbContext)
+        {
+            _webHostEnvironment = hostingEnvironment;
+            _dbContext = dbContext;
+            _localesPath = GetPath("locales");
+        }
 
-    private List<lang> GetLangList()
-    {
-        // Load the data from the two JSON files
-        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "en.json")));
-        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "it.json")));
+        [HttpGet("langall")]
+        public async Task<IEnumerable<lang>> GetLangList()
+        {
+            var enJson = JObject.Parse(await System.IO.File.ReadAllTextAsync(Path.Combine(_localesPath, "en.json")));
+            var itJson = JObject.Parse(await System.IO.File.ReadAllTextAsync(Path.Combine(_localesPath, "it.json")));
 
-        // Combine the data from the two JSON files into a list of objects
-        List<lang> result = itJson.Properties().Select(p =>
-            new lang
+            var result = new List<lang>();
+            foreach (var key in enJson.Properties().Select(p => p.Name).Union(itJson.Properties().Select(p => p.Name))
+                         .Distinct())
             {
-                key = p.Name,
-                it = (string)p.Value,
-                en = (string)enJson[p.Name]
-            }).ToList();
-        return result;
-    }
+                result.Add(new lang
+                {
+                    key = key,
+                    en = enJson.ContainsKey(key) ? enJson[key].ToString() : "",
+                    it = itJson.ContainsKey(key) ? itJson[key].ToString() : ""
+                });
+            }
 
-    [HttpGet]
-    [Route("locales/{lang}")]
-#if DEBUG
-#else
-    [ResponseCache(Duration = 60)]
-#endif
-    public async Task<object> language(string lang)
-    {
-        var res = await _dbContext.lang.ToListAsync();
-        var dictionary =
-            res.ToList().ToDictionary(c => c.key, c => c.GetType().GetProperty(lang)!.GetValue(c).ToString());
-        return dictionary;
-    }
-
-    [HttpPost]
-    [Route("deleteadminlang")]
-    public async Task deleteadminlang([FromBody] lang dataToDelete)
-    {
-        // Load the data from the two JSON files
-        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "en.json")));
-        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "it.json")));
-
-        // Update the values in the JSON files based on the new language object
-        enJson.Remove(dataToDelete.key);
-        itJson.Remove(dataToDelete.key);
-
-        // Write the updated JSON data back to the files
-        System.IO.File.WriteAllText(Path.Combine(_localesPath, "en.json"), enJson.ToString());
-        System.IO.File.WriteAllText(Path.Combine(_localesPath, "it.json"), itJson.ToString());
-    }
-
-    [HttpPost]
-    [Route("saveadminlang")]
-    public async Task saveadminlang([FromBody] lang newData)
-    {
-        // Load the data from the two JSON files
-        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "en.json")));
-        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "it.json")));
-
-        // Add or update the key-value pair in each JSON file
-        enJson[newData.key] = newData.en;
-        itJson[newData.key] = newData.it;
-
-        // Write the updated JSON data back to
-        System.IO.File.WriteAllText(Path.Combine(_localesPath, "en.json"), enJson.ToString());
-        System.IO.File.WriteAllText(Path.Combine(_localesPath, "it.json"), itJson.ToString());
-    }
-
-    [HttpPost]
-    [Route("deleteimage")]
-    public async Task<IActionResult> deleteimage(string imageToDelete)
-    {
-        var imagePath = GetImagePath(imageToDelete);
-
-        if (System.IO.File.Exists(imagePath))
-        {
-            System.IO.File.Delete(imagePath);
+            return result;
         }
 
-        ImageLib.Sync(_webHostEnvironment);
-        return Ok();
-    }
-
-    [HttpPost]
-    [Route("uploadimage")]
-    public async Task<IActionResult> uploadimage(string parentTitle)
-    {
-        var form = await Request.ReadFormAsync();
-        var file = form.Files.FirstOrDefault();
-        if (file == null || file.Length == 0)
+        [HttpGet("locales/{lang}")]
+        public async Task<IDictionary<string, string>> GetLanguage(string lang)
         {
-            return BadRequest("No file uploaded");
+            var dictionary = (await _dbContext.lang.ToListAsync())
+                .ToDictionary(c => c.key, c => c.GetType().GetProperty(lang)!.GetValue(c).ToString());
+            if (!_webHostEnvironment.IsDevelopment()) Response.Headers.Add("Cache-Control", $"public, max-age=60");
+            return dictionary;
         }
 
-        var uploadsPath = GetUploadsPath(parentTitle);
 
-        if (!Directory.Exists(uploadsPath))
+        [HttpPost("deleteadminlang")]
+        public async Task DeleteAdminLang([FromBody] lang dataToDelete)
         {
+            var enJson = JObject.Parse(await System.IO.File.ReadAllTextAsync(Path.Combine(_localesPath, "en.json")));
+            var itJson = JObject.Parse(await System.IO.File.ReadAllTextAsync(Path.Combine(_localesPath, "it.json")));
+
+            enJson.Remove(dataToDelete.key);
+            itJson.Remove(dataToDelete.key);
+
+            await System.IO.File.WriteAllTextAsync(Path.Combine(_localesPath, "en.json"), enJson.ToString());
+            await System.IO.File.WriteAllTextAsync(Path.Combine(_localesPath, "it.json"), itJson.ToString());
+        }
+
+        [HttpPost("saveadminlang")]
+        public async Task SaveAdminLang([FromBody] lang newData)
+        {
+            var enJson = JObject.Parse(await System.IO.File.ReadAllTextAsync(Path.Combine(_localesPath, "en.json")));
+            var itJson = JObject.Parse(await System.IO.File.ReadAllTextAsync(Path.Combine(_localesPath, "it.json")));
+
+            enJson[newData.key] = newData.en;
+            itJson[newData.key] = newData.it;
+
+            await System.IO.File.WriteAllTextAsync(Path.Combine(_localesPath, "en.json"), enJson.ToString());
+            await System.IO.File.WriteAllTextAsync(Path.Combine(_localesPath, "it.json"), itJson.ToString());
+        }
+
+        [HttpPost("deleteimage")]
+        public async Task<IActionResult> DeleteImage(string imageToDelete)
+        {
+            var imagePath = GetPath("assets").TrimEnd('/') + imageToDelete.Replace("/", "\\");
+
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
+
+            ImageLib.Sync(_webHostEnvironment);
+            return Ok();
+        }
+
+        [HttpPost("uploadimage")]
+        public async Task<IActionResult> UploadImage(string parentTitle)
+        {
+            var form = await Request.ReadFormAsync();
+            var file = form.Files.FirstOrDefault();
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("No file uploaded");
+            }
+
+            var uploadsPath = GetPath("assets", parentTitle);
             Directory.CreateDirectory(uploadsPath);
+
+            var fileName = file.FileName;
+            var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var extension = Path.GetExtension(fileName);
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            var truncatedFileName = fileNameWithoutExtension.Length > 20
+                ? fileNameWithoutExtension.Substring(0, 20)
+                : fileNameWithoutExtension;
+            var newFileName = $"{truncatedFileName}_{timeStamp}{extension}";
+
+            var filePath = Path.Combine(uploadsPath, newFileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            ImageLib.Sync(_webHostEnvironment);
+            return Ok(new { fileName });
         }
 
-        var fileName = file.FileName;
-        var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-        var extension = Path.GetExtension(fileName);
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var truncatedFileName = fileNameWithoutExtension.Length > 20
-            ? fileNameWithoutExtension.Substring(0, 20)
-            : fileNameWithoutExtension;
-        var newFileName = $"{truncatedFileName}_{timeStamp}{extension}";
-
-        var filePath = Path.Combine(uploadsPath, newFileName);
-        using (var stream = new FileStream(filePath, FileMode.Create))
+        private string GetPath(params string[] paths)
         {
-            await file.CopyToAsync(stream);
+            string[] combinedPaths = paths.Prepend("wwwroot").ToArray();
+            if (_webHostEnvironment.IsDevelopment())
+            {
+                combinedPaths = paths.Prepend("public").Prepend("ClientApp").ToArray();
+            }
+
+            return Path.Combine(_webHostEnvironment.ContentRootPath, Path.Combine(combinedPaths));
         }
-
-        ImageLib.Sync(_webHostEnvironment);
-        return Ok(new { fileName });
-    }
-
-    private string GetLocalesPath()
-    {
-#if DEBUG
-        return Path.Combine(_webHostEnvironment.ContentRootPath, "ClientApp", "public", "locales");
-#else
-return Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "locales");
-#endif
-    }
-
-    private string GetImagePath(string imageName)
-    {
-#if DEBUG
-        return Path.Combine(_webHostEnvironment.ContentRootPath, "ClientApp", "public", "assets", imageName);
-#else
-return Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "assets", imageName);
-#endif
-    }
-
-    private string GetUploadsPath(string parentTitle)
-    {
-#if DEBUG
-        return Path.Combine(_webHostEnvironment.ContentRootPath, "ClientApp", "public", "assets", parentTitle);
-#else
-return Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", parentTitle);
-#endif
     }
 }
