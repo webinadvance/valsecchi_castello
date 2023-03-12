@@ -160,26 +160,11 @@ article em {
 .table {
   width: 100%;
 }
-.row:hover {
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
 section {
   padding-left: 1rem;
   padding-right: 1rem;
   max-width: 56rem;
   margin: 0 auto;
-}
-#admin .MuiTableCell-head {
-  font-weight: 900;
-  text-transform: uppercase;
-}
-#admin .MuiTableRow-root:nth-of-type(odd) {
-  background-color: #f5f5f5;
-}
-#admin .MuiTableRow-root:hover {
-  background-color: #e0e0e0;
-  cursor: pointer;
 }
 #navbarmenu {
   display: flex;
