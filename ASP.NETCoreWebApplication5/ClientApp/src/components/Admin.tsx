@@ -74,7 +74,7 @@ const Admin = React.memo(function () {
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Typography variant="h6" noWrap>
-                        My App
+                        Il medeghino
                     </Typography>
                     <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen}>
                         <MenuIcon/>
