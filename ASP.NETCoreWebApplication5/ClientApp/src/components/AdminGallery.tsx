@@ -111,8 +111,11 @@ const AdminGallery = () => {
                     <TableBody>
                         {images && images.map((selezione: any, index: any) => (
                             <React.Fragment key={index}>
-                                <TableRow>
-                                    <TableCell colSpan={isMobile ? 3 : 4}>{selezione.title}</TableCell>
+                                <TableRow
+                                    style={{backgroundColor: theme.palette.primary.main, textTransform: "uppercase"}}>
+                                    <TableCell style={{fontWeight: "bold", color: "#fff"}} colSpan={isMobile ? 3 : 4}>
+                                        {selezione.title}
+                                    </TableCell>
                                 </TableRow>
                                 {selezione.data.map((image: any, index2: any) => (
                                     <TableRow key={`${index}-${index2}`}>
