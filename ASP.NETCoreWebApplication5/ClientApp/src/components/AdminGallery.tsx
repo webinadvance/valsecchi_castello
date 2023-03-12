@@ -10,6 +10,7 @@ import {
     Paper,
     TextField,
     Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+    useMediaQuery, useTheme,
 } from "@mui/material";
 import Api from "../Api";
 import {Api2} from "../Api2";
@@ -70,6 +71,9 @@ const AdminGallery = () => {
 
     const [imageToDelete, setImageToDelete] = useState(null);
 
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
     return (
         <>
             <Dialog open={imageToDelete != null} onClose={() => {
@@ -95,9 +99,9 @@ const AdminGallery = () => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
+                            {!isMobile && <TableCell>ID</TableCell>}
                             <TableCell>Name</TableCell>
-                            <TableCell>URL</TableCell>
+                            {!isMobile && <TableCell>URL</TableCell>}
                             <TableCell>Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -105,16 +109,16 @@ const AdminGallery = () => {
                         {images && images.map((selezione: any, index: any) => (
                             <React.Fragment key={index}>
                                 <TableRow>
-                                    <TableCell colSpan={4}>{selezione.title}</TableCell>
+                                    <TableCell colSpan={isMobile ? 3 : 4}>{selezione.title}</TableCell>
                                 </TableRow>
                                 {selezione.data.map((image: any, index2: any) => (
                                     <TableRow key={`${index}-${index2}`}>
-                                        <TableCell>{index2 + 1}</TableCell>
+                                        {!isMobile && <TableCell>{index2 + 1}</TableCell>}
                                         <TableCell>{image.title}</TableCell>
-                                        <TableCell>
+                                        {!isMobile && <TableCell>
                                             <img src={"./assets" + image.src} alt={image.title}
                                                  style={{maxWidth: "100px"}}/>
-                                        </TableCell>
+                                        </TableCell>}
                                         <TableCell>
                                             <Button
                                                 variant="contained"
@@ -129,7 +133,7 @@ const AdminGallery = () => {
                                     </TableRow>
                                 ))}
                                 <TableRow>
-                                    <TableCell></TableCell>
+                                    {!isMobile && <TableCell></TableCell>}
                                     <TableCell>
                                         <TextField
                                             label="Name"
