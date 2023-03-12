@@ -66,52 +66,51 @@ public class DbController : ControllerBase
             res.ToList().ToDictionary(c => c.key, c => c.GetType().GetProperty(lang)!.GetValue(c).ToString());
         return dictionary;
     }
-
-    [HttpGet]
-    [Route("synclocales")]
-    public async Task synclocales()
-    {
-        var res = GetLangList();
-        foreach (var s in new[] { "it", "en" })
-        {
-            var dictionary =
-                res.ToList().ToDictionary(c => c.key, c => c.GetType().GetProperty(s).GetValue(c).ToString());
-            var options = new JsonSerializerOptions();
-            var json = JsonSerializer.Serialize(dictionary, options);
-
-#if DEBUG
-            var rootDirectory = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\locales\\" + s + ".json";
-#else
-        var rootDirectory = _webHostEnvironment.ContentRootPath + "\\wwwroot\\locales\\" + s + ".json";
-#endif
-            await System.IO.File.WriteAllTextAsync(rootDirectory, json);
-        }
-    }
-
+    
     [HttpPost]
     [Route("deleteadminlang")]
     public async Task deleteadminlang([FromBody] lang dataToDelete)
     {
-        var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == dataToDelete.key);
-        if (oldData != null)
-        {
-            _dbContext.lang.Remove(oldData);
-            await _dbContext.SaveChangesAsync();
-            await synclocales();
-        }
+#if DEBUG
+        var locales = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\locales";
+#else
+    var locales = _webHostEnvironment.ContentRootPath + "\\wwwroot\\locales";
+#endif
+
+        // Load the data from the two JSON files
+        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\en.json"));
+        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\it.json"));
+
+        // Update the values in the JSON files based on the new language object
+        enJson.Remove(dataToDelete.key);
+        itJson.Remove(dataToDelete.key);
+
+        // Write the updated JSON data back to the files
+        System.IO.File.WriteAllText(locales + "\\en.json", enJson.ToString());
+        System.IO.File.WriteAllText(locales + "\\it.json", itJson.ToString());
     }
 
     [HttpPost]
     [Route("saveadminlang")]
     public async Task saveadminlang([FromBody] lang newData)
     {
-        var oldData = await _dbContext.lang.SingleOrDefaultAsync(x => x.key == newData.key);
-        if (oldData == null)
-            _dbContext.lang.Add(newData);
-        else
-            _dbContext.Entry(oldData).CurrentValues.SetValues(newData);
-        await _dbContext.SaveChangesAsync();
-        await synclocales();
+#if DEBUG
+        var locales = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\locales";
+#else
+    var locales = _webHostEnvironment.ContentRootPath + "\\wwwroot\\locales";
+#endif
+
+        // Load the data from the two JSON files
+        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\en.json"));
+        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\it.json"));
+
+        // Add or update the key-value pair in each JSON file
+        enJson[newData.key] = newData.en;
+        itJson[newData.key] = newData.it;
+
+        // Write the updated JSON data back to the files
+        System.IO.File.WriteAllText(locales + "\\en.json", enJson.ToString());
+        System.IO.File.WriteAllText(locales + "\\it.json", itJson.ToString());
     }
 
     [HttpPost]

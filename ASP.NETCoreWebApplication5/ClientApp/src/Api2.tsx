@@ -13,10 +13,6 @@ export class Api2 {
         return response.data;
     }
 
-    static async syncLocales(): Promise<void> {
-        await axios.get(`${Api2.baseURL}/synclocales`);
-    }
-
     static async deleteAdminLang(dataToDelete: any): Promise<void> {
         await axios.post(`${Api2.baseURL}/deleteadminlang`, dataToDelete);
     }
