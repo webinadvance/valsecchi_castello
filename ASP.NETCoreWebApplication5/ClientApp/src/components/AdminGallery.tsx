@@ -142,20 +142,15 @@ const AdminGallery = () => {
                                 <TableRow>
                                     {!isMobile && <TableCell></TableCell>}
                                     <TableCell>
-                                        <TextField
-                                            label="Name"
-                                            value={newImageName}
-                                            onChange={(e) => setNewImageName(e.target.value)}
-                                        />
                                     </TableCell>
                                     <TableCell>
                                         <input type="file" onChange={handleFileChange}/>
-                                    </TableCell>
-                                    <TableCell>
                                         <Button variant="contained" color="primary"
                                                 onClick={() => handleFileUpload(selezione.title)}>
                                             Upload
                                         </Button>
+                                    </TableCell>
+                                    <TableCell>
                                     </TableCell>
                                 </TableRow>
                             </React.Fragment>
