@@ -60,7 +60,7 @@ const AdminGallery = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-    let newTitle: any = null;
+    let newTitle: Record<string, any> = {};
 
     return (
         <>
@@ -123,22 +123,29 @@ const AdminGallery = () => {
                                         <Box sx={{display: "flex", alignItems: "center", gap: 2}}>
                                             <TextField fullWidth value={rootTitle.title}/>
                                             <TextField fullWidth placeholder={"new value"} onChange={(e) => {
-                                                newTitle = e.target.value;
+                                                newTitle[rootTitle.title] = e.target.value;
                                             }}/>
-                                            <Button variant="contained" color="primary" onClick={async () => {
-                                                setLoading(true);
-                                                await axios.post("/api/db/changedirname", null, {
-                                                    params: {
-                                                        oldValue: rootTitle.title,
-                                                        newValue: newTitle
-                                                    },
-                                                    withCredentials: true,
-                                                });
-                                                setLoading(false);
-                                                window.location.reload();
-                                            }}>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={async () => {
+                                                    if (newTitle[rootTitle.title]) {
+                                                        setLoading(true);
+                                                        await axios.post("/api/db/changedirname", null, {
+                                                            params: {
+                                                                oldValue: rootTitle.title,
+                                                                newValue: newTitle[rootTitle.title]
+                                                            },
+                                                            withCredentials: true,
+                                                        });
+                                                        setLoading(false);
+                                                        window.location.reload();
+                                                    }
+                                                }}
+                                            >
                                                 save
                                             </Button>
+
                                         </Box>
                                     </TableCell>
                                 </TableRow>
