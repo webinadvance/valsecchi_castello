@@ -15,24 +15,12 @@ const theme = createTheme({
     palette: {
         mode: "dark",
         primary: {
-            main: purple[500],
+            main: "#3f51b5",
         },
         secondary: {
-            main: pink[500],
-        },
-        error: {
-            main: deepOrange[500],
+            main: "#f50057",
         },
     },
-    components: {
-        MuiTableRow: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: grey.A700,
-                },
-            }
-        },
-    }
 });
 
 const baseUrl = document.getElementsByTagName("base")[0]?.getAttribute("href") ?? "";

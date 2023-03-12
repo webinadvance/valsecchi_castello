@@ -112,7 +112,7 @@ const AdminGallery = () => {
                         {images && images.map((selezione: any, index: any) => (
                             <React.Fragment key={index}>
                                 <TableRow
-                                    style={{backgroundColor: theme.palette.secondary.main, textTransform: "uppercase"}}>
+                                    style={{textTransform: "uppercase"}}>
                                     <TableCell style={{fontWeight: "bold"}} colSpan={isMobile ? 3 : 4}>
                                         {selezione.title}
                                     </TableCell>
@@ -127,10 +127,10 @@ const AdminGallery = () => {
                                         </TableCell>
                                         <TableCell align="center">
                                             <Box sx={{display: "flex", justifyContent: "center"}}>
-                                                <Fab
-                                                    onClick={() => {
-                                                        setImageToDelete(image.src);
-                                                    }}
+                                                <Fab color={"primary"}
+                                                     onClick={() => {
+                                                         setImageToDelete(image.src);
+                                                     }}
                                                 >
                                                     <DeleteIcon/>
                                                 </Fab>

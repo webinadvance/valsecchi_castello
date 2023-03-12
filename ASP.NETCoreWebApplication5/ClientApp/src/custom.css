@@ -112,8 +112,8 @@ code {
   width: auto;
 }
 @media only screen and (min-width: 800px) {
-  h2:before,
-  h2:after {
+  .h2:before,
+  .h2:after {
     width: 30px;
     display: inline-block;
     padding: 0 10px;
@@ -123,7 +123,7 @@ code {
     background: url(https://www.serenohotels.com/app/themes/_serenohotels/images/heading-bg.png) repeat-x 50% 50%;
     opacity: 0.3;
   }
-  h2:after {
+  .h2:after {
     margin-right: 0;
     margin-left: 20px;
   }
