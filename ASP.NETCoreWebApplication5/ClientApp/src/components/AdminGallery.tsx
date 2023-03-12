@@ -123,7 +123,7 @@ const AdminGallery = () => {
                                                  style={{maxWidth: isMobile ? "200px" : "100px"}}/>
                                         </TableCell>
                                         <TableCell align="center">
-                                            <Box display="flex" justifyContent="center">
+                                            <Box sx={{display: "flex", justifyContent: "center"}}>
                                                 <Fab
                                                     onClick={() => {
                                                         setImageToDelete(image.src);
