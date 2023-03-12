@@ -85,15 +85,23 @@ namespace ASP.NETCoreWebApplication5.Controllers
             var imagePath = Path.Combine(GetPath(), "assets",
                 imageToDelete.Trim('/').Replace("/", "\\"));
 
+            var lowImagePath = imagePath.Replace(".jpg", "_low.jpg");
+
             if (System.IO.File.Exists(imagePath))
             {
                 System.IO.File.Delete(imagePath);
+            }
+
+            if (System.IO.File.Exists(lowImagePath))
+            {
+                System.IO.File.Delete(lowImagePath);
             }
 
             ImageLib.Sync(_webHostEnvironment);
 
             return Ok();
         }
+
 
         [HttpPost("changedirname")]
         public async Task<IActionResult> changedirname(string oldValue, string newValue)
