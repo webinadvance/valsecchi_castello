@@ -10,19 +10,22 @@ import {
     Paper,
     TextField,
     Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-    useMediaQuery, useTheme, Avatar, Theme,
+    useMediaQuery, useTheme, Avatar, Theme, Backdrop,
 } from "@mui/material";
 import Api from "../Api";
 import {Api2} from "../Api2";
 import {Fab} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const AdminGallery = () => {
     const [images, setImages] = useState<any>();
 
     const [newImageName, setNewImageName] = useState("");
     const [selectedFile, setSelectedFile] = useState<any>();
+
+    const [loading, setLoading] = useState(false);
 
     const handleFileChange = (e: any) => {
         setSelectedFile(e.target.files[0]);
@@ -31,12 +34,13 @@ const AdminGallery = () => {
     const handleFileUpload = async (parentTitle: any) => {
         const formData = new FormData();
         formData.append("image", selectedFile);
-        try {
-            await axios.post("/api/db/uploadimage", formData, {params: {parentTitle}, withCredentials: true});
-            window.location.reload();
-        } catch (error) {
-            console.error(error);
-        }
+        setLoading(true);
+        await axios.post("/api/db/uploadimage", formData, {
+            params: {parentTitle},
+            withCredentials: true,
+        });
+        window.location.reload();
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -58,6 +62,21 @@ const AdminGallery = () => {
 
     return (
         <>
+            {loading && (
+                <div style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    zIndex: 9999
+                }}>
+                    <Backdrop open>
+                        <CircularProgress color="primary"/>
+                    </Backdrop>
+                </div>
+            )}
             <Dialog open={imageToDelete != null} onClose={() => {
                 setImageToDelete(null);
             }}>
@@ -72,7 +91,9 @@ const AdminGallery = () => {
                         setImageToDelete(null);
                     }}>Cancel</Button>
                     <Button onClick={async () => {
+                        setLoading(true);
                         await Api2.deleteImage(imageToDelete ?? "");
+                        setLoading(false);
                         window.location.reload();
                     }}>Delete</Button>
                 </DialogActions>

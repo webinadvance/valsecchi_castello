@@ -99,6 +99,8 @@ namespace ASP.NETCoreWebApplication5.Controllers
         [HttpPost("uploadimage")]
         public async Task<IActionResult> UploadImage(string parentTitle)
         {
+            /*Thread.Sleep(5000);
+            return Ok();*/
             var form = await Request.ReadFormAsync();
             var file = form.Files.FirstOrDefault();
             if (file == null || file.Length == 0)

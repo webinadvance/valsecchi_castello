@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import PhotoGallery from "./PhotoGallery";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {useTranslation} from "react-i18next";
+import axios from "axios";
 
 const Gallery1: React.FC = () => {
     const [data, setData] = useState<any>([]);
@@ -10,9 +11,8 @@ const Gallery1: React.FC = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch("./data/gallery.json");
-            const data = await response.json();
-            setData(data);
+            const response = await axios.get(`./data/gallery.json?${Date.now()}`);
+            setData(response.data);
         })();
     }, []);
 
