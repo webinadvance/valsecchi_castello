@@ -95,7 +95,38 @@ namespace ASP.NETCoreWebApplication5.Controllers
             return Ok();
         }
 
+        [HttpPost("changedirname")]
+        public async Task<IActionResult> changedirname(string dirname)
+        {
+            var form = await Request.ReadFormAsync();
+            var file = form.Files.FirstOrDefault();
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("No file uploaded");
+            }
 
+            var uploadsPath = GetPath("assets", parentTitle);
+            Directory.CreateDirectory(uploadsPath);
+
+            var fileName = file.FileName;
+            var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var extension = Path.GetExtension(fileName);
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            var truncatedFileName = fileNameWithoutExtension.Length > 20
+                ? fileNameWithoutExtension.Substring(0, 20)
+                : fileNameWithoutExtension;
+            var newFileName = $"{truncatedFileName}_{timeStamp}{extension}";
+
+            var filePath = Path.Combine(uploadsPath, newFileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            ImageLib.Sync(_webHostEnvironment);
+            return Ok(new { fileName });
+        }
+        
         [HttpPost("uploadimage")]
         public async Task<IActionResult> UploadImage(string parentTitle)
         {

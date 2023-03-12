@@ -111,15 +111,21 @@ const AdminGallery = () => {
                     <TableBody>
                         {images && images.map((rootTitle: any, index: any) => (
                             <React.Fragment key={index}>
-                                <TableRow
-                                    style={{textTransform: "uppercase"}}>
+                                <TableRow style={{textTransform: "uppercase"}}>
                                     <TableCell sx={{
                                         borderTopWidth: (theme) => theme.spacing(1),
                                         borderTopStyle: "solid",
                                         borderTopColor: (theme) => theme.palette.secondary.main,
-                                    }} style={{fontWeight: "bold"}}
-                                               colSpan={isMobile ? 3 : 4}>
-                                        <TextField fullWidth value={rootTitle.title}/>
+                                        fontWeight: "bold",
+                                    }} colSpan={isMobile ? 3 : 4}>
+                                        <Box sx={{display: "flex", alignItems: "center", gap: 2}}>
+                                            <TextField fullWidth value={rootTitle.title}/>
+                                            <Button variant="contained" color="primary" onClick={async () => {
+                                                console.log("<TEXTFIELDVALUE");
+                                            }}>
+                                                save
+                                            </Button>
+                                        </Box>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
