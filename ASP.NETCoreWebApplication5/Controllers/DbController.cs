@@ -40,7 +40,7 @@ namespace ASP.NETCoreWebApplication5.Controllers
                 });
             }
 
-            return result;
+            return result.OrderBy(x => x.key);
         }
 
         [HttpGet("locales/{lang}")]
@@ -82,15 +82,16 @@ namespace ASP.NETCoreWebApplication5.Controllers
         [HttpPost("deleteimage")]
         public async Task<IActionResult> DeleteImage(string imageToDelete)
         {
-            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "assets", imageToDelete.Replace("/", "\\"));
-    
+            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "assets",
+                imageToDelete.Replace("/", "\\"));
+
             if (System.IO.File.Exists(imagePath))
             {
                 System.IO.File.Delete(imagePath);
             }
-    
+
             ImageLib.Sync(_webHostEnvironment);
-    
+
             return Ok();
         }
 

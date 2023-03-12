@@ -10,7 +10,7 @@ import {
     Paper,
     TextField,
     Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-    useMediaQuery, useTheme,
+    useMediaQuery, useTheme, Avatar,
 } from "@mui/material";
 import Api from "../Api";
 import {Api2} from "../Api2";
@@ -122,8 +122,9 @@ const AdminGallery = () => {
                                         {!isMobile && <TableCell>{index2 + 1}</TableCell>}
                                         {!isMobile && <TableCell>{image.title}</TableCell>}
                                         <TableCell>
-                                            <img src={"./assets" + image.src} alt={image.title}
-                                                 style={{maxWidth: isMobile ? "200px" : "100px"}}/>
+                                            <Avatar sx={{width: isMobile ? 200 : 100, height: isMobile ? 200 : 100}}>
+                                                <img src={"./assets" + image.src} alt={image.title}/>
+                                            </Avatar>
                                         </TableCell>
                                         <TableCell align="center">
                                             <Box sx={{display: "flex", justifyContent: "center"}}>
