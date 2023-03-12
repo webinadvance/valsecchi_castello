@@ -100,8 +100,8 @@ const AdminGallery = () => {
                     <TableHead>
                         <TableRow>
                             {!isMobile && <TableCell>ID</TableCell>}
-                            <TableCell>Name</TableCell>
-                            {!isMobile && <TableCell>URL</TableCell>}
+                            {!isMobile && <TableCell>Name</TableCell>}
+                            <TableCell>Image</TableCell>
                             <TableCell>Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -114,11 +114,11 @@ const AdminGallery = () => {
                                 {selezione.data.map((image: any, index2: any) => (
                                     <TableRow key={`${index}-${index2}`}>
                                         {!isMobile && <TableCell>{index2 + 1}</TableCell>}
-                                        <TableCell>{image.title}</TableCell>
-                                        {!isMobile && <TableCell>
+                                        {!isMobile && <TableCell>{image.title}</TableCell>}
+                                        <TableCell>
                                             <img src={"./assets" + image.src} alt={image.title}
-                                                 style={{maxWidth: "100px"}}/>
-                                        </TableCell>}
+                                                 style={{maxWidth: isMobile ? "200px" : "100px"}}/>
+                                        </TableCell>
                                         <TableCell>
                                             <Button
                                                 variant="contained"
