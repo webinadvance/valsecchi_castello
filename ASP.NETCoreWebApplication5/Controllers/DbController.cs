@@ -82,16 +82,18 @@ namespace ASP.NETCoreWebApplication5.Controllers
         [HttpPost("deleteimage")]
         public async Task<IActionResult> DeleteImage(string imageToDelete)
         {
-            var imagePath = GetPath("assets").TrimEnd('/') + imageToDelete.Replace("/", "\\");
-
+            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "assets", imageToDelete.Replace("/", "\\"));
+    
             if (System.IO.File.Exists(imagePath))
             {
                 System.IO.File.Delete(imagePath);
             }
-
+    
             ImageLib.Sync(_webHostEnvironment);
+    
             return Ok();
         }
+
 
         [HttpPost("uploadimage")]
         public async Task<IActionResult> UploadImage(string parentTitle)
