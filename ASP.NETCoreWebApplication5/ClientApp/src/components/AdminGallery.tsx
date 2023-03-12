@@ -14,6 +14,9 @@ import {
 } from "@mui/material";
 import Api from "../Api";
 import {Api2} from "../Api2";
+import {Fab} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Box from "@mui/material/Box";
 
 const AdminGallery = () => {
     const [images, setImages] = useState<any>();
@@ -119,16 +122,16 @@ const AdminGallery = () => {
                                             <img src={"./assets" + image.src} alt={image.title}
                                                  style={{maxWidth: isMobile ? "200px" : "100px"}}/>
                                         </TableCell>
-                                        <TableCell>
-                                            <Button
-                                                variant="contained"
-                                                color="error"
-                                                onClick={() => {
-                                                    setImageToDelete(image.src);
-                                                }}
-                                            >
-                                                Delete
-                                            </Button>
+                                        <TableCell align="center">
+                                            <Box display="flex" justifyContent="center">
+                                                <Fab
+                                                    onClick={() => {
+                                                        setImageToDelete(image.src);
+                                                    }}
+                                                >
+                                                    <DeleteIcon/>
+                                                </Fab>
+                                            </Box>
                                         </TableCell>
                                     </TableRow>
                                 ))}
