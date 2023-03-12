@@ -1,7 +1,10 @@
 ﻿using System.Text.Json;
 using ASP.NETCoreWebApplication5.Models;
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace ASP.NETCoreWebApplication5.Controllers;
 
@@ -21,11 +24,33 @@ public class DbController : ControllerBase
 
     [HttpGet]
     [Route("langall")]
-    public async Task<List<lang>> langall()
+    public async Task<dynamic> langall()
     {
-        return await _dbContext.lang
-            .OrderBy(x => x.key)
-            .ToListAsync();
+        var result = GetLangList();
+        return result;
+    }
+
+    private List<lang> GetLangList()
+    {
+#if DEBUG
+        var locales = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\locales";
+#else
+        var locales = _webHostEnvironment.ContentRootPath + "\\wwwroot\\locales";
+#endif
+
+        // Load the data from the two JSON files
+        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\en.json"));
+        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\it.json"));
+
+        // Combine the data from the two JSON files into a list of objects
+        List<lang> result = itJson.Properties().Select(p =>
+            new lang
+            {
+                key = p.Name,
+                it = (string)p.Value,
+                en = (string)enJson[p.Name]
+            }).ToList();
+        return result;
     }
 
     [HttpGet]
@@ -46,8 +71,7 @@ public class DbController : ControllerBase
     [Route("synclocales")]
     public async Task synclocales()
     {
-        var res = await _dbContext.lang.ToListAsync();
-
+        var res = GetLangList();
         foreach (var s in new[] { "it", "en" })
         {
             var dictionary =
