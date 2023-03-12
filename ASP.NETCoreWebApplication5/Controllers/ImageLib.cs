@@ -65,7 +65,7 @@ public static class ImageLib
 #endif
 
         System.IO.File.WriteAllText(filePath, json);
-     }
+    }
 
 
     private static void CreateLowRes()
