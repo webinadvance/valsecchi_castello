@@ -109,7 +109,7 @@ const AdminGallery = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {images && images.map((selezione: any, index: any) => (
+                        {images && images.map((rootTitle: any, index: any) => (
                             <React.Fragment key={index}>
                                 <TableRow
                                     style={{textTransform: "uppercase"}}>
@@ -119,7 +119,7 @@ const AdminGallery = () => {
                                         borderTopColor: (theme) => theme.palette.secondary.main,
                                     }} style={{fontWeight: "bold"}}
                                                colSpan={isMobile ? 3 : 4}>
-                                        {selezione.title}
+                                        {rootTitle.title}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -130,14 +130,14 @@ const AdminGallery = () => {
                                         <input type="file" onChange={handleFileChange}/>
                                         <Button variant="contained" color="primary"
                                                 onClick={async () => {
-                                                    return await handleFileUpload(selezione.title);
+                                                    return await handleFileUpload(rootTitle.title);
                                                 }}>
                                             Upload
                                         </Button>
                                     </TableCell>
                                     {!isMobile && <TableCell></TableCell>}
                                 </TableRow>
-                                {selezione.data.map((image: any, index2: any) => (
+                                {rootTitle.data.map((image: any, index2: any) => (
                                     <TableRow key={`${index}-${index2}`}>
                                         {!isMobile && <TableCell>{index2 + 1}</TableCell>}
                                         {!isMobile && <TableCell>{image.title}</TableCell>}
