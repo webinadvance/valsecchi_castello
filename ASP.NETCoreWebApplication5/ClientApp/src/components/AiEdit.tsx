@@ -186,10 +186,10 @@ export function AiTable<T extends object>({
                         ))}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCancelClick} variant={"contained"}>
+                    <Button onClick={handleCancelClick}>
                         Cancel
                     </Button>
-                    <Button onClick={handleSaveClick} variant={"contained"}>
+                    <Button onClick={handleSaveClick}>
                         Save
                     </Button>
                 </DialogActions>

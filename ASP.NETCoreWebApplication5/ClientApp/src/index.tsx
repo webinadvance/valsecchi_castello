@@ -21,6 +21,13 @@ const theme = createTheme({
             main: "#f50057",
         },
     },
+    components: {
+        MuiButton: {
+            defaultProps: {
+                variant: "contained",
+            },
+        },
+    },
 });
 
 const baseUrl = document.getElementsByTagName("base")[0]?.getAttribute("href") ?? "";
