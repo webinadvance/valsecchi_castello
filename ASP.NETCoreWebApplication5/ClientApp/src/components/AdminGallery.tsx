@@ -10,7 +10,7 @@ import {
     Paper,
     TextField,
     Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-    useMediaQuery, useTheme, Avatar,
+    useMediaQuery, useTheme, Avatar, Theme,
 } from "@mui/material";
 import Api from "../Api";
 import {Api2} from "../Api2";
@@ -113,7 +113,12 @@ const AdminGallery = () => {
                             <React.Fragment key={index}>
                                 <TableRow
                                     style={{textTransform: "uppercase"}}>
-                                    <TableCell style={{fontWeight: "bold"}} colSpan={isMobile ? 3 : 4}>
+                                    <TableCell sx={{
+                                        borderTopWidth: (theme) => theme.spacing(1),
+                                        borderTopStyle: "solid",
+                                        borderTopColor: (theme) => theme.palette.secondary.main,
+                                    }} style={{fontWeight: "bold"}}
+                                               colSpan={isMobile ? 3 : 4}>
                                         {selezione.title}
                                     </TableCell>
                                 </TableRow>
