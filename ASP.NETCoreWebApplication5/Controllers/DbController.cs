@@ -96,37 +96,28 @@ namespace ASP.NETCoreWebApplication5.Controllers
         }
 
         [HttpPost("changedirname")]
-        public async Task<IActionResult> changedirname(string dirname)
+        public async Task<IActionResult> changedirname(string oldValue, string newValue)
         {
-            var form = await Request.ReadFormAsync();
-            var file = form.Files.FirstOrDefault();
-            if (file == null || file.Length == 0)
+            var path = Path.Combine(GetPath(), "assets");
+            var oldDirPath = Path.Combine(path, oldValue);
+            var newDirPath = Path.Combine(path, newValue);
+
+            if (!Directory.Exists(oldDirPath))
             {
-                return BadRequest("No file uploaded");
+                return BadRequest($"Directory '{oldValue}' does not exist.");
             }
 
-            var uploadsPath = GetPath("assets", parentTitle);
-            Directory.CreateDirectory(uploadsPath);
-
-            var fileName = file.FileName;
-            var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-            var extension = Path.GetExtension(fileName);
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            var truncatedFileName = fileNameWithoutExtension.Length > 20
-                ? fileNameWithoutExtension.Substring(0, 20)
-                : fileNameWithoutExtension;
-            var newFileName = $"{truncatedFileName}_{timeStamp}{extension}";
-
-            var filePath = Path.Combine(uploadsPath, newFileName);
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            if (Directory.Exists(newDirPath))
             {
-                await file.CopyToAsync(stream);
+                return BadRequest($"Directory '{newValue}' already exists.");
             }
 
+            Directory.Move(oldDirPath, newDirPath);
             ImageLib.Sync(_webHostEnvironment);
-            return Ok(new { fileName });
+            return Ok();
         }
-        
+
+
         [HttpPost("uploadimage")]
         public async Task<IActionResult> UploadImage(string parentTitle)
         {

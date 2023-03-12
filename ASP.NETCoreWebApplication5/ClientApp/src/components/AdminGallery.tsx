@@ -60,6 +60,8 @@ const AdminGallery = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+    let newTitle: any = null;
+
     return (
         <>
             {loading && (
@@ -120,8 +122,20 @@ const AdminGallery = () => {
                                     }} colSpan={isMobile ? 3 : 4}>
                                         <Box sx={{display: "flex", alignItems: "center", gap: 2}}>
                                             <TextField fullWidth value={rootTitle.title}/>
+                                            <TextField fullWidth placeholder={"new value"} onChange={(e) => {
+                                                newTitle = e.target.value;
+                                            }}/>
                                             <Button variant="contained" color="primary" onClick={async () => {
-                                                console.log("<TEXTFIELDVALUE");
+                                                setLoading(true);
+                                                await axios.post("/api/db/changedirname", null, {
+                                                    params: {
+                                                        oldValue: rootTitle.title,
+                                                        newValue: newTitle
+                                                    },
+                                                    withCredentials: true,
+                                                });
+                                                setLoading(false);
+                                                window.location.reload();
                                             }}>
                                                 save
                                             </Button>
