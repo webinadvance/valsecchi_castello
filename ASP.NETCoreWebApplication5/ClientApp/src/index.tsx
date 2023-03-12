@@ -9,16 +9,35 @@ import {store} from "./Store";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-
-const baseUrl = document.getElementsByTagName("base")[0]?.getAttribute("href") ?? "";
-const rootElement = document.getElementById("root") as any;
-const root = createRoot(rootElement);
+import {deepOrange, grey, green, indigo, orange, pink, purple} from "@mui/material/colors";
 
 const theme = createTheme({
     palette: {
         mode: "dark",
+        primary: {
+            main: purple[500],
+        },
+        secondary: {
+            main: pink[500],
+        },
+        error: {
+            main: deepOrange[500],
+        },
     },
+    components: {
+        MuiTableRow: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: grey.A700,
+                },
+            }
+        },
+    }
 });
+
+const baseUrl = document.getElementsByTagName("base")[0]?.getAttribute("href") ?? "";
+const rootElement = document.getElementById("root") as any;
+const root = createRoot(rootElement);
 
 root.render(
     <BrowserRouter basename={baseUrl}>

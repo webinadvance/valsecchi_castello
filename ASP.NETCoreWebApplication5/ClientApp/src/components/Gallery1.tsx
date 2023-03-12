@@ -5,8 +5,8 @@ import {useTranslation} from "react-i18next";
 
 const Gallery1: React.FC = () => {
     const [data, setData] = useState<any>([]);
-    const isMobile = useMediaQuery('(max-width:1024px)');
-    const {t} = useTranslation()
+    const isMobile = useMediaQuery("(max-width:1024px)");
+    const {t} = useTranslation();
 
     useEffect(() => {
         (async () => {
@@ -20,7 +20,7 @@ const Gallery1: React.FC = () => {
         <div className={"mb-4"} id={"welcome"}>
             {data && data.map((_: any, i: any) => (
                 <Fragment key={i}>
-                    <h2>{t(_.title)}</h2>
+                    <div className={"h2"}>{t(_.title)}</div>
                     <PhotoGallery images={_.data}/>
                 </Fragment>
             ))}

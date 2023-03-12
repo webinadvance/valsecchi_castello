@@ -128,7 +128,6 @@ const AdminGallery = () => {
                                         <TableCell align="center">
                                             <Box sx={{display: "flex", justifyContent: "center"}}>
                                                 <Fab
-                                                    color={"primary"}
                                                     onClick={() => {
                                                         setImageToDelete(image.src);
                                                     }}
@@ -150,6 +149,7 @@ const AdminGallery = () => {
                                             Upload
                                         </Button>
                                     </TableCell>
+                                    {!isMobile && <TableCell></TableCell>}
                                 </TableRow>
                             </React.Fragment>
                         ))}

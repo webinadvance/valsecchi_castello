@@ -20,9 +20,9 @@ const Home = () => {
                     «{t('home1')}»
                 </div>
                 {/*             <div className="divider"/>*/}
-                <h2>
+                <div className={"h2"}>
                     UNO SPAZIO STORICO UNICO IN CENTRO A COMO
-                </h2>
+                </div>
                 <article>
                     {welcomeMessages.map((_, i, arr) => (
                         <Fragment key={i}>
