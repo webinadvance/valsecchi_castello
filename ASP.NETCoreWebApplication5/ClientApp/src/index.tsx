@@ -27,6 +27,17 @@ const theme = createTheme({
                 variant: "contained",
             },
         },
+        MuiTableHead: {
+            styleOverrides: {
+                root: {
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                    "& .MuiTableCell-head": {
+                        fontWeight: "normal",
+                    },
+                },
+            },
+        },
     },
 });
 
