@@ -15,11 +15,13 @@ public class DbController : ControllerBase
     private readonly palazzoContext _dbContext;
     private readonly ILogger<DbController> _logger;
     private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly string _localesPath;
 
     public DbController(IWebHostEnvironment hostingEnvironment, palazzoContext dbContext)
     {
         _webHostEnvironment = hostingEnvironment;
         _dbContext = dbContext;
+        _localesPath = GetLocalesPath();
     }
 
     [HttpGet]
@@ -32,15 +34,9 @@ public class DbController : ControllerBase
 
     private List<lang> GetLangList()
     {
-#if DEBUG
-        var locales = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\locales";
-#else
-        var locales = _webHostEnvironment.ContentRootPath + "\\wwwroot\\locales";
-#endif
-
         // Load the data from the two JSON files
-        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\en.json"));
-        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\it.json"));
+        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "en.json")));
+        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "it.json")));
 
         // Combine the data from the two JSON files into a list of objects
         List<lang> result = itJson.Properties().Select(p =>
@@ -66,62 +62,46 @@ public class DbController : ControllerBase
             res.ToList().ToDictionary(c => c.key, c => c.GetType().GetProperty(lang)!.GetValue(c).ToString());
         return dictionary;
     }
-    
+
     [HttpPost]
     [Route("deleteadminlang")]
     public async Task deleteadminlang([FromBody] lang dataToDelete)
     {
-#if DEBUG
-        var locales = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\locales";
-#else
-    var locales = _webHostEnvironment.ContentRootPath + "\\wwwroot\\locales";
-#endif
-
         // Load the data from the two JSON files
-        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\en.json"));
-        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\it.json"));
+        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "en.json")));
+        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "it.json")));
 
         // Update the values in the JSON files based on the new language object
         enJson.Remove(dataToDelete.key);
         itJson.Remove(dataToDelete.key);
 
         // Write the updated JSON data back to the files
-        System.IO.File.WriteAllText(locales + "\\en.json", enJson.ToString());
-        System.IO.File.WriteAllText(locales + "\\it.json", itJson.ToString());
+        System.IO.File.WriteAllText(Path.Combine(_localesPath, "en.json"), enJson.ToString());
+        System.IO.File.WriteAllText(Path.Combine(_localesPath, "it.json"), itJson.ToString());
     }
 
     [HttpPost]
     [Route("saveadminlang")]
     public async Task saveadminlang([FromBody] lang newData)
     {
-#if DEBUG
-        var locales = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\locales";
-#else
-    var locales = _webHostEnvironment.ContentRootPath + "\\wwwroot\\locales";
-#endif
-
         // Load the data from the two JSON files
-        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\en.json"));
-        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(locales + "\\it.json"));
+        JObject enJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "en.json")));
+        JObject itJson = JObject.Parse(System.IO.File.ReadAllText(Path.Combine(_localesPath, "it.json")));
 
         // Add or update the key-value pair in each JSON file
         enJson[newData.key] = newData.en;
         itJson[newData.key] = newData.it;
 
-        // Write the updated JSON data back to the files
-        System.IO.File.WriteAllText(locales + "\\en.json", enJson.ToString());
-        System.IO.File.WriteAllText(locales + "\\it.json", itJson.ToString());
+        // Write the updated JSON data back to
+        System.IO.File.WriteAllText(Path.Combine(_localesPath, "en.json"), enJson.ToString());
+        System.IO.File.WriteAllText(Path.Combine(_localesPath, "it.json"), itJson.ToString());
     }
 
     [HttpPost]
     [Route("deleteimage")]
     public async Task<IActionResult> deleteimage(string imageToDelete)
     {
-#if DEBUG
-        var imagePath = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\assets\\" + imageToDelete;
-#else
-        var imagePath = _webHostEnvironment.ContentRootPath + "\\wwwroot\\assets\\" + imagesrc;
-#endif
+        var imagePath = GetImagePath(imageToDelete);
 
         if (System.IO.File.Exists(imagePath))
         {
@@ -143,11 +123,7 @@ public class DbController : ControllerBase
             return BadRequest("No file uploaded");
         }
 
-#if DEBUG
-        var uploadsPath = _webHostEnvironment.ContentRootPath + "\\ClientApp\\public\\assets\\" + parentTitle;
-#else
-        var uploadsPath = _webHostEnvironment.ContentRootPath + "\\wwwroot\\" + parentTitle;
-#endif
+        var uploadsPath = GetUploadsPath(parentTitle);
 
         if (!Directory.Exists(uploadsPath))
         {
@@ -171,5 +147,32 @@ public class DbController : ControllerBase
 
         ImageLib.Sync(_webHostEnvironment);
         return Ok(new { fileName });
+    }
+
+    private string GetLocalesPath()
+    {
+#if DEBUG
+        return Path.Combine(_webHostEnvironment.ContentRootPath, "ClientApp", "public", "locales");
+#else
+return Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "locales");
+#endif
+    }
+
+    private string GetImagePath(string imageName)
+    {
+#if DEBUG
+        return Path.Combine(_webHostEnvironment.ContentRootPath, "ClientApp", "public", "assets", imageName);
+#else
+return Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", "assets", imageName);
+#endif
+    }
+
+    private string GetUploadsPath(string parentTitle)
+    {
+#if DEBUG
+        return Path.Combine(_webHostEnvironment.ContentRootPath, "ClientApp", "public", "assets", parentTitle);
+#else
+return Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot", parentTitle);
+#endif
     }
 }
