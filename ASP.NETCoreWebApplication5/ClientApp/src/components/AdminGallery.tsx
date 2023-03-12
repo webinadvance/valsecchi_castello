@@ -140,7 +140,8 @@ const AdminGallery = () => {
                                         {!isMobile && <TableCell>{index2 + 1}</TableCell>}
                                         {!isMobile && <TableCell>{image.title}</TableCell>}
                                         <TableCell>
-                                            <Avatar sx={{width: isMobile ? 200 : 100, height: isMobile ? 200 : 100}}>
+                                            <Avatar
+                                                sx={{width: isMobile ? "30vw" : 100, height: isMobile ? "30vw" : 100}}>
                                                 <img src={"./assets" + image.src} alt={image.title}/>
                                             </Avatar>
                                         </TableCell>
