@@ -64,20 +64,7 @@ const AdminGallery = () => {
         }
     }, [newTitle]);
 
-    return useMemo(() => {
-        return AdminGalleryRender(
-            loading,
-            imageToDelete,
-            setImageToDelete,
-            hanfleDeleteImage,
-            isMobile,
-            images,
-            newTitle,
-            saveTitle,
-            handleFileChange,
-            handleFileUpload
-        );
-    }, [
+    return AdminGalleryRender(
         loading,
         imageToDelete,
         setImageToDelete,
@@ -87,8 +74,8 @@ const AdminGallery = () => {
         newTitle,
         saveTitle,
         handleFileChange,
-        handleFileUpload,
-    ]);
+        handleFileUpload
+    );
 };
 
 export default AdminGallery;
