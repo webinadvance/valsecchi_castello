@@ -32,6 +32,27 @@ export function AdminGalleryRender(loading: boolean,
                                    handleSaveTitle: (rootTitle: any) => Promise<void>,
                                    handleFileChange: (e: any) => void,
                                    handleFileUpload: (parentTitle: any) => Promise<void>) {
+    function getDialog() {
+        return <Dialog open={imageToDelete != null} onClose={() => {
+            setImageToDelete(null);
+        }}>
+            <DialogTitle>Delete Image?</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Are you sure you want to delete this image?
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => {
+                    setImageToDelete(null);
+                }}>Cancel</Button>
+                <Button onClick={async () => {
+                    await handleDeleteImage();
+                }}>Delete</Button>
+            </DialogActions>
+        </Dialog>;
+    }
+
     return (
         <>
             {loading && (
@@ -49,24 +70,7 @@ export function AdminGalleryRender(loading: boolean,
                     </Backdrop>
                 </Box>
             )}
-            <Dialog open={imageToDelete != null} onClose={() => {
-                setImageToDelete(null);
-            }}>
-                <DialogTitle>Delete Image?</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Are you sure you want to delete this image?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => {
-                        setImageToDelete(null);
-                    }}>Cancel</Button>
-                    <Button onClick={async () => {
-                        await handleDeleteImage();
-                    }}>Delete</Button>
-                </DialogActions>
-            </Dialog>
+            {getDialog()}
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
