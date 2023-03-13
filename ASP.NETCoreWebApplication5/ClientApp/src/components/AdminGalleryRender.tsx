@@ -132,23 +132,42 @@ export function AdminGalleryRender(loading: boolean,
                                         rowSpacing={{xs: 2, sm: 3, md: 4}}
                                     >
                                         {rootTitle.data.map((image: any, index2: any) => (
-                                            <Grid item key={`${index}-${index2}`} component="li" xs={6} sm={4}
-                                                  md={3}>
-                                                <Box sx={{position: "relative", mb: 2}}>
-                                                    <Avatar
-                                                        sx={{width: "100%", height: "100%"}}
-                                                        variant="rounded"
-                                                        src={`./assets${image.src}`}
-                                                        alt={image.title}
-                                                    />
-                                                    <Box sx={{position: "absolute", top: 10, right: 10}}>
-                                                        <Fab
-                                                            color={"primary"}
-                                                            size="small"
-                                                            onClick={() => setImageToDelete(image.src)}
+                                            <Grid item key={`${index}-${index2}`} component="li"
+                                                  sx={{width: 200, height: 200}}>
+                                                <Box sx={{
+                                                    position: "relative",
+                                                    width: "100%",
+                                                    height: "100%",
+                                                }}>
+                                                    <Box
+                                                        sx={{
+                                                            paddingTop: "100%",
+                                                            backgroundSize: "cover",
+                                                            backgroundPosition: "center",
+                                                            backgroundImage: `url('/assets${image.src}')`,
+                                                            position: "absolute",
+                                                            top: 0,
+                                                            left: 0,
+                                                            right: 0,
+                                                            bottom: 0,
+                                                        }}
+                                                    >
+                                                        <Box
+                                                            sx={{
+                                                                display: "flex",
+                                                                justifyContent: "center",
+                                                                alignItems: "center",
+                                                                height: "100%",
+                                                            }}
                                                         >
-                                                            <DeleteIcon/>
-                                                        </Fab>
+                                                            <Button
+                                                                variant="contained"
+                                                                color="primary"
+                                                                onClick={() => setImageToDelete(image.src)}
+                                                            >
+                                                                Delete
+                                                            </Button>
+                                                        </Box>
                                                     </Box>
                                                 </Box>
                                             </Grid>
