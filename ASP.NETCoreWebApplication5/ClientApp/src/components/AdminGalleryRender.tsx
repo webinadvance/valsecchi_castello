@@ -8,7 +8,7 @@
     DialogContentText,
     DialogTitle,
     Fab,
-    Grid,
+    Grid, lighten,
     Paper,
     Table,
     TableBody,
@@ -80,11 +80,13 @@ export function AdminGalleryRender(loading: boolean,
                 <Grid container spacing={2} sx={{display: "flex", flexDirection: "column"}}>
                     {images && images.map((rootTitle: any, index: any) => (
                         <Grid item key={index} sx={{
-                            pb: 4,
+                          /*  pb: 4,
                             borderBottomWidth: 3,
-                            borderBottomColor: (theme: Theme) => theme.palette.secondary.main
+                            borderBottomColor: (theme: Theme) => theme.palette.secondary.main*/
                         }}>
-                            <Box sx={{textTransform: "uppercase"}}>
+                            <Paper elevation={4} sx={{
+                                mb: 2, p: 2
+                            }}>
                                 <Box sx={{my: 2, display: "flex", alignItems: "center", gap: 2}}>
                                     <TextField fullWidth value={rootTitle.title}/>
                                     <TextField
@@ -102,7 +104,7 @@ export function AdminGalleryRender(loading: boolean,
                                         save
                                     </Button>
                                 </Box>
-                            </Box>
+                            </Paper>
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -114,7 +116,11 @@ export function AdminGalleryRender(loading: boolean,
                             </Button>
                             {selectedRow === rootTitle.title && (
                                 <Box>
-                                    <Paper elevation={4} sx={{my: 2, py: 2}}>
+                                    <Paper elevation={0} sx={{
+                                        my: 2,
+                                        py: 2,
+                                        backgroundColor: (theme: Theme) => lighten(theme.palette.background.paper, 0.1),
+                                    }}>
                                         <input type="file" onChange={handleFileChange}/>
                                         <Button
                                             variant="contained"
