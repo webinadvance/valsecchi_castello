@@ -11,7 +11,6 @@ import {Link, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {type RootState} from "../Store";
 import {ListItem} from "@mui/material";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 function Navbar() {
     const drawerWidth = 250;
@@ -62,12 +61,6 @@ function Navbar() {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const theme = createTheme({
-        palette: {
-            mode: "dark",
-        },
-    });
-
     return (
         <div>
             <nav>
@@ -101,42 +94,40 @@ function Navbar() {
                     </div>
                 </div>
 
-                <ThemeProvider theme={theme}>
-                    <Drawer
-                        anchor="top"
-                        open={isOpen}
-                        onClose={(e) => {
-                            setIsOpen(false);
-                        }}
-                        // classes={{ paper: classes.paper }}
-                    >
-                        <div className={classes.logoContainer}>
-                            <img src="logo.png" alt="Logo" className={classes.logo}/>
-                        </div>
-                        <div className={classes.list} role="presentation">
-                            <List>
-                                {state.routes.map((x: any, i: any) => {
-                                    return (
-                                        <ListItem className={""} key={i} button onClick={() => {
-                                        }}>
-                                            <ListItemIcon>
-                                                <FontAwesomeIcon icon={faChevronRight}/>
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                onClick={() => {
-                                                    setIsOpen(false);
-                                                    navigate(x.key);
-                                                }}
-                                                className={"uppercase"}
-                                                primary={t(x.title)}
-                                            />
-                                        </ListItem>
-                                    );
-                                })}
-                            </List>
-                        </div>
-                    </Drawer>
-                </ThemeProvider>
+                <Drawer
+                    anchor="top"
+                    open={isOpen}
+                    onClose={(e) => {
+                        setIsOpen(false);
+                    }}
+                    // classes={{ paper: classes.paper }}
+                >
+                    <div className={classes.logoContainer}>
+                        <img src="logo.png" alt="Logo" className={classes.logo}/>
+                    </div>
+                    <div className={classes.list} role="presentation">
+                        <List>
+                            {state.routes.map((x: any, i: any) => {
+                                return (
+                                    <ListItem className={""} key={i} button onClick={() => {
+                                    }}>
+                                        <ListItemIcon>
+                                            <FontAwesomeIcon icon={faChevronRight}/>
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            onClick={() => {
+                                                setIsOpen(false);
+                                                navigate(x.key);
+                                            }}
+                                            className={"uppercase"}
+                                            primary={t(x.title)}
+                                        />
+                                    </ListItem>
+                                );
+                            })}
+                        </List>
+                    </div>
+                </Drawer>
             </nav>
         </div>
     );

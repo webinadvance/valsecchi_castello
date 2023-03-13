@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@mui/styles";
-import {Drawer, Box, Typography, Button, Theme} from "@mui/material";
+import {Box, Button, Drawer, Theme, Typography} from "@mui/material";
 
 const COOKIE_CONSENT_KEY = "cookie_consent";
 const ALLOWED_COOKIES = ["functional", "analytics", "marketing"];
@@ -65,18 +65,6 @@ const CookieConsentBanner = () => {
     const handleToggleMarketingCookies = () => {
         setAllowMarketingCookies(!allowMarketingCookies);
     };
-
-    /*    useEffect(() => {
-            const allowed = ALLOWED_COOKIES.every(
-                (cookieType) => (cookieType === 'functional' && allowFunctionalCookies) ||
-                    (cookieType === 'analytics' && allowAnalyticsCookies) ||
-                    (cookieType === 'marketing' && allowMarketingCookies),
-            );
-            const cookieConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
-            console.log(COOKIE_CONSENT_KEY);
-            if (!cookieConsent)
-                setIsOpen(!allowed);
-        }, [allowFunctionalCookies, allowAnalyticsCookies, allowMarketingCookies]);*/
 
     return (
         <Drawer
