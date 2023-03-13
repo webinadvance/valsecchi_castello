@@ -1,20 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {makeStyles} from '@mui/styles';
-import {Drawer, Box, Typography, Button, Theme} from '@mui/material';
+import React, {useState, useEffect} from "react";
+import {makeStyles} from "@mui/styles";
+import {Drawer, Box, Typography, Button, Theme} from "@mui/material";
 
-const COOKIE_CONSENT_KEY = 'cookie_consent';
-const ALLOWED_COOKIES = ['functional', 'analytics', 'marketing'];
+const COOKIE_CONSENT_KEY = "cookie_consent";
+const ALLOWED_COOKIES = ["functional", "analytics", "marketing"];
 
 const useStyles = makeStyles((theme: Theme) => ({
     drawer: {
         bottom: 0,
-        position: 'fixed',
+        position: "fixed",
     },
     drawerPaper: {
         background: theme.palette.grey[900],
         color: theme.palette.common.white,
         padding: theme.spacing(2),
-        width: '100%',
+        width: "100%",
     },
     button: {
         marginTop: theme.spacing(2),
@@ -104,21 +104,21 @@ const CookieConsentBanner = () => {
                 </Typography>
                 <Box>
                     <Button
-                        variant={allowFunctionalCookies ? 'contained' : 'outlined'}
+                        variant={allowFunctionalCookies ? "contained" : "outlined"}
                         onClick={handleToggleFunctionalCookies}
                         className={classes.button}
                     >
                         Functional Cookies
                     </Button>
                     <Button
-                        variant={allowAnalyticsCookies ? 'contained' : 'outlined'}
+                        variant={allowAnalyticsCookies ? "contained" : "outlined"}
                         onClick={handleToggleAnalyticsCookies}
                         className={classes.button}
                     >
                         Analytics Cookies
                     </Button>
                     <Button
-                        variant={allowMarketingCookies ? 'contained' : 'outlined'}
+                        variant={allowMarketingCookies ? "contained" : "outlined"}
                         onClick={handleToggleMarketingCookies}
                         className={classes.button}
                     >
