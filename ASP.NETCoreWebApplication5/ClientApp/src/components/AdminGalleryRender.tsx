@@ -122,7 +122,7 @@ export function AdminGalleryRender(loading: boolean,
                                     <Grid
                                         container
                                         spacing={2}
-                                        sx={{mt: 2}}
+                                        sx={{mt: 2, pb: 4}}
                                         component="ul"
                                         alignItems="flex-start"
                                         justifyContent="flex-start"
@@ -161,6 +161,7 @@ export function AdminGalleryRender(loading: boolean,
                                                             }}
                                                         >
                                                             <Button
+                                                                size={"small"}
                                                                 variant="contained"
                                                                 color="primary"
                                                                 onClick={() => setImageToDelete(image.src)}
