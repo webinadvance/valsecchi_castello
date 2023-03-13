@@ -217,7 +217,7 @@ export function AdminGalleryRender(loading: boolean,
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
-                        <Button onClick={() => setOpen(true)} color="primary">Submit</Button>
+                        <Button onClick={() => setOpen(true)} color="primary">Save</Button>
                     </DialogActions>
                 </Dialog>
             </Paper>
