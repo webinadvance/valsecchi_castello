@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useCallback, useMemo} from "react";
 import axios from "axios";
 import {useMediaQuery, useTheme} from "@mui/material";
 import {Api2} from "../Api2";
@@ -31,29 +31,29 @@ const AdminGallery = () => {
         setSelectedFile(e.target.files[0]);
     };
 
-    const handleFileUpload = async (parentTitle: any) => {
+    const handleFileUpload = useCallback(async (parentTitle: any) => {
         const formData = new FormData();
         formData.append("image", selectedFile);
         setLoading(true);
-        await axios.post("/api/db/uploadimage", formData, {
+        await axios.post("/db/uploadimage", formData, {
             params: {parentTitle},
             withCredentials: true,
         });
         window.location.reload();
         setLoading(false);
-    };
+    }, [selectedFile]);
 
-    async function deleteImage() {
+    const deleteImage = useCallback(async () => {
         setLoading(true);
         await Api2.deleteImage(imageToDelete ?? "");
         setLoading(false);
         window.location.reload();
-    }
+    }, [imageToDelete]);
 
-    async function saveTitle(rootTitle: any) {
+    const saveTitle = useCallback(async (rootTitle: any) => {
         if (newTitle[rootTitle.title]) {
             setLoading(true);
-            await axios.post("/api/db/changedirname", null, {
+            await axios.post("/db/changedirname", null, {
                 params: {
                     oldValue: rootTitle.title,
                     newValue: newTitle[rootTitle.title],
@@ -63,9 +63,22 @@ const AdminGallery = () => {
             setLoading(false);
             window.location.reload();
         }
-    }
+    }, [newTitle]);
 
-    return AdminGalleryRender(
+    const adminGalleryRender = useMemo(() => {
+        return AdminGalleryRender(
+            loading,
+            imageToDelete,
+            setImageToDelete,
+            deleteImage,
+            isMobile,
+            images,
+            newTitle,
+            saveTitle,
+            handleFileChange,
+            handleFileUpload
+        );
+    }, [
         loading,
         imageToDelete,
         setImageToDelete,
@@ -75,8 +88,10 @@ const AdminGallery = () => {
         newTitle,
         saveTitle,
         handleFileChange,
-        handleFileUpload
-    );
+        handleFileUpload,
+    ]);
+
+    return adminGalleryRender;
 };
 
 export default AdminGallery;
