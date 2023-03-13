@@ -23,6 +23,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export function AdminGalleryRender(loading: boolean,
                                    imageToDelete: any,
@@ -106,10 +107,12 @@ export function AdminGalleryRender(loading: boolean,
                             <Box sx={{px: 2}}>
                                 <Button
                                     variant="text"
+                                    size="small"
                                     color="primary"
                                     onClick={() =>
                                         setSelectedRow(selectedRow === rootTitle.title ? null : rootTitle.title)
                                     }
+                                    endIcon={<ExpandMoreIcon />}
                                 >
                                     Manage images
                                 </Button>
@@ -135,8 +138,8 @@ export function AdminGalleryRender(loading: boolean,
                                         spacing={2}
                                         sx={{mt: 2, p: 2}}
                                         component="ul"
-                                        alignItems="flex-start"
-                                        justifyContent="flex-start"
+                                        justifyContent="center"  // add this property
+                                        alignItems="center"     // add this property
                                         direction="row"
                                         wrap="wrap"
                                         columnSpacing={{xs: 2, sm: 3, md: 4}}
