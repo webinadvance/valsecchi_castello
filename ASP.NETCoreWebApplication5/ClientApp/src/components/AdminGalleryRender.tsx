@@ -17,13 +17,14 @@
     TableHead,
     TableRow,
     TextField,
-    Theme
+    Theme, useMediaQuery, useTheme
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import theme from "tailwindcss/defaultTheme";
 
 export function AdminGalleryRender(loading: boolean,
                                    imageToDelete: any,
@@ -37,11 +38,17 @@ export function AdminGalleryRender(loading: boolean,
                                    handleFileUpload: (parentTitle: any) => Promise<void>) {
 
     const [selectedRow, setSelectedRow] = useState(null);
+    const [open, setOpen] = useState(false);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
     function getDialog() {
-        return <Dialog open={imageToDelete != null} onClose={() => {
-            setImageToDelete(null);
-        }}>
+        return <Dialog fullWidth={true}
+                       fullScreen={fullScreen}
+                       open={imageToDelete != null}
+                       onClose={() => {
+                           setImageToDelete(null);
+                       }}>
             <DialogTitle>Delete Image?</DialogTitle>
             <DialogContent>
                 <DialogContentText>
@@ -193,6 +200,26 @@ export function AdminGalleryRender(loading: boolean,
                         </Grid>
                     ))}
                 </Grid>
+                <Paper elevation={4} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <Button size={"large"} variant="contained" color="primary" onClick={() => setOpen(true)}>
+                        Add new section
+                    </Button>
+                </Paper>
+                <Dialog
+                    open={open}
+                    onClose={() => setOpen(true)}
+                    fullWidth={true}
+                    fullScreen={fullScreen}
+                >
+                    <DialogTitle>Add new section</DialogTitle>
+                    <DialogContent>
+                        <TextField label="Enter section name" fullWidth/>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button onClick={() => setOpen(true)} color="primary">Submit</Button>
+                    </DialogActions>
+                </Dialog>
             </Paper>
         </>
     );
