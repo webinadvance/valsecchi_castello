@@ -1,5 +1,4 @@
 ﻿import {
-    Avatar,
     Backdrop,
     Button,
     Dialog,
@@ -7,26 +6,21 @@
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Fab,
-    Grid, IconButton, lighten,
+    Grid,
+    IconButton,
+    lighten,
     Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
     TextField,
-    Theme, Typography, useMediaQuery, useTheme
+    Theme,
+    useMediaQuery,
+    useTheme
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import theme from "tailwindcss/defaultTheme";
-import axios from "axios";
 
 export function AdminGalleryRender(loading: boolean,
                                    imageToDelete: any,
@@ -42,7 +36,9 @@ export function AdminGalleryRender(loading: boolean,
                                    handleDeleteDir: (dirToDelete: any) => Promise<void>
 ) {
 
-    const [selectedRow, setSelectedRow] = useState(null);
+    const [selectedRow, setSelectedRow] = useState<any>(
+        localStorage.getItem("selectedRow") ?? null // Load the initial value from Local Storage
+    );
     const [open, setOpen] = useState(false);
     const [dialogDeleteDir, setDialogDeleteDir] = useState<any>(null);
     const theme = useTheme();
@@ -100,6 +96,10 @@ export function AdminGalleryRender(loading: boolean,
             </DialogActions>
         </Dialog>;
     }
+
+    useEffect(() => {
+        localStorage.setItem("selectedRow", selectedRow); // Store the updated value to Local Storage
+    }, [selectedRow]);
 
     return (
         <>
