@@ -35,7 +35,7 @@ export function AdminGalleryRender(loading: boolean,
     return (
         <>
             {loading && (
-                <div style={{
+                <Box sx={{
                     position: "fixed",
                     top: 0,
                     left: 0,
@@ -47,7 +47,7 @@ export function AdminGalleryRender(loading: boolean,
                     <Backdrop open>
                         <CircularProgress color="primary"/>
                     </Backdrop>
-                </div>
+                </Box>
             )}
             <Dialog open={imageToDelete != null} onClose={() => {
                 setImageToDelete(null);
