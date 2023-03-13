@@ -23,7 +23,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export function AdminGalleryRender(loading: boolean,
                                    imageToDelete: any,
@@ -112,7 +112,7 @@ export function AdminGalleryRender(loading: boolean,
                                     onClick={() =>
                                         setSelectedRow(selectedRow === rootTitle.title ? null : rootTitle.title)
                                     }
-                                    endIcon={<ExpandMoreIcon />}
+                                    endIcon={<ExpandMoreIcon/>}
                                 >
                                     Manage images
                                 </Button>
