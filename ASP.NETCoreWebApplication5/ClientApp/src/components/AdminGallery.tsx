@@ -60,7 +60,7 @@ const AdminGallery = () => {
         window.location.reload();
     }, [imageToDelete]);
 
-    const saveTitle = useCallback(async (rootTitle: any) => {
+    const handleSaveTitle = useCallback(async (rootTitle: any) => {
         if (newTitle[rootTitle.title]) {
             setLoading(true);
             await axios.post("api/db/changedirname", null, {
@@ -83,7 +83,7 @@ const AdminGallery = () => {
         isMobile,
         images,
         newTitle,
-        saveTitle,
+        handleSaveTitle,
         handleFileChange,
         handleFileUpload,
         handleAddDir
