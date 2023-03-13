@@ -124,8 +124,7 @@ namespace ASP.NETCoreWebApplication5.Controllers
             ImageLib.Sync(_webHostEnvironment);
             return Ok();
         }
-
-
+        
         [HttpPost("uploadimage")]
         public async Task<IActionResult> UploadImage(string parentTitle)
         {

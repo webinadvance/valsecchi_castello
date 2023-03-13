@@ -8,6 +8,7 @@
     DialogContentText,
     DialogTitle,
     Fab,
+    Grid,
     Paper,
     Table,
     TableBody,
@@ -74,93 +75,91 @@ export function AdminGalleryRender(loading: boolean,
                 </Box>
             )}
             {getDialog()}
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {!isMobile && <TableCell>ID</TableCell>}
-                            {!isMobile && <TableCell>Name</TableCell>}
-                            <TableCell>Image</TableCell>
-                            <TableCell>Action</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {images && images.map((rootTitle: any, index: any) => (
-                            <React.Fragment key={index}>
-                                <TableRow
-                                    style={{textTransform: "uppercase"}}
-                                >
-                                    <TableCell sx={{
-                                        borderTopWidth: (theme) => theme.spacing(1),
-                                        borderTopStyle: "solid",
-                                        borderTopColor: (theme) => theme.palette.secondary.main,
-                                        fontWeight: "bold",
-                                    }} colSpan={isMobile ? 3 : 4}>
-                                        <Box sx={{display: "flex", alignItems: "center", gap: 2}}>
-                                            <TextField fullWidth value={rootTitle.title}/>
-                                            <TextField fullWidth placeholder={"new value"} onChange={(e) => {
-                                                newTitle[rootTitle.title] = e.target.value;
-                                            }}/>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={async () => await handleSaveTitle(rootTitle)}
-                                            >
-                                                save
-                                            </Button>
-                                        </Box>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell colSpan={4}>
+            <Paper>
+                <Grid container spacing={2} sx={{display: "flex", flexDirection: "column"}}>
+                    {images && images.map((rootTitle: any, index: any) => (
+                        <Grid item key={index} xs={12}>
+                            <Box sx={{textTransform: "uppercase"}}>
+                                <Box sx={{my: 2, display: "flex", alignItems: "center", gap: 2}}>
+                                    <TextField fullWidth value={rootTitle.title}/>
+                                    <TextField
+                                        fullWidth
+                                        placeholder={"new value"}
+                                        onChange={(e) => {
+                                            newTitle[rootTitle.title] = e.target.value;
+                                        }}
+                                    />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={async () => await handleSaveTitle(rootTitle)}
+                                    >
+                                        save
+                                    </Button>
+                                </Box>
+                            </Box>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() =>
+                                    setSelectedRow(selectedRow === rootTitle.title ? null : rootTitle.title)
+                                }
+                            >
+                                Manage images
+                            </Button>
+                            {selectedRow === rootTitle.title && (
+                                <Box>
+                                    <Box sx={{py: 2}}>
+                                        <input type="file" onChange={handleFileChange}/>
                                         <Button
                                             variant="contained"
                                             color="primary"
-                                            onClick={() =>
-                                                setSelectedRow(
-                                                    selectedRow === rootTitle.title ? null : rootTitle.title
-                                                )
-                                            }
+                                            onClick={async () => await handleFileUpload(rootTitle.title)}
                                         >
-                                            Manage images
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell colSpan={isMobile ? 2 : 4}>
-                                        <input type="file" onChange={handleFileChange}/>
-                                        <Button variant="contained" color="primary"
-                                                onClick={async () => await handleFileUpload(rootTitle.title)}>
                                             Upload
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
-                                {selectedRow === rootTitle.title && rootTitle.data.map((image: any, index2: any) => (
-                                    <TableRow key={`${index}-${index2}`}>
-                                        {!isMobile && <TableCell>{index2 + 1}</TableCell>}
-                                        {!isMobile && <TableCell>{image.title}</TableCell>}
-                                        <TableCell>
-                                            <Avatar
-                                                sx={{width: isMobile ? "30vw" : 100, height: isMobile ? "30vw" : 100}}>
-                                                <img src={"./assets" + image.src} alt={image.title}/>
-                                            </Avatar>
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            <Box sx={{display: "flex", justifyContent: "center"}}>
-                                                <Fab color={"primary"}
-                                                     onClick={() => setImageToDelete(image.src)}
-                                                >
-                                                    <DeleteIcon/>
-                                                </Fab>
-                                            </Box>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </React.Fragment>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                                    </Box>
+                                    <Grid
+                                        container
+                                        spacing={2}
+                                        sx={{mt: 2}}
+                                        component="ul"
+                                        alignItems="flex-start"
+                                        justifyContent="flex-start"
+                                        direction="row"
+                                        wrap="wrap"
+                                        columnSpacing={{xs: 2, sm: 3, md: 4}}
+                                        rowSpacing={{xs: 2, sm: 3, md: 4}}
+                                    >
+                                        {rootTitle.data.map((image: any, index2: any) => (
+                                            <Grid item key={`${index}-${index2}`} component="li" xs={6} sm={4}
+                                                  md={3}>
+                                                <Box sx={{position: "relative", mb: 2}}>
+                                                    <Avatar
+                                                        sx={{width: "100%", height: "100%"}}
+                                                        variant="rounded"
+                                                        src={`./assets${image.src}`}
+                                                        alt={image.title}
+                                                    />
+                                                    <Box sx={{position: "absolute", top: 10, right: 10}}>
+                                                        <Fab
+                                                            color={"primary"}
+                                                            size="small"
+                                                            onClick={() => setImageToDelete(image.src)}
+                                                        >
+                                                            <DeleteIcon/>
+                                                        </Fab>
+                                                    </Box>
+                                                </Box>
+                                            </Grid>
+                                        ))}
+                                    </Grid>
+                                </Box>
+                            )}
+                        </Grid>
+                    ))}
+                </Grid>
+            </Paper>
         </>
     );
 }

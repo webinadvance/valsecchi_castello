@@ -34,7 +34,7 @@ const AdminGallery = () => {
         const formData = new FormData();
         formData.append("image", selectedFile);
         setLoading(true);
-        await axios.post("/db/uploadimage", formData, {
+        await axios.post("api/db/uploadimage", formData, {
             params: {parentTitle},
             withCredentials: true,
         });
@@ -52,7 +52,7 @@ const AdminGallery = () => {
     const saveTitle = useCallback(async (rootTitle: any) => {
         if (newTitle[rootTitle.title]) {
             setLoading(true);
-            await axios.post("/db/changedirname", null, {
+            await axios.post("api/db/changedirname", null, {
                 params: {
                     oldValue: rootTitle.title,
                     newValue: newTitle[rootTitle.title],
