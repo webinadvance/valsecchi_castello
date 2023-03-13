@@ -150,10 +150,7 @@ const AdminGallery = () => {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    {!isMobile && <TableCell></TableCell>}
-                                    <TableCell>
-                                    </TableCell>
-                                    <TableCell>
+                                    <TableCell colSpan={isMobile ? 2 : 4}>
                                         <input type="file" onChange={handleFileChange}/>
                                         <Button variant="contained" color="primary"
                                                 onClick={async () => {
@@ -162,7 +159,6 @@ const AdminGallery = () => {
                                             Upload
                                         </Button>
                                     </TableCell>
-                                    {!isMobile && <TableCell></TableCell>}
                                 </TableRow>
                                 {rootTitle.data.map((image: any, index2: any) => (
                                     <TableRow key={`${index}-${index2}`}>
