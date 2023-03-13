@@ -36,7 +36,8 @@ export function AdminGalleryRender(loading: boolean,
                                    newTitle: Record<string, any>,
                                    handleSaveTitle: (rootTitle: any) => Promise<void>,
                                    handleFileChange: (e: any) => void,
-                                   handleFileUpload: (parentTitle: any) => Promise<void>) {
+                                   handleFileUpload: (parentTitle: any) => Promise<void>,
+                                   handleAddDir: (newDir: any) => Promise<void>) {
 
     const [selectedRow, setSelectedRow] = useState(null);
     const [open, setOpen] = useState(false);
@@ -222,12 +223,7 @@ export function AdminGalleryRender(loading: boolean,
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
                         <Button onClick={async () => {
-                            await axios.post("api/db/adddir", null, {
-                                params: {
-                                    dirName: newDir,
-                                },
-                                withCredentials: true,
-                            });
+                            await handleAddDir(newDir);
                         }} color="primary">Save</Button>
                     </DialogActions>
                 </Dialog>

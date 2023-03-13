@@ -30,6 +30,17 @@ const AdminGallery = () => {
         setSelectedFile(e.target.files[0]);
     };
 
+    const handleAddDir = useCallback(async (newDir: any) => {
+        setLoading(true);
+        await axios.post("api/db/adddir", null, {
+            params: {
+                dirName: newDir,
+            },
+            withCredentials: true,
+        });
+        setLoading(false);
+    }, []);
+
     const handleFileUpload = useCallback(async (parentTitle: any) => {
         const formData = new FormData();
         formData.append("image", selectedFile);
@@ -74,7 +85,8 @@ const AdminGallery = () => {
         newTitle,
         saveTitle,
         handleFileChange,
-        handleFileUpload
+        handleFileUpload,
+        handleAddDir
     );
 };
 
