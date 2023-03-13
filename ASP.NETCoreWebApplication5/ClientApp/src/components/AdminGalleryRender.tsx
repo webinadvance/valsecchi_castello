@@ -99,7 +99,6 @@ export function AdminGalleryRender(loading: boolean,
                                             >
                                                 save
                                             </Button>
-
                                         </Box>
                                     </TableCell>
                                 </TableRow>
