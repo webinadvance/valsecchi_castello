@@ -93,7 +93,6 @@ function Navbar() {
                         </div>
                     </div>
                 </div>
-
                 <Drawer
                     anchor="top"
                     open={isOpen}

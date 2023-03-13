@@ -1,6 +1,6 @@
 import {memo, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCoffee, faUtensils, faSwimmingPool, faWifi, faUserTie} from "@fortawesome/free-solid-svg-icons";
+import {faSwimmingPool, faUserTie, faUtensils, faWifi} from "@fortawesome/free-solid-svg-icons";
 
 interface Service {
     title: string;
@@ -67,9 +67,9 @@ export default memo(function Services() {
     return (
         <div className="pb-8 md:pb-16">
             <div className="max-w-7xl mx-auto">
-                <h2>
+                <div className={"h2"}>
                     Our Services
-                </h2>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     {SERVICES.map((service: Service, index: number) => (
                         <ServiceCard

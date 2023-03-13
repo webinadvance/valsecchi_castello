@@ -6,52 +6,9 @@ import {I18nextProvider} from "react-i18next";
 import i18n from "./i18n";
 import {Provider} from "react-redux";
 import {store} from "./Store";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {ThemeProvider} from "@mui/material/styles";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import reportWebVitals from "./reportWebVitals";
-import {deepOrange, grey, green, indigo, orange, pink, purple} from "@mui/material/colors";
-
-const theme = createTheme({
-    palette: {
-        mode: "dark",
-        primary: {
-            main: "#3f51b5",
-        },
-        secondary: {
-            main: "#f50057",
-        },
-    },
-    components: {
-        MuiPaper: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 0,
-                },
-            },
-        },
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 0,
-                },
-            },
-            defaultProps: {
-                variant: "contained",
-            },
-        },
-        MuiTableHead: {
-            styleOverrides: {
-                root: {
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
-                    "& .MuiTableCell-head": {
-                        fontWeight: "normal",
-                    },
-                },
-            },
-        },
-    },
-});
+import {theme} from "./theme";
 
 const baseUrl = document.getElementsByTagName("base")[0]?.getAttribute("href") ?? "";
 const rootElement = document.getElementById("root") as any;
