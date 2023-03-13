@@ -18,7 +18,7 @@
     TextField
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import React from "react";
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -32,6 +32,9 @@ export function AdminGalleryRender(loading: boolean,
                                    handleSaveTitle: (rootTitle: any) => Promise<void>,
                                    handleFileChange: (e: any) => void,
                                    handleFileUpload: (parentTitle: any) => Promise<void>) {
+
+    const [selectedRow, setSelectedRow] = useState(null);
+
     function getDialog() {
         return <Dialog open={imageToDelete != null} onClose={() => {
             setImageToDelete(null);
@@ -84,7 +87,9 @@ export function AdminGalleryRender(loading: boolean,
                     <TableBody>
                         {images && images.map((rootTitle: any, index: any) => (
                             <React.Fragment key={index}>
-                                <TableRow style={{textTransform: "uppercase"}}>
+                                <TableRow
+                                    style={{textTransform: "uppercase"}}
+                                >
                                     <TableCell sx={{
                                         borderTopWidth: (theme) => theme.spacing(1),
                                         borderTopStyle: "solid",
@@ -107,6 +112,21 @@ export function AdminGalleryRender(loading: boolean,
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
+                                    <TableCell>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() =>
+                                                setSelectedRow(
+                                                    selectedRow === rootTitle.title ? null : rootTitle.title
+                                                )
+                                            }
+                                        >
+                                            Manage images
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
                                     <TableCell colSpan={isMobile ? 2 : 4}>
                                         <input type="file" onChange={handleFileChange}/>
                                         <Button variant="contained" color="primary"
@@ -115,7 +135,7 @@ export function AdminGalleryRender(loading: boolean,
                                         </Button>
                                     </TableCell>
                                 </TableRow>
-                                {rootTitle.data.map((image: any, index2: any) => (
+                                {selectedRow === rootTitle.title && rootTitle.data.map((image: any, index2: any) => (
                                     <TableRow key={`${index}-${index2}`}>
                                         {!isMobile && <TableCell>{index2 + 1}</TableCell>}
                                         {!isMobile && <TableCell>{image.title}</TableCell>}
