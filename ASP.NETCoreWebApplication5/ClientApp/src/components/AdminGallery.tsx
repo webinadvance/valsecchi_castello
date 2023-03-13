@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useMemo} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import axios from "axios";
 import {useMediaQuery, useTheme} from "@mui/material";
 import {Api2} from "../Api2";
@@ -6,11 +6,10 @@ import {AdminGalleryRender} from "./AdminGalleryRender";
 
 const AdminGallery = () => {
     const [images, setImages] = useState<any>();
-    const [newImageName, setNewImageName] = useState("");
     const [selectedFile, setSelectedFile] = useState<any>();
     const [loading, setLoading] = useState(false);
     const [imageToDelete, setImageToDelete] = useState(null);
-    const [newTitle, setNewTitle] = useState<Record<string, any>>({});
+    const [newTitle] = useState<Record<string, any>>({});
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -43,7 +42,7 @@ const AdminGallery = () => {
         setLoading(false);
     }, [selectedFile]);
 
-    const deleteImage = useCallback(async () => {
+    const hanfleDeleteImage = useCallback(async () => {
         setLoading(true);
         await Api2.deleteImage(imageToDelete ?? "");
         setLoading(false);
@@ -65,12 +64,12 @@ const AdminGallery = () => {
         }
     }, [newTitle]);
 
-    const adminGalleryRender = useMemo(() => {
+    return useMemo(() => {
         return AdminGalleryRender(
             loading,
             imageToDelete,
             setImageToDelete,
-            deleteImage,
+            hanfleDeleteImage,
             isMobile,
             images,
             newTitle,
@@ -82,7 +81,7 @@ const AdminGallery = () => {
         loading,
         imageToDelete,
         setImageToDelete,
-        deleteImage,
+        hanfleDeleteImage,
         isMobile,
         images,
         newTitle,
@@ -90,8 +89,6 @@ const AdminGallery = () => {
         handleFileChange,
         handleFileUpload,
     ]);
-
-    return adminGalleryRender;
 };
 
 export default AdminGallery;

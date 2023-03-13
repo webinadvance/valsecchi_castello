@@ -25,11 +25,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export function AdminGalleryRender(loading: boolean,
                                    imageToDelete: any,
                                    setImageToDelete: (value: (((prevState: null) => null) | null)) => void,
-                                   deleteImage: () => Promise<void>,
+                                   handleDeleteImage: () => Promise<void>,
                                    isMobile: boolean,
                                    images: any,
                                    newTitle: Record<string, any>,
-                                   saveTitle: (rootTitle: any) => Promise<void>,
+                                   handleSaveTitle: (rootTitle: any) => Promise<void>,
                                    handleFileChange: (e: any) => void,
                                    handleFileUpload: (parentTitle: any) => Promise<void>) {
     return (
@@ -63,7 +63,7 @@ export function AdminGalleryRender(loading: boolean,
                         setImageToDelete(null);
                     }}>Cancel</Button>
                     <Button onClick={async () => {
-                        await deleteImage();
+                        await handleDeleteImage();
                     }}>Delete</Button>
                 </DialogActions>
             </Dialog>
@@ -95,7 +95,7 @@ export function AdminGalleryRender(loading: boolean,
                                             <Button
                                                 variant="contained"
                                                 color="primary"
-                                                onClick={async () => await saveTitle(rootTitle)}
+                                                onClick={async () => await handleSaveTitle(rootTitle)}
                                             >
                                                 save
                                             </Button>
