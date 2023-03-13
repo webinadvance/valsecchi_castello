@@ -77,12 +77,10 @@ export function AdminGalleryRender(loading: boolean,
             )}
             {getDialog()}
             <Paper>
-                <Grid container spacing={2} sx={{display: "flex", flexDirection: "column"}}>
+                <Grid container spacing={0} sx={{display: "flex", flexDirection: "column"}}>
                     {images && images.map((rootTitle: any, index: any) => (
                         <Grid item key={index} sx={{
-                          /*  pb: 4,
-                            borderBottomWidth: 3,
-                            borderBottomColor: (theme: Theme) => theme.palette.secondary.main*/
+                            mb: 2,
                         }}>
                             <Paper elevation={4} sx={{
                                 mb: 2, p: 2
@@ -105,20 +103,22 @@ export function AdminGalleryRender(loading: boolean,
                                     </Button>
                                 </Box>
                             </Paper>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={() =>
-                                    setSelectedRow(selectedRow === rootTitle.title ? null : rootTitle.title)
-                                }
-                            >
-                                Manage images
-                            </Button>
+                            <Box sx={{px: 2}}>
+                                <Button
+                                    variant="text"
+                                    color="primary"
+                                    onClick={() =>
+                                        setSelectedRow(selectedRow === rootTitle.title ? null : rootTitle.title)
+                                    }
+                                >
+                                    Manage images
+                                </Button>
+                            </Box>
                             {selectedRow === rootTitle.title && (
                                 <Box>
                                     <Paper elevation={0} sx={{
                                         my: 2,
-                                        py: 2,
+                                        p: 2,
                                         backgroundColor: (theme: Theme) => lighten(theme.palette.background.paper, 0.1),
                                     }}>
                                         <input type="file" onChange={handleFileChange}/>
@@ -133,7 +133,7 @@ export function AdminGalleryRender(loading: boolean,
                                     <Grid
                                         container
                                         spacing={2}
-                                        sx={{mt: 2, pb: 2}}
+                                        sx={{mt: 2, p: 2}}
                                         component="ul"
                                         alignItems="flex-start"
                                         justifyContent="flex-start"
