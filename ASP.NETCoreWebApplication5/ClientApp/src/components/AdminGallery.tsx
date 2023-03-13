@@ -62,6 +62,28 @@ const AdminGallery = () => {
 
     let newTitle: Record<string, any> = {};
 
+    async function deleteImage() {
+        setLoading(true);
+        await Api2.deleteImage(imageToDelete ?? "");
+        setLoading(false);
+        window.location.reload();
+    }
+
+    async function saveTitle(rootTitle: any) {
+        if (newTitle[rootTitle.title]) {
+            setLoading(true);
+            await axios.post("/api/db/changedirname", null, {
+                params: {
+                    oldValue: rootTitle.title,
+                    newValue: newTitle[rootTitle.title]
+                },
+                withCredentials: true,
+            });
+            setLoading(false);
+            window.location.reload();
+        }
+    }
+
     return (
         <>
             {loading && (
@@ -93,10 +115,7 @@ const AdminGallery = () => {
                         setImageToDelete(null);
                     }}>Cancel</Button>
                     <Button onClick={async () => {
-                        setLoading(true);
-                        await Api2.deleteImage(imageToDelete ?? "");
-                        setLoading(false);
-                        window.location.reload();
+                        await deleteImage();
                     }}>Delete</Button>
                 </DialogActions>
             </Dialog>
@@ -128,20 +147,7 @@ const AdminGallery = () => {
                                             <Button
                                                 variant="contained"
                                                 color="primary"
-                                                onClick={async () => {
-                                                    if (newTitle[rootTitle.title]) {
-                                                        setLoading(true);
-                                                        await axios.post("/api/db/changedirname", null, {
-                                                            params: {
-                                                                oldValue: rootTitle.title,
-                                                                newValue: newTitle[rootTitle.title]
-                                                            },
-                                                            withCredentials: true,
-                                                        });
-                                                        setLoading(false);
-                                                        window.location.reload();
-                                                    }
-                                                }}
+                                                onClick={async () => await saveTitle(rootTitle)}
                                             >
                                                 save
                                             </Button>
@@ -153,9 +159,7 @@ const AdminGallery = () => {
                                     <TableCell colSpan={isMobile ? 2 : 4}>
                                         <input type="file" onChange={handleFileChange}/>
                                         <Button variant="contained" color="primary"
-                                                onClick={async () => {
-                                                    return await handleFileUpload(rootTitle.title);
-                                                }}>
+                                                onClick={async () => await handleFileUpload(rootTitle.title)}>
                                             Upload
                                         </Button>
                                     </TableCell>
@@ -173,9 +177,7 @@ const AdminGallery = () => {
                                         <TableCell align="center">
                                             <Box sx={{display: "flex", justifyContent: "center"}}>
                                                 <Fab color={"primary"}
-                                                     onClick={() => {
-                                                         setImageToDelete(image.src);
-                                                     }}
+                                                     onClick={() => setImageToDelete(image.src)}
                                                 >
                                                     <DeleteIcon/>
                                                 </Fab>
