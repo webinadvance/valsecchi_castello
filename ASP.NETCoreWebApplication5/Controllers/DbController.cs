@@ -140,6 +140,20 @@ namespace ASP.NETCoreWebApplication5.Controllers
             return Ok();
         }
 
+        [HttpPost("deletedir")]
+        public async Task<IActionResult> DeleteDir(string dirToDelete)
+        {
+            var dirPath = GetPath("assets");
+            var fullPath = Path.Combine(dirPath, dirToDelete);
+
+            if (Directory.Exists(fullPath))
+            {
+                Directory.Delete(fullPath, true);
+            }
+            ImageLib.Sync(_webHostEnvironment);
+            return Ok();
+        }
+
 
         [HttpPost("uploadimage")]
         public async Task<IActionResult> UploadImage(string parentTitle)

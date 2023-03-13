@@ -17,7 +17,7 @@
     TableHead,
     TableRow,
     TextField,
-    Theme, useMediaQuery, useTheme
+    Theme, Typography, useMediaQuery, useTheme
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import React, {useState} from "react";
@@ -37,10 +37,13 @@ export function AdminGalleryRender(loading: boolean,
                                    handleSaveTitle: (rootTitle: any) => Promise<void>,
                                    handleFileChange: (e: any) => void,
                                    handleFileUpload: (parentTitle: any) => Promise<void>,
-                                   handleAddDir: (newDir: any) => Promise<void>) {
+                                   handleAddDir: (newDir: any) => Promise<void>,
+                                   handleDeleteDir: (dirToDelete: any) => Promise<void>
+) {
 
     const [selectedRow, setSelectedRow] = useState(null);
     const [open, setOpen] = useState(false);
+    const [dialogDeleteDir, setDialogDeleteDir] = useState<any>(null);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
     let newDir: any = null;
@@ -69,6 +72,34 @@ export function AdminGalleryRender(loading: boolean,
         </Dialog>;
     }
 
+    function getDialogDeleteDir() {
+        return <Dialog fullWidth={true}
+                       fullScreen={fullScreen}
+                       open={dialogDeleteDir != null}
+                       onClose={() => {
+                           setImageToDelete(null);
+                       }}>
+            <DialogTitle>Delete Section?</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Are you sure you want to delete the section{" "}
+                    <Box component="span" sx={{fontWeight: "bold"}}>
+                        {dialogDeleteDir}
+                    </Box>
+                    {" "}and all images it contains? This action cannot be undone.
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => {
+                    setDialogDeleteDir(null);
+                }}>Cancel</Button>
+                <Button onClick={async () => {
+                    await handleDeleteDir(dialogDeleteDir);
+                }}>Delete</Button>
+            </DialogActions>
+        </Dialog>;
+    }
+
     return (
         <>
             {loading && (
@@ -87,15 +118,14 @@ export function AdminGalleryRender(loading: boolean,
                 </Box>
             )}
             {getDialog()}
+            {getDialogDeleteDir()}
             <Paper>
                 <Grid container spacing={0} sx={{display: "flex", flexDirection: "column"}}>
                     {images && images.map((rootTitle: any, index: any) => (
                         <Grid item key={index} sx={{
                             mb: 2,
                         }}>
-                            <Paper elevation={4} sx={{
-                                mb: 2, p: 2
-                            }}>
+                            <Paper elevation={4} sx={{mb: 2, p: 2}}>
                                 <Box sx={{my: 2, display: "flex", alignItems: "center", gap: 2}}>
                                     <TextField fullWidth value={rootTitle.title}/>
                                     <TextField
@@ -106,11 +136,20 @@ export function AdminGalleryRender(loading: boolean,
                                         }}
                                     />
                                     <Button
+                                        size={"small"}
                                         variant="contained"
                                         color="primary"
                                         onClick={async () => await handleSaveTitle(rootTitle)}
                                     >
                                         save
+                                    </Button>
+                                    <Button
+                                        size={"small"}
+                                        variant="contained"
+                                        color="error"
+                                        onClick={() => setDialogDeleteDir(rootTitle.title)}
+                                    >
+                                        delete
                                     </Button>
                                 </Box>
                             </Paper>

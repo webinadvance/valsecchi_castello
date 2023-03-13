@@ -39,6 +39,7 @@ const AdminGallery = () => {
             withCredentials: true,
         });
         setLoading(false);
+        window.location.reload();
     }, []);
 
     const handleFileUpload = useCallback(async (parentTitle: any) => {
@@ -53,12 +54,24 @@ const AdminGallery = () => {
         setLoading(false);
     }, [selectedFile]);
 
-    const hanfleDeleteImage = useCallback(async () => {
+    const handleDeleteImage = useCallback(async () => {
         setLoading(true);
         await Api2.deleteImage(imageToDelete ?? "");
         setLoading(false);
         window.location.reload();
     }, [imageToDelete]);
+
+    const handleDeleteDir = useCallback(async (dirToDelete: any) => {
+        setLoading(true);
+        await axios.post("api/db/deletedir", null, {
+            params: {
+                dirToDelete: dirToDelete,
+            },
+            withCredentials: true,
+        });
+        setLoading(false);
+        window.location.reload();
+    }, []);
 
     const handleSaveTitle = useCallback(async (rootTitle: any) => {
         if (newTitle[rootTitle.title]) {
@@ -79,14 +92,15 @@ const AdminGallery = () => {
         loading,
         imageToDelete,
         setImageToDelete,
-        hanfleDeleteImage,
+        handleDeleteImage,
         isMobile,
         images,
         newTitle,
         handleSaveTitle,
         handleFileChange,
         handleFileUpload,
-        handleAddDir
+        handleAddDir,
+        handleDeleteDir
     );
 };
 
