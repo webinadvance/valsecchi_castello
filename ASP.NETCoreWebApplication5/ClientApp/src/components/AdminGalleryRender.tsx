@@ -25,6 +25,7 @@ import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import theme from "tailwindcss/defaultTheme";
+import axios from "axios";
 
 export function AdminGalleryRender(loading: boolean,
                                    imageToDelete: any,
@@ -41,6 +42,7 @@ export function AdminGalleryRender(loading: boolean,
     const [open, setOpen] = useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+    let newDir: any = null;
 
     function getDialog() {
         return <Dialog fullWidth={true}
@@ -213,14 +215,24 @@ export function AdminGalleryRender(loading: boolean,
                 >
                     <DialogTitle>Add new section</DialogTitle>
                     <DialogContent>
-                        <TextField label="Enter section name" fullWidth/>
+                        <TextField onChange={(e) => {
+                            newDir = e.target.value;
+                        }} label="Enter section name" fullWidth/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
-                        <Button onClick={() => setOpen(true)} color="primary">Save</Button>
+                        <Button onClick={async () => {
+                            await axios.post("api/db/adddir", null, {
+                                params: {
+                                    dirName: newDir,
+                                },
+                                withCredentials: true,
+                            });
+                        }} color="primary">Save</Button>
                     </DialogActions>
                 </Dialog>
             </Paper>
         </>
-    );
+    )
+        ;
 }

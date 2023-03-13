@@ -124,7 +124,23 @@ namespace ASP.NETCoreWebApplication5.Controllers
             ImageLib.Sync(_webHostEnvironment);
             return Ok();
         }
-        
+
+        [HttpPost("adddir")]
+        public async Task<IActionResult> adddir(string dirName)
+        {
+            var dirPath = GetPath("assets");
+            var fullPath = Path.Combine(dirPath, dirName);
+
+            if (!Directory.Exists(fullPath))
+            {
+                Directory.CreateDirectory(fullPath);
+            }
+
+            ImageLib.Sync(_webHostEnvironment);
+            return Ok();
+        }
+
+
         [HttpPost("uploadimage")]
         public async Task<IActionResult> UploadImage(string parentTitle)
         {
