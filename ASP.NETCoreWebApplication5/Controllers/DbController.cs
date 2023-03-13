@@ -150,6 +150,7 @@ namespace ASP.NETCoreWebApplication5.Controllers
             {
                 Directory.Delete(fullPath, true);
             }
+
             ImageLib.Sync(_webHostEnvironment);
             return Ok();
         }

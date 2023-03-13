@@ -8,7 +8,7 @@
     DialogContentText,
     DialogTitle,
     Fab,
-    Grid, lighten,
+    Grid, IconButton, lighten,
     Paper,
     Table,
     TableBody,
@@ -23,6 +23,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import theme from "tailwindcss/defaultTheme";
 import axios from "axios";
@@ -135,22 +136,20 @@ export function AdminGalleryRender(loading: boolean,
                                             newTitle[rootTitle.title] = e.target.value;
                                         }}
                                     />
-                                    <Button
+                                    <IconButton
                                         size={"small"}
-                                        variant="contained"
                                         color="primary"
                                         onClick={async () => await handleSaveTitle(rootTitle)}
                                     >
-                                        save
-                                    </Button>
-                                    <Button
+                                        <SaveIcon/>
+                                    </IconButton>
+                                    <IconButton
                                         size={"small"}
-                                        variant="contained"
                                         color="error"
                                         onClick={() => setDialogDeleteDir(rootTitle.title)}
                                     >
-                                        delete
-                                    </Button>
+                                        <DeleteIcon/>
+                                    </IconButton>
                                 </Box>
                             </Paper>
                             <Box sx={{px: 2}}>
