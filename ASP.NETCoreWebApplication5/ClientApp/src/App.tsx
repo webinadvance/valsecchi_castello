@@ -1,4 +1,4 @@
-import React, {type FC, lazy, memo, Suspense, useCallback, useEffect, useMemo, useState} from "react";
+import React, {type FC, memo, useCallback, useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useCookies} from "react-cookie";
 import {Route, Routes, useMatch} from "react-router-dom";
@@ -29,10 +29,9 @@ const App: FC<IProps> = memo(() => {
     const isAdminPage = useMatch("/admin");
     const state = useSelector((state: RootState) => state.data);
 
-    const scrollToTop = useCallback(() => {
+    useCallback(() => {
         window.scrollTo({top: 0, behavior: "smooth"});
     }, []);
-
 
     useEffect(() => {
         (async () => {
@@ -44,7 +43,9 @@ const App: FC<IProps> = memo(() => {
 
     useEffect(() => {
         setCookie("preferredLanguage", language, {path: "/"});
-        i18n.changeLanguage(language);
+        (async () => {
+            await i18n.changeLanguage(language);
+        })();
     }, [language, setCookie]);
 
     useAsyncEffect(
@@ -66,7 +67,7 @@ const App: FC<IProps> = memo(() => {
     return (
         <>
             <div id={"back-to-top-anchor"}></div>
-                {header}
+            {header}
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 {state.routes.map((route: IRoute, index: any) => (
@@ -74,7 +75,7 @@ const App: FC<IProps> = memo(() => {
                 ))}
                 <Route path="/admin" element={<Admin/>}/>
             </Routes>
-                {footer}
+            {footer}
             <ScrollTop/>
             <Loader/>
             <CookieConsentBanner/>
