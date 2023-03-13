@@ -112,7 +112,7 @@ export function AdminGalleryRender(loading: boolean,
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>
+                                    <TableCell colSpan={4}>
                                         <Button
                                             variant="contained"
                                             color="primary"
