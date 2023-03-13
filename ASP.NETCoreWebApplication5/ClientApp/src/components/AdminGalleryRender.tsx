@@ -16,7 +16,8 @@
     TableContainer,
     TableHead,
     TableRow,
-    TextField
+    TextField,
+    Theme
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import React, {useState} from "react";
@@ -78,7 +79,11 @@ export function AdminGalleryRender(loading: boolean,
             <Paper>
                 <Grid container spacing={2} sx={{display: "flex", flexDirection: "column"}}>
                     {images && images.map((rootTitle: any, index: any) => (
-                        <Grid item key={index} xs={12}>
+                        <Grid item key={index} sx={{
+                            pb: 4,
+                            borderBottomWidth: 3,
+                            borderBottomColor: (theme: Theme) => theme.palette.secondary.main
+                        }}>
                             <Box sx={{textTransform: "uppercase"}}>
                                 <Box sx={{my: 2, display: "flex", alignItems: "center", gap: 2}}>
                                     <TextField fullWidth value={rootTitle.title}/>
@@ -109,7 +114,7 @@ export function AdminGalleryRender(loading: boolean,
                             </Button>
                             {selectedRow === rootTitle.title && (
                                 <Box>
-                                    <Box sx={{py: 2}}>
+                                    <Paper elevation={4} sx={{my: 2, py: 2}}>
                                         <input type="file" onChange={handleFileChange}/>
                                         <Button
                                             variant="contained"
@@ -118,11 +123,11 @@ export function AdminGalleryRender(loading: boolean,
                                         >
                                             Upload
                                         </Button>
-                                    </Box>
+                                    </Paper>
                                     <Grid
                                         container
                                         spacing={2}
-                                        sx={{mt: 2, pb: 4}}
+                                        sx={{mt: 2, pb: 2}}
                                         component="ul"
                                         alignItems="flex-start"
                                         justifyContent="flex-start"
