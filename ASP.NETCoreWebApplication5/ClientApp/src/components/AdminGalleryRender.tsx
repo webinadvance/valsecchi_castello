@@ -44,6 +44,7 @@ export function AdminGalleryRender(loading: boolean,
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
     let newDir: any = null;
+    const [imageCount, setImageCount] = useState<any>({});
 
     function getDialog() {
         return <Dialog fullWidth={true}
@@ -100,6 +101,14 @@ export function AdminGalleryRender(loading: boolean,
     useEffect(() => {
         localStorage.setItem("selectedRow", selectedRow); // Store the updated value to Local Storage
     }, [selectedRow]);
+
+    useEffect(() => {
+        const counts: any = {};
+        images?.forEach((rootTitle: any) => {
+            counts[rootTitle.title] = rootTitle.data.length;
+        });
+        setImageCount(counts);
+    }, [images]);
 
     return (
         <>
@@ -162,7 +171,7 @@ export function AdminGalleryRender(loading: boolean,
                                     }
                                     endIcon={<ExpandMoreIcon/>}
                                 >
-                                    Manage images
+                                    {`Manage images (${imageCount[rootTitle.title] ?? 0})`}
                                 </Button>
                             </Box>
                             {selectedRow === rootTitle.title && (
