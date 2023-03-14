@@ -1,20 +1,20 @@
-import {useLocation} from 'react-router-dom'
-import Navbar from './Navbar'
-import React from 'react'
-import Box from '@mui/material/Box'
-import {useSelector} from 'react-redux'
-import {type RootState} from '../Store'
-import ScrollToWelcome from './ScrollToWelcome'
-import {type IRoute} from '../dataSlice'
+import {useLocation} from "react-router-dom";
+import Navbar from "./Navbar";
+import React from "react";
+import Box from "@mui/material/Box";
+import {useSelector} from "react-redux";
+import {type RootState} from "../Store";
+import ScrollToWelcome from "./ScrollToWelcome";
+import {type IRoute} from "../dataSlice";
 
 const Header: React.FC = () => {
-    const location = useLocation()
-    const state = useSelector((state: RootState) => state.data)
+    const location = useLocation();
+    const state = useSelector((state: RootState) => state.data);
 
     function getBackground(location: { pathname: string }): JSX.Element | null {
-        const matchingRoute = state.routes.find((route: IRoute) => route.key.startsWith(location.pathname))
+        const matchingRoute = state.routes.find((route: IRoute) => route.key.startsWith(location.pathname));
         switch (true) {
-            case matchingRoute?.type === 'video':
+            case matchingRoute?.type === "video":
                 return (
                     <video
                         className="videobg"
@@ -30,27 +30,27 @@ const Header: React.FC = () => {
                         />
                     </video>
                 );
-            case matchingRoute?.type === 'img':
+            case matchingRoute?.type === "img":
                 return (
                     <Box
                         sx={{
                             backgroundImage: `url(${matchingRoute?.media})`,
-                            position: 'relative',
+                            position: "relative",
                             zIndex: 2,
-                            transition: '1s opacity',
-                            objectFit: 'cover',
-                            width: '100%',
-                            height: '100%',
+                            transition: "1s opacity",
+                            objectFit: "cover",
+                            width: "100%",
+                            height: "100%",
                             top: 0,
-                            backgroundPosition: 'center',
-                            backgroundSize: 'cover',
-                            backgroundRepeat: 'no-repeat'
+                            backgroundPosition: "center",
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat"
                         }}
                     >
                         <div
                             style={{
-                                backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                                position: 'absolute',
+                                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                                position: "absolute",
                                 top: 0,
                                 left: 0,
                                 right: 0,
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
                     </Box>
                 );
             default:
-                return null
+                return null;
         }
     }
 
@@ -73,6 +73,6 @@ const Header: React.FC = () => {
             <ScrollToWelcome/>
         </div>
     );
-}
+};
 
-export default Header
+export default Header;

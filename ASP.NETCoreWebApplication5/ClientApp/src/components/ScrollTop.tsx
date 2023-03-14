@@ -1,7 +1,7 @@
-import React from 'react';
-import {Fab, Theme, useScrollTrigger, Zoom} from '@mui/material';
-import {makeStyles} from '@mui/styles'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import React from "react";
+import {Fab, Theme, useScrollTrigger, Zoom} from "@mui/material";
+import {makeStyles} from "@mui/styles";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 function ScrollTop(props: any) {
     const {children} = props;
@@ -13,14 +13,14 @@ function ScrollTop(props: any) {
             zIndex: 999,
         },
         scrollButton: {
-            position: 'fixed',
+            position: "fixed",
             bottom: theme.spacing(2),
             right: theme.spacing(2)
         },
         fabButton: {
             backgroundColor: theme.palette.primary.main,
             color: theme.palette.primary.contrastText,
-            '&:hover': {
+            "&:hover": {
                 backgroundColor: theme.palette.primary.dark
             },
         },

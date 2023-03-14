@@ -1,18 +1,18 @@
-import React from 'react'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faFacebookF, faInstagram, faTwitter} from '@fortawesome/free-brands-svg-icons'
-import LanguageSwitcher from './LanguageSwitcher'
-import {useDispatch, useSelector} from 'react-redux'
-import {type RootState} from '../Store'
-import {increment} from '../dataSlice'
-import {useNavigate} from 'react-router-dom'
+import React from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFacebookF, faInstagram, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import LanguageSwitcher from "./LanguageSwitcher";
+import {useDispatch, useSelector} from "react-redux";
+import {type RootState} from "../Store";
+import {increment} from "../dataSlice";
+import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 const Footer = () => {
-    const dispatch = useDispatch()
-    const state = useSelector((state: RootState) => state.data)
-    const navigate = useNavigate()
-    const {t} = useTranslation()
+    const dispatch = useDispatch();
+    const state = useSelector((state: RootState) => state.data);
+    const navigate = useNavigate();
+    const {t} = useTranslation();
 
     return (
         <div className="text-center bg-gray-900 text-gray-300 pt-10">
@@ -35,16 +35,16 @@ const Footer = () => {
                                 return (
                                     <li key={i} className="mb-1 uppercase text-decoration-none">
                                         <button className={"uppercase"} onClick={() => {
-                                            navigate(x.key)
+                                            navigate(x.key);
                                             window.scrollTo({
                                                 top: 0,
-                                                behavior: 'smooth'
-                                            })
+                                                behavior: "smooth"
+                                            });
                                         }}>
                                             {t(x.title)}
                                         </button>
                                     </li>
-                                )
+                                );
                             })}
                         </ul>
                     </div>
@@ -56,7 +56,7 @@ const Footer = () => {
                         <p className="mb-2">Terms of Service</p>
                         <p>Accessibility</p>
                         {/*       <h1>Counter: {count}</h1> */}
-                        <div className={'mt-4'}>
+                        <div className={"mt-4"}>
                             <LanguageSwitcher/>
                         </div>
                     </div>
@@ -79,5 +79,5 @@ const Footer = () => {
             </div>
         </div>
     );
-}
-export default Footer
+};
+export default Footer;
